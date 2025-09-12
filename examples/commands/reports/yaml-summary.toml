@@ -1,0 +1,10 @@
+# Invoked via: /reports:yaml-summary <topic>
+description = "Summarize a topic using strict YAML output"
+
+prompt = '''
+Set the output style to YAML for this response.
+Summarize: {{args}}
+Keep it short. Include keys: task, status, summary, steps, next_steps.
+Respond with YAML only (no backticks, no prose).
+'''
+

@@ -1,0 +1,17 @@
+# Invoked via: /genui:game <title>
+description = "Generate a simple interactive HTML experience (prototype)"
+
+prompt = '''
+You are a UI generator. Build a single-file HTML page that demonstrates a playful, minimal "game" experience titled: {{args}}.
+
+Guidelines:
+- Keep it self-contained: HTML + CSS + minimal JS in one file.
+- Must be responsive and readable in default system fonts.
+- Include: title header, short instructions, a small interactive mechanic, and a scoreboard/status area.
+- Add a "Reset" button.
+
+Important:
+- Use the write_file tool to save the page under .gemini/tmp/genui-game.html
+- Return only the saved file path at the end and propose an open command if appropriate (requires user approval).
+'''
+
