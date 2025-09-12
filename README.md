@@ -9,6 +9,42 @@
 
 Gemini CLI is an open-source AI agent that brings the power of Gemini directly into your terminal. It provides lightweight access to Gemini, giving you the most direct path from your prompt to our model.
 
+## 🆕 Running This Branch (Autonomous Companion work)
+
+This repository includes early work toward an autonomous “digital companion” (see `docs/rfcs/0001-autonomous-digital-companion.md`). To run this version locally:
+
+- Requirements: Node.js ≥ 20 (see `.nvmrc`), git.
+- Optional tools: ripgrep, fd/fdfind, jq (see `tools/cdx/agents/fast-tools.md`).
+
+Quick start
+
+```bash
+git clone git@github.com:DrealR/hub.git
+cd hub
+git checkout rfc/autonomous-companion
+nvm use || true   # if you use nvm
+npm install       # install workspaces
+
+# (Optional) Append Fast‑Tools prompt to AGENTS.md
+./tools/cdx/scripts/setup-fast-tools.sh
+
+# Build and run the CLI
+npm run build && npm start
+
+# (Optional) Start the A2A Agent Server (streams tasks over HTTP)
+npm run start:a2a-server
+# Server logs show the port and agent-card URL, e.g. http://localhost:41242/
+```
+
+Optional: enable the sandbox image (safer local tool use)
+
+```bash
+npm run build:all   # builds CLI and sandbox image
+GEMINI_SANDBOX=docker npm start
+```
+
+Optional: try MCP servers (browser, GitHub, Notion, etc.) by editing your `~/.gemini/settings.json`. See examples in `docs/tools/mcp-server.md`.
+
 ## 🚀 Why Gemini CLI?
 
 - **🎯 Free tier**: 60 requests/min and 1,000 requests/day with personal Google account
