@@ -18,6 +18,7 @@ import { WriteFileTool } from '../tools/write-file.js';
 import process from 'node:process';
 import { isGitRepository } from '../utils/gitUtils.js';
 import { MemoryTool, GEMINI_CONFIG_DIR } from '../tools/memoryTool.js';
+import { getStyleInstructions, resolveSelectedOutputStyle } from '../output/styles.js';
 
 export function resolvePathFromEnv(envVar?: string): {
   isSwitch: boolean;
@@ -93,7 +94,7 @@ export function getCoreSystemPrompt(userMemory?: string): string {
       throw new Error(`missing system prompt file '${systemMdPath}'`);
     }
   }
-  const basePrompt = systemMdEnabled
+  let basePrompt = systemMdEnabled
     ? fs.readFileSync(systemMdPath, 'utf8')
     : `
 You are an interactive CLI agent specializing in software engineering tasks. Your primary goal is to help users safely and efficiently, adhering strictly to the following instructions and utilizing your available tools.
@@ -328,6 +329,16 @@ Your core function is efficient and safe assistance. Balance extreme conciseness
 
     fs.mkdirSync(path.dirname(writePath), { recursive: true });
     fs.writeFileSync(writePath, basePrompt);
+  }
+
+  // Append optional output‑style instructions based on settings/env.
+  try {
+    const styleInstr = getStyleInstructions(resolveSelectedOutputStyle());
+    if (styleInstr) {
+      basePrompt += styleInstr;
+    }
+  } catch {
+    // ignore non-fatal errors reading settings
   }
 
   const memorySuffix =

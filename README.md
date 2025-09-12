@@ -56,6 +56,18 @@ tools/cdx/scripts/setup-agent-preferences.sh --dry-run
 
 See `docs/cli/agent-preferences.md` for details.
 
+### Output Styles (Experimental)
+
+Control the response format (tables, YAML, ultra‑concise, TTS summary, HTML UI):
+
+```bash
+/output-style list
+/output-style set yaml             # user scope
+/output-style set html --scope workspace
+```
+
+See `docs/cli/output-styles.md` for details.
+
 ## 🚀 Why Gemini CLI?
 
 - **🎯 Free tier**: 60 requests/min and 1,000 requests/day with personal Google account
