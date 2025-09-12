@@ -1,0 +1,12 @@
+{
+  "assistant": {
+    "__profileVersion": "v1",
+    "verbosity": "balanced",
+    "preambles": true,
+    "plan": "auto",
+    "progressInterval": "auto",
+    "structure": { "headers": true, "bullets": true, "codeMonospace": true },
+    "confirmations": "default"
+  }
+}
+

@@ -45,6 +45,17 @@ GEMINI_SANDBOX=docker npm start
 
 Optional: try MCP servers (browser, GitHub, Notion, etc.) by editing your `~/.gemini/settings.json`. See examples in `docs/tools/mcp-server.md`.
 
+### Configure Assistant Preferences (Optional)
+
+Add a user‑tunable profile to control tone, planning, and confirmations:
+
+```bash
+tools/cdx/scripts/setup-agent-preferences.sh      # idempotent
+tools/cdx/scripts/setup-agent-preferences.sh --dry-run
+```
+
+See `docs/cli/agent-preferences.md` for details.
+
 ## 🚀 Why Gemini CLI?
 
 - **🎯 Free tier**: 60 requests/min and 1,000 requests/day with personal Google account
