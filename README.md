@@ -68,6 +68,17 @@ Control the response format (tables, YAML, ultra‑concise, TTS summary, HTML UI
 
 See `docs/cli/output-styles.md` for details.
 
+### Style Workflows (Experimental)
+
+Compose multiple style steps into a single output experience:
+
+```bash
+/workflow list
+/workflow run genui_report "Kubernetes hardening best practices"
+```
+
+Add JSON workflow files under `~/.gemini/styles` or `.gemini/styles`.
+
 ## 🚀 Why Gemini CLI?
 
 - **🎯 Free tier**: 60 requests/min and 1,000 requests/day with personal Google account

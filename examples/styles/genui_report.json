@@ -1,0 +1,10 @@
+{
+  "name": "genui_report",
+  "description": "Research + YAML summary + HTML UI + TTS ending",
+  "steps": [
+    { "style": "yaml", "goal": "Research the topic; output YAML with keys: facts, sources, risks." },
+    { "style": "html", "goal": "Transform the YAML into a readable HTML guide with sections and links; write under .gemini/tmp/report.html." },
+    { "style": "tts-summary", "goal": "Provide a one-sentence TTS summary of key takeaways." }
+  ]
+}
+

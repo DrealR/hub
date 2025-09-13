@@ -8,7 +8,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import type { SlashCommand, CommandContext } from './types.js';
 import { CommandKind } from './types.js';
-import { Storage } from '@google/gemini-cli-core';
+import { Storage, getStyleInstructions } from '@google/gemini-cli-core';
 
 const STYLES = ['default', 'table', 'yaml', 'ultra-concise', 'tts-summary', 'html'] as const;
 type Style = (typeof STYLES)[number];
@@ -49,6 +49,18 @@ export const outputStyleCommand: SlashCommand = {
           content: `Available styles: ${STYLES.join(', ')}`,
         };
       }
+      case 'once': {
+        // /output-style once <style> -- <prompt...>
+        const idx = rest.indexOf('--');
+        const style = (rest[0] || '').toLowerCase() as Style;
+        const prompt = idx >= 0 ? rest.slice(idx + 1).join(' ') : rest.slice(1).join(' ');
+        if (!STYLES.includes(style)) {
+          return { type: 'message', messageType: 'error', content: `Unknown style '${style}'. Try: ${STYLES.join(', ')}` };
+        }
+        const instr = getStyleInstructions(style as any) || '';
+        const content = (instr ? `${instr}\n\n` : '') + (prompt || '<no prompt provided>');
+        return { type: 'submit_prompt', content };
+      }
       case 'set': {
         const style = (candidates[0] || '').toLowerCase() as Style;
         if (!STYLES.includes(style)) {
@@ -87,10 +99,9 @@ export const outputStyleCommand: SlashCommand = {
         return {
           type: 'message',
           messageType: 'info',
-          content: `Usage:\n  /output-style list\n  /output-style set <${STYLES.join('|')}> [--scope user|workspace]`,
+          content: `Usage:\n  /output-style list\n  /output-style set <${STYLES.join('|')}> [--scope user|workspace]\n  /output-style once <${STYLES.join('|')}> -- <prompt...>`,
         };
       }
     }
   },
 };
-
