@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity Adventure Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Comic Neue', cursive;
+            background: linear-gradient(135deg, #87CEEB 0%, #98D8C8 50%, #228B22 100%);
+            background-attachment: fixed;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: #333;
+        }
+        #app {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        h1, h2 {
+            font-family: 'Fredoka', sans-serif;
+            text-align: center;
+            color: #ff69b4;
+            text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        @keyframes glow {
+            0% { text-shadow: 0 0 10px #ff69b4; }
+            100% { text-shadow: 0 0 20px #ff69b4, 0 0 30px #00bfff; }
+        }
+        #new-activity {
+            display: grid;
+            grid-template-columns: 2fr 1fr 2fr auto;
+            gap: 10px;
+            margin-bottom: 30px;
+            align-items: end;
+        }
+        @media (max-width: 600px) {
+            #new-activity {
+                grid-template-columns: 1fr;
+            }
+        }
+        input {
+            padding: 15px;
+            border: 3px solid #00bfff;
+            border-radius: 20px;
+            font-size: 18px;
+            font-family: inherit;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: inset 0 0 10px rgba(0, 191, 255, 0.3);
+            transition: all 0.3s;
+        }
+        input:focus {
+            border-color: #ff69b4;
+            box-shadow: 0 0 20px #ff69b4;
+            outline: none;
+        }
+        button {
+            padding: 15px 20px;
+            border: none;
+            border-radius: 20px;
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Fredoka', sans-serif;
+            background: linear-gradient(45deg, #ff69b4, #00bfff);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+            min-height: 50px;
+        }
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 191, 255, 0.6);
+        }
+        button:active {
+            transform: scale(0.98);
+        }
+        .btn {
+            padding: 12px 16px;
+            font-size: 16px;
+            min-height: 45px;
+        }
+        .btn-edit {
+            background: linear-gradient(45deg, #00bfff, #2196f3);
+            box-shadow: 0 5px 15px rgba(0, 191, 255, 0.4);
+        }
+        .btn-toggle {
+            background: linear-gradient(45deg, #32cd32, #4caf50);
+            box-shadow: 0 5px 15px rgba(50, 205, 50, 0.4);
+        }
+        .btn-delete {
+            background: linear-gradient(45deg, #ff5722, #ff9800);
+            box-shadow: 0 5px 15px rgba(255, 87, 34, 0.4);
+        }
+        .btn-small {
+            padding: 10px;
+            font-size: 16px;
+            min-height: 40px;
+            width: 60px;
+        }
+        #activities-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            perspective: 1500px;
+            margin-bottom: 30px;
+        }
+        .activity-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(255,255,255,0.8));
+            padding: 20px;
+            border-radius: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.8);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+        .activity-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0,191,255,0.1) 0%, transparent 70%);
+            transition: all 0.5s;
+            pointer-events: none;
+        }
+        .activity-card:hover::before {
+            transform: rotate(90deg) scale(1.2);
+        }
+        .activity-card:hover {
+            transform: translateY(-15px) rotateX(5deg) rotateY(5deg) scale(1.02);
+            box-shadow: 0 25px 50px rgba(50,205,50,0.4), 0 0 30px rgba(255,105,180,0.3);
+        }
+        .activity-card.completed {
+            border-left: 8px solid #32cd32;
+            background: linear-gradient(145deg, rgba(50,205,50,0.15), rgba(255,255,255,0.95));
+        }
+        .activity-content h3 {
+            margin: 0 0 5px 0;
+            font-family: 'Fredoka', sans-serif;
+            color: #333;
+            font-size: 24px;
+        }
+        .activity-content p {
+            margin: 5px 0;
+            color: #666;
+            font-size: 16px;
+        }
+        .controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        @media (max-width: 600px) {
+            .controls {
+                flex-direction: column;
+                width: 100%;
+                gap: 8px;
+            }
+            .btn {
+                width: 100%;
+            }
+        }
+        .star-badge {
+            font-size: 28px;
+            animation: sparkle 1s infinite;
+        }
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.3); }
+        }
+        #progress {
+            text-align: center;
+            margin: 30px 0;
+        }
+        #candy-bar {
+            width: 300px;
+            height: 30px;
+            margin: 0 auto 10px;
+            background: linear-gradient(to right, #ccc, #ddd);
+            border-radius: 25px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 5px 10px rgba(0,0,0,0.2);
+            max-width: 90vw;
+        }
+        #candy-fill {
+            height: 100%;
+            background: conic-gradient(#ff69b4 0deg 60deg, #00bfff 60deg 120deg, #32cd32 120deg 180deg, #ffff00 180deg 240deg, #ff1493 240deg 300deg, #ffd700 300deg 360deg);
+            background-size: 400% 400%;
+            animation: candyMove 3s linear infinite;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+        @keyframes candyMove {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 400% 50%; }
+        }
+        #progress-text {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 20px;
+            color: #ff69b4;
+            text-shadow: 0 0 5px #ff69b4;
+        }
+        #calendar {
+            margin-top: 40px;
+        }
+        #calendar-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+            margin-top: 20px;
+        }
+        #calendar-table thead th {
+            background: linear-gradient(45deg, #32cd32, #00bfff);
+            color: white;
+            padding: 15px;
+            border-radius: 10px 10px 0 0;
+            font-family: 'Fredoka', sans-serif;
+        }
+        #calendar-table tbody td {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        #calendar-table tbody tr:hover td {
+            background: rgba(255, 105, 180, 0.15);
+            transform: scale(1.01);
+        }
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 14px;
+            color: white;
+        }
+        .planned .status-badge {
+            background: #ff9800;
+        }
+        .completed .status-badge {
+            background: #32cd32;
+        }
+        #particles-canvas, #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+        #confetti-canvas {
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>🌳✨ Activity Adventure Hub ✨🧚‍♀️</h1>
+        <div id="new-activity">
+            <input id="act-name" list="suggestions" placeholder="Enter magical adventure...">
+            <datalist id="suggestions">
+                <option value="Park picnic">
+                <option value="Craft dinosaurs">
+                <option value="Dance party">
+            </datalist>
+            <input id="act-date" type="date">
+            <input id="act-notes" placeholder="Secret notes...">
+            <button onclick="addActivity()">🚀 Launch Adventure!</button>
+        </div>
+        <div id="activities-list"></div>
+        <div id="progress">
+            <div id="candy-bar">
+                <div id="candy-fill"></div>
+            </div>
+            <div id="progress-text">0/0 Adventures Conquered!</div>
+        </div>
+        <div id="calendar">
+            <h2>🗓️ Magical Adventure Calendar</h2>
+            <table id="calendar-table">
+                <thead>
+                    <tr><th>Date</th><th>Activity</th><th>Status</th><th>Actions</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <canvas id="particles-canvas"></canvas>
+    <canvas id="confetti-canvas"></canvas>
+    <script>
+        let activities = JSON.parse(localStorage.getItem('kidsActivities') || '[]');
+        if (activities.length === 0) {
+            activities = [
+                {"id":1,"name":"Watch One Piece with kids","status":"planned","notes":"","date":""},
+                {"id":2,"name":"Visit the park","status":"planned","notes":"","date":""},
+                {"id":3,"name":"Bake cookies together","status":"planned","notes":"","date":""},
+                {"id":4,"name":"Read bedtime stories","status":"planned","notes":"","date":""},
+                {"id":5,"name":"Play board games","status":"planned","notes":"","date":""}
+            ];
+            localStorage.setItem('kidsActivities', JSON.stringify(activities));
+        }
+
+        const particlesCanvas = document.getElementById('particles-canvas');
+        const confettiCanvas = document.getElementById('confetti-canvas');
+        const bgCtx = particlesCanvas.getContext('2d');
+        const confCtx = confettiCanvas.getContext('2d');
+        let bgParticles = [];
+        let confettiParticles = [];
+        let audioCtx = null;
+
+        function resizeCanvases() {
+            const w = window.innerWidth;
+            const h = window.innerHeight;
+            particlesCanvas.width = confettiCanvas.width = w;
+            particlesCanvas.height = confettiCanvas.height = h;
+        }
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playTone(freq, dur) {
+            if (!audioCtx) return;
+            const o = audioCtx.createOscillator();
+            const g = audioCtx.createGain();
+            o.connect(g);
+            g.connect(audioCtx.destination);
+            o.frequency.value = freq;
+            o.type = 'triangle';
+            g.gain.setValueAtTime(0.2, audioCtx.currentTime);
+            g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + dur / 1000);
+            o.start(audioCtx.currentTime);
+            o.stop(audioCtx.currentTime + dur / 1000);
+        }
+
+        function playHappy() {
+            initAudio();
+            playTone(659, 150);
+            setTimeout(() => playTone(784, 150), 50);
+            setTimeout(() => playTone(880, 200), 100);
+        }
+
+        function playDing() {
+            initAudio();
+            playTone(800, 150);
+        }
+
+        function initBgParticles() {
+            bgParticles = [];
+            for (let i = 0; i < 60; i++) {
+                bgParticles.push({
+                    x: Math.random() * window.innerWidth,
+                    y: Math.random() * window.innerHeight,
+                    vx: (Math.random() - 0.5) * 1,
+                    vy: (Math.random() - 0.5) * 1,
+                    size: Math.random() * 4 + 2,
+                    color: `hsl(${120 + Math.random() * 60}, 100%, 60%)`,
+                    alpha: Math.random() * 0.5 + 0.2,
+                    phase: Math.random() * Math.PI * 2,
+                    freq: Math.random() * 0.1 + 0.05
+                });
+            }
+        }
+
+        function animateBg() {
+            bgCtx.clearRect(0, 0, particlesCanvas.width, particlesCanvas.height);
+            bgParticles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                if (p.x < 0 || p.x > particlesCanvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > particlesCanvas.height) p.vy *= -1;
+                p.phase += p.freq;
+                p.alpha = 0.3 + Math.sin(p.phase) * 0.3;
+                bgCtx.save();
+                bgCtx.globalAlpha = p.alpha;
+                bgCtx.fillStyle = p.color;
+                bgCtx.shadowColor = p.color;
+                bgCtx.shadowBlur = 10;
+                bgCtx.beginPath();
+                bgCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                bgCtx.fill();
+                bgCtx.restore();
+            });
+            requestAnimationFrame(animateBg);
+        }
+
+        function launchConfetti() {
+            const x = window.innerWidth / 2;
+            const y = 100;
+            for (let i = 0; i < 150; i++) {
+                confettiParticles.push({
+                    x: x,
+                    y: y,
+                    vx: (Math.random() - 0.5) * 30,
+                    vy: Math.random() * 15,
+                    size: Math.random() * 6 + 3,
+                    color: ['#ff69b4', '#00bfff', '#32cd32', '#ffff00', '#ff1493', '#ffd700'][Math.floor(Math.random() * 6)],
+                    rotation: Math.random() * Math.PI * 2,
+                    rotSpeed: (Math.random() - 0.5) * 0.3,
+                    lifespan: 90 + Math.random() * 30
+                });
+            }
+        }
+
+        function animateConfetti() {
+            confCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+            for (let i = confettiParticles.length - 1; i >= 0; i--) {
+                const p = confettiParticles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vy += 0.3;
+                p.rotation += p.rotSpeed;
+                p.lifespan--;
+                if (p.lifespan <= 0) {
+                    confettiParticles.splice(i, 1);
+                    continue;
+                }
+                const alpha = p.lifespan / 120;
+                confCtx.save();
+                confCtx.globalAlpha = alpha;
+                confCtx.translate(p.x, p.y);
+                confCtx.rotate(p.rotation);
+                confCtx.fillStyle = p.color;
+                confCtx.shadowColor = p.color;
+                confCtx.shadowBlur = 5;
+                confCtx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+                confCtx.restore();
+            }
+            requestAnimationFrame(animateConfetti);
+        }
+
+        function saveActivities() {
+            localStorage.setItem('kidsActivities', JSON.stringify(activities));
+            render();
+        }
+
+        function render() {
+            const list = document.getElementById('activities-list');
+            list.innerHTML = activities.map(a => `
+                <div class="activity-card ${a.status}">
+                    <div class="activity-content">
+                        <h3>🎯 ${a.name}</h3>
+                        <p>${a.date ? `📅 ${a.date}` : '🆓 Free Adventure'}</p>
+                        <p>${a.notes ? `📝 ${a.notes}` : '✨ Pure Magic!'}</p>
+                    </div>
+                    <div class="controls">
+                        <button class="btn btn-edit" onclick="editActivity(${a.id})">✏️ Edit</button>
+                        <button class="btn btn-toggle" onclick="toggleStatus(${a.id})">${a.status === 'planned' ? '✅ Complete!' : '🔄 Replan'}</button>
+                        <button class="btn btn-delete" onclick="deleteActivity(${a.id})">🗑️ Poof!</button>
+                        ${a.status === 'completed' ? '<div class="star-badge">⭐⭐⭐⭐⭐</div>' : ''}
+                    </div>
+                </div>
+            `).join('');
+
+            const sorted = [...activities].sort((a, b) => (a.date || '9999-12-31').localeCompare(b.date || '9999-12-31'));
+            const tbody = document.getElementById('calendar-table').querySelector('tbody');
+            tbody.innerHTML = sorted.map(a => `
+                <tr class="${a.status}">
+                    <td>📅 ${a.date || '🆓'}</td>
+                    <td>${a.name}</td>
+                    <td><span class="status-badge">${a.status.toUpperCase()}</span></td>
+                    <td><button class="btn btn-small btn-edit" onclick="editActivity(${a.id})">✏️</button></td>
+                </tr>
+            `).join('');
+
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const completed = activities.filter(a => a.status === 'completed').length;
+            const total = activities.length;
+            const pct = total > 0 ? (completed / total) * 100 : 0;
+            document.getElementById('candy-fill').style.width = pct + '%';
+            document.getElementById('progress-text').innerHTML = `🌟 ${completed}/${total} Adventures Conquered! ⭐`;
+        }
+
+        function addActivity() {
+            const name = document.getElementById('act-name').value.trim();
+            const date = document.getElementById('act-date').value;
+            const notes = document.getElementById('act-notes').value.trim();
+            if (name) {
+                const id = activities.length ? Math.max(...activities.map(a => a.id)) + 1 : 1;
+                activities.push({ id, name, date, notes, status: 'planned' });
+                document.getElementById('act-name').value = '';
+                document.getElementById('act-date').value = '';
+                document.getElementById('act-notes').value = '';
+                saveActivities();
+                playDing();
+            }
+        }
+
+        function editActivity(id) {
+            initAudio();
+            const act = activities.find(a => a.id === id);
+            const name = prompt('Adventure Name:', act.name);
+            const date = prompt('Date (YYYY-MM-DD):', act.date);
+            const notes = prompt('Notes:', act.notes);
+            if (name !== null) {
+                act.name = name;
+                act.date = date;
+                act.notes = notes;
+                saveActivities();
+            }
+        }
+
+        function toggleStatus(id) {
+            const act = activities.find(a => a.id === id);
+            const wasPlanned = act.status === 'planned';
+            act.status = act.status === 'planned' ? 'completed' : 'planned';
+            saveActivities();
+            if (wasPlanned) {
+                playHappy();
+                launchConfetti();
+            } else {
+                playDing();
+            }
+        }
+
+        function deleteActivity(id) {
+            if (confirm('Poof this adventure? 🪄')) {
+                activities = activities.filter(a => a.id !== id);
+                saveActivities();
+                playDing();
+            }
+        }
+
+        window.addEventListener('resize', resizeCanvases);
+        resizeCanvases();
+        initBgParticles();
+        animateBg();
+        animateConfetti();
+        render();
+    </script>
+</body>
+</html>

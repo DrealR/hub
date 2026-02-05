@@ -1,0 +1,14 @@
+# OS files
+.DS_Store
+
+# Nested git repositories (separate projects)
+archive/shonen-arena-ai/
+experiments/digital_playground/browserquest-opencode-bridge/
+experiments/digital_playground/gridline/
+experiments/genai-rpg-arena/
+projects/assetforge/
+projects/holographic-agent/
+projects/nano-bot/
+projects/neural-arena/
+projects/QuantumLeap-AI/
+projects/voxel-nexus-core/

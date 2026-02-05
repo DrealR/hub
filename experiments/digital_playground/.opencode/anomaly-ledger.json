@@ -1,0 +1,57 @@
+{
+  "system_state": "STABLE",
+  "last_updated": "2025-11-11T00:23:28.501409",
+  "anomalies": [
+    {
+      "id": "config-sync-001",
+      "title": "Vision agent missing from opencode.json",
+      "description": "The vision agent configuration was missing from opencode.json, causing sync validation failures.",
+      "severity": "medium",
+      "status": "resolved",
+      "detected_at": "2025-11-10T00:00:00Z",
+      "resolved_at": "2025-11-10T00:00:00Z",
+      "owner": "@build",
+      "reproduction_steps": [
+        "Run test_framework.py",
+        "Observe failure in opencode.json sync test"
+      ],
+      "impact": "Framework tests failing, potential agent misconfiguration",
+      "tags": [
+        "configuration",
+        "sync",
+        "vision"
+      ],
+      "linked_files": [
+        "opencode.json",
+        ".opencode/tests/test_framework.py"
+      ],
+      "remediation_notes": "Added vision agent configuration to opencode.json with subagent mode and appropriate tool permissions."
+    },
+    {
+      "id": "anomaly-20251111-002247",
+      "title": "Test failures detected",
+      "description": "0 test(s) failed. Run pytest for details.",
+      "severity": "high",
+      "status": "resolved",
+      "detected_at": "2025-11-11T00:22:47.195229",
+      "owner": "guardian-automation",
+      "reproduction_steps": [
+        "cd .",
+        "python3 -m pytest -v"
+      ],
+      "linked_files": [],
+      "tags": [
+        "testing",
+        "test-failure"
+      ],
+      "remediation_notes": "pytest not installed - false positive, tests run via direct python execution",
+      "resolved_at": "2025-11-11T00:23:28.501404"
+    }
+  ],
+  "metrics": {
+    "total_anomalies": 2,
+    "active_anomalies": 0,
+    "resolved_anomalies": 2,
+    "false_positives": 0
+  }
+}

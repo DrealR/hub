@@ -1,0 +1,26 @@
+{
+  "planFirst": true,
+  "autoSwitchAgents": true,
+  "thinkingAgent": "plan",
+  "codingAgent": "build",
+  "guardianAgent": "guardian",
+  "opsAgent": "ops",
+  "tdd": true,
+  "failureCheckpoints": true,
+  "seniorEngineerMindset": true,
+  "codeQualityPriority": "highest",
+  "testCommands": [
+    "node gridline-core.test.js"
+  ],
+  "safety": {
+    "noBreakingCli": true,
+    "noBreakingApi": true
+  },
+  "commit": {
+    "requirePassingTests": true,
+    "requireUserApproval": true
+  },
+  "push": {
+    "requireUserApproval": true
+  }
+}

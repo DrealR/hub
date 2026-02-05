@@ -1,0 +1,1895 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE SHIELD PROTOCOL | Captain America Legacy System</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@100;300;400;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'patriot': {
+                            900: '#0A1628',
+                            800: '#0F1E32',
+                            700: '#162A42',
+                            600: '#1E3A5F'
+                        },
+                        'vibranium': '#C0C0C0',
+                        'star': '#D4AF37',
+                        'shield-red': '#B22234',
+                        'shield-blue': '#3C3B6E'
+                    },
+                    fontFamily: {
+                        'display': ['Syncopate', 'sans-serif'],
+                        'body': ['Space Grotesk', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        * {
+            cursor: none;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #050a12;
+            overflow-x: hidden;
+        }
+
+        /* Custom Cursor */
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background: #D4AF37;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-ring {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: transform 0.15s ease-out, border-color 0.3s;
+        }
+
+        .cursor-ring.hovering {
+            transform: scale(1.5);
+            border-color: #D4AF37;
+        }
+
+        /* Noise Overlay */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        /* Grid Background */
+        .grid-bg {
+            background-image:
+                linear-gradient(rgba(192, 192, 192, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(192, 192, 192, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        /* Glow Effects */
+        .glow-star {
+            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4));
+        }
+
+        .glow-vibranium {
+            filter: drop-shadow(0 0 30px rgba(192, 192, 192, 0.3));
+        }
+
+        .text-glow {
+            text-shadow: 0 0 40px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Shield Layers */
+        .shield-container {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+
+        .shield-layer {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+
+        /* Scanlines */
+        .scanlines::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 0, 0, 0.1) 2px,
+                rgba(0, 0, 0, 0.1) 4px
+            );
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* Particle System */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(212, 175, 55, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* Section Transitions */
+        .section-reveal {
+            opacity: 0;
+            transform: translateY(100px);
+        }
+
+        /* Typography Animations */
+        .char {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(50px) rotateX(-90deg);
+        }
+
+        /* Stat Counter */
+        .stat-value {
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Progress Bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #D4AF37, #B22234);
+            z-index: 9999;
+            transform-origin: left;
+            transform: scaleX(0);
+        }
+
+        /* Magnetic Button */
+        .magnetic-btn {
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .magnetic-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.3), transparent);
+            transform: translate(-50%, -50%);
+            transition: width 0.4s, height 0.4s;
+            border-radius: 50%;
+        }
+
+        .magnetic-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* Holographic Effect */
+        .holographic {
+            background: linear-gradient(
+                135deg,
+                rgba(212, 175, 55, 0.1) 0%,
+                rgba(192, 192, 192, 0.1) 25%,
+                rgba(178, 34, 52, 0.1) 50%,
+                rgba(60, 59, 110, 0.1) 75%,
+                rgba(212, 175, 55, 0.1) 100%
+            );
+            background-size: 400% 400%;
+            animation: holographicShift 8s ease infinite;
+        }
+
+        @keyframes holographicShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Breathing Glow */
+        @keyframes breathe {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .breathing {
+            animation: breathe 3s ease-in-out infinite;
+        }
+
+        /* Data Stream */
+        .data-stream {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: rgba(212, 175, 55, 0.3);
+            line-height: 1.2;
+            white-space: pre;
+            overflow: hidden;
+        }
+
+        /* Radial Pulse */
+        @keyframes radialPulse {
+            0% { transform: scale(1); opacity: 0.5; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+
+        .pulse-ring {
+            animation: radialPulse 2s ease-out infinite;
+        }
+
+        /* Timeline */
+        .timeline-line {
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, #D4AF37, transparent);
+        }
+
+        .timeline-dot {
+            width: 12px;
+            height: 12px;
+            background: #D4AF37;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-patriot-900 text-white font-body antialiased">
+
+    <!-- Noise Overlay -->
+    <div class="noise-overlay"></div>
+
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 mix-blend-difference">
+        <div class="max-w-7xl mx-auto px-8 py-6 flex justify-between items-center">
+            <div class="font-display text-sm tracking-[0.3em] text-vibranium">
+                S.H.I.E.L.D.
+            </div>
+            <div class="flex gap-8">
+                <a href="#origin" class="nav-link font-mono text-xs tracking-wider text-vibranium/60 hover:text-star transition-colors" data-hover>01_ORIGIN</a>
+                <a href="#protocol" class="nav-link font-mono text-xs tracking-wider text-vibranium/60 hover:text-star transition-colors" data-hover>02_PROTOCOL</a>
+                <a href="#legacy" class="nav-link font-mono text-xs tracking-wider text-vibranium/60 hover:text-star transition-colors" data-hover>03_LEGACY</a>
+                <a href="#avengers" class="nav-link font-mono text-xs tracking-wider text-vibranium/60 hover:text-star transition-colors" data-hover>04_AVENGERS</a>
+                <a href="#future" class="nav-link font-mono text-xs tracking-wider text-vibranium/60 hover:text-star transition-colors" data-hover>05_FUTURE</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ==================== SECTION 1: HERO ==================== -->
+    <section id="hero" class="relative min-h-[300vh] grid-bg">
+        <div class="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
+
+            <!-- Background Radial -->
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(60,59,110,0.15)_0%,_transparent_70%)]"></div>
+
+            <!-- Floating Data Streams -->
+            <div class="absolute left-8 top-1/4 data-stream opacity-30" id="dataStreamLeft">
+                VIBRANIUM_CORE::ACTIVE<br>
+                SHIELD_INTEGRITY::100%<br>
+                KINETIC_ABSORPTION::MAX<br>
+                FREQUENCY::CLASSIFIED<br>
+                ORIGIN::WAKANDA_PRIME<br>
+            </div>
+            <div class="absolute right-8 top-1/3 data-stream text-right opacity-30" id="dataStreamRight">
+                SUPER_SOLDIER_SERUM<br>
+                SUBJECT::ROGERS_S<br>
+                STATUS::ACTIVE_DUTY<br>
+                CLEARANCE::OMEGA<br>
+                MISSION::PROTECT<br>
+            </div>
+
+            <!-- The Shield - SVG Composition -->
+            <div class="shield-container relative w-[600px] h-[600px]" id="shieldContainer">
+
+                <!-- Outer Glow Ring -->
+                <svg class="shield-layer glow-vibranium" id="shieldGlow" viewBox="0 0 500 500" style="width: 600px; height: 600px; margin-left: -300px; margin-top: -300px;">
+                    <defs>
+                        <radialGradient id="glowGrad" cx="50%" cy="50%" r="50%">
+                            <stop offset="70%" stop-color="transparent"/>
+                            <stop offset="100%" stop-color="rgba(192, 192, 192, 0.1)"/>
+                        </radialGradient>
+                    </defs>
+                    <circle cx="250" cy="250" r="248" fill="none" stroke="url(#glowGrad)" stroke-width="4"/>
+                </svg>
+
+                <!-- Layer 5: Outer Red Ring -->
+                <svg class="shield-layer" id="shieldRing5" viewBox="0 0 500 500" style="width: 580px; height: 580px; margin-left: -290px; margin-top: -290px;">
+                    <defs>
+                        <linearGradient id="redGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#B22234"/>
+                            <stop offset="50%" stop-color="#8B1A28"/>
+                            <stop offset="100%" stop-color="#B22234"/>
+                        </linearGradient>
+                    </defs>
+                    <circle cx="250" cy="250" r="240" fill="none" stroke="url(#redGrad)" stroke-width="35"/>
+                    <!-- Metallic highlights -->
+                    <circle cx="250" cy="250" r="240" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2" stroke-dasharray="20 40"/>
+                </svg>
+
+                <!-- Layer 4: First Silver Ring -->
+                <svg class="shield-layer" id="shieldRing4" viewBox="0 0 500 500" style="width: 510px; height: 510px; margin-left: -255px; margin-top: -255px;">
+                    <defs>
+                        <linearGradient id="silverGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#E8E8E8"/>
+                            <stop offset="30%" stop-color="#A0A0A0"/>
+                            <stop offset="50%" stop-color="#C0C0C0"/>
+                            <stop offset="70%" stop-color="#909090"/>
+                            <stop offset="100%" stop-color="#E8E8E8"/>
+                        </linearGradient>
+                    </defs>
+                    <circle cx="250" cy="250" r="195" fill="none" stroke="url(#silverGrad1)" stroke-width="30"/>
+                    <!-- Rivets -->
+                    <g fill="#888">
+                        <circle cx="250" cy="55" r="4"/>
+                        <circle cx="250" cy="445" r="4"/>
+                        <circle cx="55" cy="250" r="4"/>
+                        <circle cx="445" cy="250" r="4"/>
+                        <circle cx="112" cy="112" r="4"/>
+                        <circle cx="388" cy="112" r="4"/>
+                        <circle cx="112" cy="388" r="4"/>
+                        <circle cx="388" cy="388" r="4"/>
+                    </g>
+                </svg>
+
+                <!-- Layer 3: Inner Red Ring -->
+                <svg class="shield-layer" id="shieldRing3" viewBox="0 0 500 500" style="width: 420px; height: 420px; margin-left: -210px; margin-top: -210px;">
+                    <circle cx="250" cy="250" r="155" fill="none" stroke="url(#redGrad)" stroke-width="30"/>
+                    <circle cx="250" cy="250" r="155" fill="none" stroke="rgba(0,0,0,0.2)" stroke-width="2"/>
+                </svg>
+
+                <!-- Layer 2: Inner Silver Ring -->
+                <svg class="shield-layer" id="shieldRing2" viewBox="0 0 500 500" style="width: 340px; height: 340px; margin-left: -170px; margin-top: -170px;">
+                    <circle cx="250" cy="250" r="115" fill="none" stroke="url(#silverGrad1)" stroke-width="25"/>
+                </svg>
+
+                <!-- Layer 1: Blue Center with Star -->
+                <svg class="shield-layer glow-star" id="shieldCenter" viewBox="0 0 500 500" style="width: 260px; height: 260px; margin-left: -130px; margin-top: -130px;">
+                    <defs>
+                        <radialGradient id="blueGrad" cx="30%" cy="30%" r="70%">
+                            <stop offset="0%" stop-color="#4A4A8A"/>
+                            <stop offset="100%" stop-color="#3C3B6E"/>
+                        </radialGradient>
+                        <linearGradient id="starGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#FFFFFF"/>
+                            <stop offset="50%" stop-color="#E8E8E8"/>
+                            <stop offset="100%" stop-color="#C0C0C0"/>
+                        </linearGradient>
+                        <filter id="starGlow">
+                            <feGaussianBlur stdDeviation="3" result="blur"/>
+                            <feMerge>
+                                <feMergeNode in="blur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    <circle cx="250" cy="250" r="85" fill="url(#blueGrad)"/>
+                    <!-- The Star -->
+                    <polygon
+                        id="theStar"
+                        points="250,175 265,220 315,220 275,250 290,295 250,268 210,295 225,250 185,220 235,220"
+                        fill="url(#starGrad)"
+                        filter="url(#starGlow)"
+                    />
+                </svg>
+
+                <!-- Particle Layer -->
+                <div id="particleContainer" class="absolute inset-0 pointer-events-none"></div>
+
+            </div>
+
+            <!-- Hero Text -->
+            <div class="absolute bottom-32 left-8 z-20">
+                <div class="overflow-hidden">
+                    <p class="font-mono text-xs tracking-[0.5em] text-star/80 mb-4" id="heroSubtitle">
+                        STRATEGIC HOMELAND INTERVENTION
+                    </p>
+                </div>
+                <div class="overflow-hidden">
+                    <h1 class="font-display text-7xl font-bold tracking-tight text-glow" id="heroTitle">
+                        <span class="hero-char">T</span><span class="hero-char">H</span><span class="hero-char">E</span>
+                        <span class="hero-char mx-4"></span>
+                        <span class="hero-char">S</span><span class="hero-char">H</span><span class="hero-char">I</span><span class="hero-char">E</span><span class="hero-char">L</span><span class="hero-char">D</span>
+                    </h1>
+                </div>
+                <div class="overflow-hidden mt-2">
+                    <h2 class="font-display text-5xl font-bold tracking-tight text-vibranium/60" id="heroTitle2">
+                        PROTOCOL
+                    </h2>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2" id="scrollIndicator">
+                <span class="font-mono text-xs tracking-widest text-vibranium/40">SCROLL TO DECODE</span>
+                <div class="w-px h-16 bg-gradient-to-b from-star to-transparent breathing"></div>
+            </div>
+
+            <!-- Corner Decorations -->
+            <div class="absolute top-8 right-8 font-mono text-xs text-vibranium/30">
+                LAT: 40.7128° N<br>
+                LONG: 74.0060° W<br>
+                STATUS: CLASSIFIED
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==================== SECTION 2: ORIGIN ==================== -->
+    <section id="origin" class="relative min-h-[200vh] py-32">
+        <div class="sticky top-0 h-screen flex items-center">
+            <div class="max-w-7xl mx-auto px-8 w-full">
+                <div class="grid grid-cols-12 gap-8 items-center">
+
+                    <!-- Left Content -->
+                    <div class="col-span-5 section-reveal" id="originContent">
+                        <div class="mb-8">
+                            <span class="font-mono text-xs tracking-[0.5em] text-star">01 / ORIGIN</span>
+                        </div>
+                        <h2 class="font-display text-5xl font-bold mb-8 leading-tight">
+                            FORGED IN<br>
+                            <span class="text-shield-red">VIBRANIUM</span>
+                        </h2>
+                        <div class="space-y-6 text-vibranium/70 font-light leading-relaxed">
+                            <p>
+                                In the heart of Wakanda, where ancient tradition meets technological supremacy,
+                                a unique proto-adamantium alloy was synthesized—an accident of genius that
+                                could never be replicated.
+                            </p>
+                            <p>
+                                Dr. Myron MacLain spent years attempting to recreate the shield's composition.
+                                The result was a material that absorbs all kinetic energy directed at it,
+                                making it virtually indestructible.
+                            </p>
+                            <p>
+                                Weight: 12 pounds. Diameter: 2.5 feet. Legacy: Immeasurable.
+                            </p>
+                        </div>
+
+                        <!-- Stats Grid -->
+                        <div class="grid grid-cols-3 gap-4 mt-12">
+                            <div class="border border-vibranium/20 p-4 holographic">
+                                <div class="font-display text-3xl font-bold text-star stat-value" data-count="1941">0</div>
+                                <div class="font-mono text-xs text-vibranium/50 mt-2">YEAR FORGED</div>
+                            </div>
+                            <div class="border border-vibranium/20 p-4 holographic">
+                                <div class="font-display text-3xl font-bold text-star stat-value" data-count="100">0</div>
+                                <div class="font-mono text-xs text-vibranium/50 mt-2">% VIBRANIUM</div>
+                            </div>
+                            <div class="border border-vibranium/20 p-4 holographic">
+                                <div class="font-display text-3xl font-bold text-star stat-value" data-count="12">0</div>
+                                <div class="font-mono text-xs text-vibranium/50 mt-2">LBS WEIGHT</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Visual -->
+                    <div class="col-span-7 relative" id="originVisual">
+                        <div class="relative h-[600px] flex items-center justify-center">
+                            <!-- Molecular Structure SVG -->
+                            <svg class="w-full h-full" viewBox="0 0 600 600" id="molecularSvg">
+                                <defs>
+                                    <filter id="glow">
+                                        <feGaussianBlur stdDeviation="4" result="blur"/>
+                                        <feMerge>
+                                            <feMergeNode in="blur"/>
+                                            <feMergeNode in="SourceGraphic"/>
+                                        </feMerge>
+                                    </filter>
+                                </defs>
+
+                                <!-- Hexagonal Grid -->
+                                <g id="hexGrid" opacity="0.3">
+                                    <!-- Row 1 -->
+                                    <polygon class="hex-cell" points="300,100 340,123 340,169 300,192 260,169 260,123" fill="none" stroke="#D4AF37" stroke-width="1"/>
+                                    <!-- Row 2 -->
+                                    <polygon class="hex-cell" points="220,146 260,169 260,215 220,238 180,215 180,169" fill="none" stroke="#D4AF37" stroke-width="1"/>
+                                    <polygon class="hex-cell" points="380,146 420,169 420,215 380,238 340,215 340,169" fill="none" stroke="#D4AF37" stroke-width="1"/>
+                                    <!-- Row 3 -->
+                                    <polygon class="hex-cell" points="140,192 180,215 180,261 140,284 100,261 100,215" fill="none" stroke="#D4AF37" stroke-width="1"/>
+                                    <polygon class="hex-cell" points="300,192 340,215 340,261 300,284 260,261 260,215" fill="none" stroke="#D4AF37" stroke-width="1"/>
+                                    <polygon class="hex-cell" points="460,192 500,215 500,261 460,284 420,261 420,215" fill="none" stroke="#D4AF37" stroke-width="1"/>
+                                    <!-- Row 4 -->
+                                    <polygon class="hex-cell" points="220,238 260,261 260,307 220,330 180,307 180,261" fill="none" stroke="#D4AF37" stroke-width="1"/>
+                                    <polygon class="hex-cell" points="380,238 420,261 420,307 380,330 340,307 340,261" fill="none" stroke="#D4AF37" stroke-width="1"/>
+                                    <!-- Center -->
+                                    <polygon class="hex-cell hex-center" points="300,284 340,307 340,353 300,376 260,353 260,307" fill="rgba(212, 175, 55, 0.1)" stroke="#D4AF37" stroke-width="2"/>
+                                    <!-- Row 5 -->
+                                    <polygon class="hex-cell" points="140,284 180,307 180,353 140,376 100,353 100,307" fill="none" stroke="#D4AF37" stroke-width="1"/>
+                                    <polygon class="hex-cell" points="460,284 500,307 500,353 460,376 420,353 420,307" fill="none" stroke="#D4AF37" stroke-width="1"/>
+                                    <!-- Row 6 -->
+                                    <polygon class="hex-cell" points="220,330 260,353 260,399 220,422 180,399 180,353" fill="none" stroke="#D4AF37" stroke-width="1"/>
+                                    <polygon class="hex-cell" points="380,330 420,353 420,399 380,422 340,399 340,353" fill="none" stroke="#D4AF37" stroke-width="1"/>
+                                    <!-- Row 7 -->
+                                    <polygon class="hex-cell" points="300,376 340,399 340,445 300,468 260,445 260,399" fill="none" stroke="#D4AF37" stroke-width="1"/>
+                                </g>
+
+                                <!-- Atom nodes -->
+                                <g id="atomNodes">
+                                    <circle class="atom" cx="300" cy="330" r="8" fill="#D4AF37" filter="url(#glow)"/>
+                                    <circle class="atom" cx="220" cy="284" r="6" fill="#C0C0C0"/>
+                                    <circle class="atom" cx="380" cy="284" r="6" fill="#C0C0C0"/>
+                                    <circle class="atom" cx="300" cy="192" r="6" fill="#C0C0C0"/>
+                                    <circle class="atom" cx="220" cy="376" r="6" fill="#C0C0C0"/>
+                                    <circle class="atom" cx="380" cy="376" r="6" fill="#C0C0C0"/>
+                                    <circle class="atom" cx="300" cy="468" r="6" fill="#C0C0C0"/>
+                                </g>
+
+                                <!-- Connecting lines -->
+                                <g id="atomConnections" stroke="#D4AF37" stroke-width="1" opacity="0.5">
+                                    <line x1="300" y1="330" x2="220" y2="284"/>
+                                    <line x1="300" y1="330" x2="380" y2="284"/>
+                                    <line x1="300" y1="330" x2="300" y2="192"/>
+                                    <line x1="300" y1="330" x2="220" y2="376"/>
+                                    <line x1="300" y1="330" x2="380" y2="376"/>
+                                    <line x1="300" y1="330" x2="300" y2="468"/>
+                                </g>
+
+                                <!-- Orbiting electrons -->
+                                <g id="electrons">
+                                    <circle class="electron" r="3" fill="#B22234">
+                                        <animateMotion dur="3s" repeatCount="indefinite">
+                                            <mpath href="#orbit1"/>
+                                        </animateMotion>
+                                    </circle>
+                                    <circle class="electron" r="3" fill="#B22234">
+                                        <animateMotion dur="4s" repeatCount="indefinite">
+                                            <mpath href="#orbit2"/>
+                                        </animateMotion>
+                                    </circle>
+                                </g>
+
+                                <!-- Orbit paths -->
+                                <ellipse id="orbit1" cx="300" cy="330" rx="120" ry="60" fill="none" stroke="rgba(178, 34, 52, 0.2)" stroke-width="1" transform="rotate(-30 300 330)"/>
+                                <ellipse id="orbit2" cx="300" cy="330" rx="150" ry="75" fill="none" stroke="rgba(178, 34, 52, 0.2)" stroke-width="1" transform="rotate(30 300 330)"/>
+
+                                <!-- VIBRANIUM text -->
+                                <text x="300" y="550" text-anchor="middle" class="font-mono" fill="rgba(212, 175, 55, 0.4)" font-size="12" letter-spacing="8">VIBRANIUM</text>
+                            </svg>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SECTION 3: PROTOCOL ==================== -->
+    <section id="protocol" class="relative min-h-[250vh] py-32">
+        <div class="sticky top-0 h-screen flex items-center overflow-hidden">
+            <div class="max-w-7xl mx-auto px-8 w-full">
+
+                <!-- Section Header -->
+                <div class="mb-16 section-reveal" id="protocolHeader">
+                    <span class="font-mono text-xs tracking-[0.5em] text-star">02 / PROTOCOL</span>
+                    <h2 class="font-display text-6xl font-bold mt-4">
+                        SUPER SOLDIER<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-star to-shield-red">SERUM</span>
+                    </h2>
+                </div>
+
+                <!-- DNA Helix Visualization -->
+                <div class="relative h-[400px] my-16" id="dnaContainer">
+                    <svg class="w-full h-full" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice">
+                        <defs>
+                            <linearGradient id="dnaGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#D4AF37"/>
+                                <stop offset="100%" stop-color="#B22234"/>
+                            </linearGradient>
+                            <linearGradient id="dnaGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#3C3B6E"/>
+                                <stop offset="100%" stop-color="#C0C0C0"/>
+                            </linearGradient>
+                        </defs>
+
+                        <!-- DNA Strands -->
+                        <g id="dnaHelix">
+                            <!-- These will be animated with JS -->
+                            <path id="dnaStrand1" d="" stroke="url(#dnaGrad1)" stroke-width="3" fill="none"/>
+                            <path id="dnaStrand2" d="" stroke="url(#dnaGrad2)" stroke-width="3" fill="none"/>
+                        </g>
+
+                        <!-- Base pairs -->
+                        <g id="basePairs">
+                            <!-- Generated by JS -->
+                        </g>
+                    </svg>
+                </div>
+
+                <!-- Process Steps -->
+                <div class="grid grid-cols-4 gap-8 mt-16" id="processSteps">
+                    <div class="process-step opacity-0 translate-y-12" data-step="1">
+                        <div class="relative">
+                            <div class="absolute -top-4 -left-4 font-display text-8xl font-bold text-vibranium/10">01</div>
+                            <div class="border border-vibranium/20 p-6 relative z-10 bg-patriot-900/50 backdrop-blur">
+                                <div class="w-12 h-12 border border-star flex items-center justify-center mb-4">
+                                    <svg class="w-6 h-6 text-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2v-4M9 21H5a2 2 0 01-2-2v-4"/>
+                                    </svg>
+                                </div>
+                                <h3 class="font-display text-lg font-bold mb-2">GENETIC MAPPING</h3>
+                                <p class="font-mono text-xs text-vibranium/50 leading-relaxed">
+                                    Complete DNA sequencing and enhancement compatibility analysis.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="process-step opacity-0 translate-y-12" data-step="2">
+                        <div class="relative">
+                            <div class="absolute -top-4 -left-4 font-display text-8xl font-bold text-vibranium/10">02</div>
+                            <div class="border border-vibranium/20 p-6 relative z-10 bg-patriot-900/50 backdrop-blur">
+                                <div class="w-12 h-12 border border-star flex items-center justify-center mb-4">
+                                    <svg class="w-6 h-6 text-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+                                    </svg>
+                                </div>
+                                <h3 class="font-display text-lg font-bold mb-2">SERUM SYNTHESIS</h3>
+                                <p class="font-mono text-xs text-vibranium/50 leading-relaxed">
+                                    Erskine's formula combined with Vita-Rays for cellular enhancement.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="process-step opacity-0 translate-y-12" data-step="3">
+                        <div class="relative">
+                            <div class="absolute -top-4 -left-4 font-display text-8xl font-bold text-vibranium/10">03</div>
+                            <div class="border border-vibranium/20 p-6 relative z-10 bg-patriot-900/50 backdrop-blur">
+                                <div class="w-12 h-12 border border-star flex items-center justify-center mb-4">
+                                    <svg class="w-6 h-6 text-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                    </svg>
+                                </div>
+                                <h3 class="font-display text-lg font-bold mb-2">VITA-RAY INFUSION</h3>
+                                <p class="font-mono text-xs text-vibranium/50 leading-relaxed">
+                                    Concentrated radiation bombardment to activate serum compounds.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="process-step opacity-0 translate-y-12" data-step="4">
+                        <div class="relative">
+                            <div class="absolute -top-4 -left-4 font-display text-8xl font-bold text-vibranium/10">04</div>
+                            <div class="border border-vibranium/20 p-6 relative z-10 bg-patriot-900/50 backdrop-blur">
+                                <div class="w-12 h-12 border border-star flex items-center justify-center mb-4">
+                                    <svg class="w-6 h-6 text-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                                    </svg>
+                                </div>
+                                <h3 class="font-display text-lg font-bold mb-2">TRANSFORMATION</h3>
+                                <p class="font-mono text-xs text-vibranium/50 leading-relaxed">
+                                    Peak human physical and mental capabilities achieved.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Enhancement Stats -->
+                <div class="mt-24 grid grid-cols-5 gap-4" id="enhancementStats">
+                    <div class="stat-bar">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-mono text-xs text-vibranium/50">STRENGTH</span>
+                            <span class="font-mono text-xs text-star stat-percent">0%</span>
+                        </div>
+                        <div class="h-1 bg-vibranium/10 overflow-hidden">
+                            <div class="stat-fill h-full bg-gradient-to-r from-star to-shield-red" style="width: 0%" data-target="95"></div>
+                        </div>
+                    </div>
+                    <div class="stat-bar">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-mono text-xs text-vibranium/50">SPEED</span>
+                            <span class="font-mono text-xs text-star stat-percent">0%</span>
+                        </div>
+                        <div class="h-1 bg-vibranium/10 overflow-hidden">
+                            <div class="stat-fill h-full bg-gradient-to-r from-star to-shield-red" style="width: 0%" data-target="92"></div>
+                        </div>
+                    </div>
+                    <div class="stat-bar">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-mono text-xs text-vibranium/50">AGILITY</span>
+                            <span class="font-mono text-xs text-star stat-percent">0%</span>
+                        </div>
+                        <div class="h-1 bg-vibranium/10 overflow-hidden">
+                            <div class="stat-fill h-full bg-gradient-to-r from-star to-shield-red" style="width: 0%" data-target="96"></div>
+                        </div>
+                    </div>
+                    <div class="stat-bar">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-mono text-xs text-vibranium/50">DURABILITY</span>
+                            <span class="font-mono text-xs text-star stat-percent">0%</span>
+                        </div>
+                        <div class="h-1 bg-vibranium/10 overflow-hidden">
+                            <div class="stat-fill h-full bg-gradient-to-r from-star to-shield-red" style="width: 0%" data-target="94"></div>
+                        </div>
+                    </div>
+                    <div class="stat-bar">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-mono text-xs text-vibranium/50">HEALING</span>
+                            <span class="font-mono text-xs text-star stat-percent">0%</span>
+                        </div>
+                        <div class="h-1 bg-vibranium/10 overflow-hidden">
+                            <div class="stat-fill h-full bg-gradient-to-r from-star to-shield-red" style="width: 0%" data-target="88"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SECTION 4: LEGACY ==================== -->
+    <section id="legacy" class="relative min-h-[300vh] py-32">
+        <div class="sticky top-0 h-screen flex items-center">
+            <div class="max-w-7xl mx-auto px-8 w-full">
+
+                <div class="grid grid-cols-12 gap-16">
+
+                    <!-- Timeline -->
+                    <div class="col-span-3">
+                        <div class="sticky top-32">
+                            <span class="font-mono text-xs tracking-[0.5em] text-star">03 / LEGACY</span>
+                            <h2 class="font-display text-4xl font-bold mt-4 mb-8">
+                                THROUGH<br>THE AGES
+                            </h2>
+
+                            <div class="relative">
+                                <div class="timeline-line absolute left-1.5 top-0 h-full"></div>
+
+                                <div class="space-y-8">
+                                    <div class="timeline-item flex items-center gap-4 opacity-40 transition-opacity" data-year="1943">
+                                        <div class="timeline-dot"></div>
+                                        <div>
+                                            <div class="font-display font-bold">1943</div>
+                                            <div class="font-mono text-xs text-vibranium/50">Project Rebirth</div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item flex items-center gap-4 opacity-40 transition-opacity" data-year="1945">
+                                        <div class="timeline-dot"></div>
+                                        <div>
+                                            <div class="font-display font-bold">1945</div>
+                                            <div class="font-mono text-xs text-vibranium/50">The Sacrifice</div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item flex items-center gap-4 opacity-40 transition-opacity" data-year="2011">
+                                        <div class="timeline-dot"></div>
+                                        <div>
+                                            <div class="font-display font-bold">2011</div>
+                                            <div class="font-mono text-xs text-vibranium/50">The Awakening</div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item flex items-center gap-4 opacity-40 transition-opacity" data-year="2012">
+                                        <div class="timeline-dot"></div>
+                                        <div>
+                                            <div class="font-display font-bold">2012</div>
+                                            <div class="font-mono text-xs text-vibranium/50">Avengers Initiative</div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item flex items-center gap-4 opacity-40 transition-opacity" data-year="2023">
+                                        <div class="timeline-dot"></div>
+                                        <div>
+                                            <div class="font-display font-bold">2023</div>
+                                            <div class="font-mono text-xs text-vibranium/50">Endgame</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content Cards -->
+                    <div class="col-span-9">
+                        <div class="space-y-32" id="legacyCards">
+
+                            <!-- Card 1: Project Rebirth -->
+                            <div class="legacy-card relative group" data-year="1943">
+                                <div class="absolute -left-8 top-0 font-display text-9xl font-bold text-vibranium/5">1943</div>
+                                <div class="relative z-10 grid grid-cols-2 gap-8">
+                                    <div class="border border-vibranium/20 p-8 holographic">
+                                        <h3 class="font-display text-2xl font-bold mb-4">PROJECT REBIRTH</h3>
+                                        <p class="text-vibranium/60 mb-6 leading-relaxed">
+                                            Steve Rogers, a frail young man from Brooklyn, is selected for Dr. Abraham Erskine's
+                                            experimental Super-Soldier program. Despite his physical limitations, Rogers is chosen
+                                            for his unwavering moral compass and unbreakable spirit.
+                                        </p>
+                                        <div class="flex gap-4">
+                                            <div class="px-3 py-1 border border-star/30 font-mono text-xs text-star">CLASSIFIED</div>
+                                            <div class="px-3 py-1 border border-vibranium/30 font-mono text-xs text-vibranium/50">SSR ARCHIVES</div>
+                                        </div>
+                                    </div>
+                                    <div class="relative h-64 border border-vibranium/10 overflow-hidden">
+                                        <!-- Abstract representation -->
+                                        <svg class="w-full h-full" viewBox="0 0 300 200">
+                                            <defs>
+                                                <pattern id="gridPattern1" width="20" height="20" patternUnits="userSpaceOnUse">
+                                                    <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(192,192,192,0.1)" stroke-width="1"/>
+                                                </pattern>
+                                            </defs>
+                                            <rect width="100%" height="100%" fill="url(#gridPattern1)"/>
+                                            <circle cx="150" cy="100" r="50" fill="none" stroke="#D4AF37" stroke-width="1" opacity="0.3"/>
+                                            <circle cx="150" cy="100" r="30" fill="none" stroke="#B22234" stroke-width="1" opacity="0.5"/>
+                                            <circle cx="150" cy="100" r="10" fill="#D4AF37" opacity="0.8"/>
+                                            <text x="150" y="170" text-anchor="middle" class="font-mono" fill="rgba(192,192,192,0.3)" font-size="10">SUBJECT: ROGERS, STEVEN G.</text>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 2: The Sacrifice -->
+                            <div class="legacy-card relative group" data-year="1945">
+                                <div class="absolute -left-8 top-0 font-display text-9xl font-bold text-vibranium/5">1945</div>
+                                <div class="relative z-10 grid grid-cols-2 gap-8">
+                                    <div class="relative h-64 border border-vibranium/10 overflow-hidden">
+                                        <svg class="w-full h-full" viewBox="0 0 300 200">
+                                            <defs>
+                                                <linearGradient id="iceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                    <stop offset="0%" stop-color="#E0FFFF" stop-opacity="0.2"/>
+                                                    <stop offset="100%" stop-color="#00CED1" stop-opacity="0.1"/>
+                                                </linearGradient>
+                                            </defs>
+                                            <rect width="100%" height="100%" fill="url(#iceGrad)"/>
+                                            <!-- Ice crystals -->
+                                            <polygon points="150,20 160,50 190,60 160,70 150,100 140,70 110,60 140,50" fill="none" stroke="rgba(192,192,192,0.3)" stroke-width="1"/>
+                                            <polygon points="80,80 90,100 110,105 90,110 80,130 70,110 50,105 70,100" fill="none" stroke="rgba(192,192,192,0.2)" stroke-width="1"/>
+                                            <polygon points="220,90 230,110 250,115 230,120 220,140 210,120 190,115 210,110" fill="none" stroke="rgba(192,192,192,0.2)" stroke-width="1"/>
+                                            <text x="150" y="180" text-anchor="middle" class="font-mono" fill="rgba(192,192,192,0.3)" font-size="10">ARCTIC OCEAN - 66 YEARS</text>
+                                        </svg>
+                                    </div>
+                                    <div class="border border-vibranium/20 p-8 holographic">
+                                        <h3 class="font-display text-2xl font-bold mb-4">THE SACRIFICE</h3>
+                                        <p class="text-vibranium/60 mb-6 leading-relaxed">
+                                            To prevent HYDRA's weapons from reaching American soil, Captain America crashes
+                                            the Valkyrie into the Arctic Ocean. Presumed dead, he becomes a legend—the man
+                                            who gave everything for his country.
+                                        </p>
+                                        <div class="flex gap-4">
+                                            <div class="px-3 py-1 border border-shield-red/30 font-mono text-xs text-shield-red">MIA</div>
+                                            <div class="px-3 py-1 border border-vibranium/30 font-mono text-xs text-vibranium/50">HERO STATUS</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 3: The Awakening -->
+                            <div class="legacy-card relative group" data-year="2011">
+                                <div class="absolute -left-8 top-0 font-display text-9xl font-bold text-vibranium/5">2011</div>
+                                <div class="relative z-10 grid grid-cols-2 gap-8">
+                                    <div class="border border-vibranium/20 p-8 holographic">
+                                        <h3 class="font-display text-2xl font-bold mb-4">THE AWAKENING</h3>
+                                        <p class="text-vibranium/60 mb-6 leading-relaxed">
+                                            S.H.I.E.L.D. discovers Captain America frozen in the Arctic ice, preserved by
+                                            the super-soldier serum. After 66 years, Steve Rogers awakens to a world he
+                                            barely recognizes—but one that desperately needs him.
+                                        </p>
+                                        <div class="flex gap-4">
+                                            <div class="px-3 py-1 border border-star/30 font-mono text-xs text-star">ACTIVE</div>
+                                            <div class="px-3 py-1 border border-vibranium/30 font-mono text-xs text-vibranium/50">S.H.I.E.L.D.</div>
+                                        </div>
+                                    </div>
+                                    <div class="relative h-64 border border-vibranium/10 overflow-hidden">
+                                        <svg class="w-full h-full" viewBox="0 0 300 200">
+                                            <defs>
+                                                <radialGradient id="wakeGrad" cx="50%" cy="50%" r="50%">
+                                                    <stop offset="0%" stop-color="#D4AF37" stop-opacity="0.3"/>
+                                                    <stop offset="100%" stop-color="transparent"/>
+                                                </radialGradient>
+                                            </defs>
+                                            <rect width="100%" height="100%" fill="#0A1628"/>
+                                            <circle cx="150" cy="100" r="80" fill="url(#wakeGrad)"/>
+                                            <circle cx="150" cy="100" r="40" fill="none" stroke="#D4AF37" stroke-width="1" stroke-dasharray="5 5">
+                                                <animateTransform attributeName="transform" type="rotate" from="0 150 100" to="360 150 100" dur="10s" repeatCount="indefinite"/>
+                                            </circle>
+                                            <text x="150" y="180" text-anchor="middle" class="font-mono" fill="rgba(212,175,55,0.5)" font-size="10">VITAL SIGNS: RESTORED</text>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 4: Avengers Initiative -->
+                            <div class="legacy-card relative group" data-year="2012">
+                                <div class="absolute -left-8 top-0 font-display text-9xl font-bold text-vibranium/5">2012</div>
+                                <div class="relative z-10">
+                                    <div class="border border-vibranium/20 p-8 holographic">
+                                        <h3 class="font-display text-2xl font-bold mb-4">AVENGERS INITIATIVE</h3>
+                                        <p class="text-vibranium/60 mb-6 leading-relaxed max-w-2xl">
+                                            When Loki threatens Earth with an alien invasion, Nick Fury assembles a team
+                                            of extraordinary individuals. Captain America takes his place as the tactical
+                                            leader of Earth's Mightiest Heroes—proving that a man out of time can still
+                                            inspire a new generation.
+                                        </p>
+
+                                        <!-- Avengers Grid -->
+                                        <div class="grid grid-cols-6 gap-4 mt-8">
+                                            <div class="text-center">
+                                                <div class="w-16 h-16 mx-auto border border-star/30 flex items-center justify-center mb-2">
+                                                    <svg class="w-8 h-8 text-star" viewBox="0 0 24 24" fill="currentColor">
+                                                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                                                    </svg>
+                                                </div>
+                                                <span class="font-mono text-xs text-vibranium/50">IRON MAN</span>
+                                            </div>
+                                            <div class="text-center">
+                                                <div class="w-16 h-16 mx-auto border border-star/30 flex items-center justify-center mb-2">
+                                                    <svg class="w-8 h-8 text-star" viewBox="0 0 24 24" fill="currentColor">
+                                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                                    </svg>
+                                                </div>
+                                                <span class="font-mono text-xs text-vibranium/50">CAPTAIN</span>
+                                            </div>
+                                            <div class="text-center">
+                                                <div class="w-16 h-16 mx-auto border border-star/30 flex items-center justify-center mb-2">
+                                                    <svg class="w-8 h-8 text-star" viewBox="0 0 24 24" fill="currentColor">
+                                                        <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                                    </svg>
+                                                </div>
+                                                <span class="font-mono text-xs text-vibranium/50">THOR</span>
+                                            </div>
+                                            <div class="text-center">
+                                                <div class="w-16 h-16 mx-auto border border-star/30 flex items-center justify-center mb-2">
+                                                    <svg class="w-8 h-8 text-star" viewBox="0 0 24 24" fill="currentColor">
+                                                        <circle cx="12" cy="12" r="10"/>
+                                                    </svg>
+                                                </div>
+                                                <span class="font-mono text-xs text-vibranium/50">HULK</span>
+                                            </div>
+                                            <div class="text-center">
+                                                <div class="w-16 h-16 mx-auto border border-star/30 flex items-center justify-center mb-2">
+                                                    <svg class="w-8 h-8 text-star" viewBox="0 0 24 24" fill="currentColor">
+                                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93z"/>
+                                                    </svg>
+                                                </div>
+                                                <span class="font-mono text-xs text-vibranium/50">WIDOW</span>
+                                            </div>
+                                            <div class="text-center">
+                                                <div class="w-16 h-16 mx-auto border border-star/30 flex items-center justify-center mb-2">
+                                                    <svg class="w-8 h-8 text-star" viewBox="0 0 24 24" fill="currentColor">
+                                                        <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3z"/>
+                                                    </svg>
+                                                </div>
+                                                <span class="font-mono text-xs text-vibranium/50">HAWKEYE</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 5: Endgame -->
+                            <div class="legacy-card relative group" data-year="2023">
+                                <div class="absolute -left-8 top-0 font-display text-9xl font-bold text-vibranium/5">2023</div>
+                                <div class="relative z-10 grid grid-cols-2 gap-8">
+                                    <div class="relative h-64 border border-vibranium/10 overflow-hidden">
+                                        <svg class="w-full h-full" viewBox="0 0 300 200">
+                                            <defs>
+                                                <linearGradient id="endGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+                                                    <stop offset="0%" stop-color="#D4AF37" stop-opacity="0.3"/>
+                                                    <stop offset="100%" stop-color="#B22234" stop-opacity="0.3"/>
+                                                </linearGradient>
+                                            </defs>
+                                            <rect width="100%" height="100%" fill="#050a12"/>
+                                            <path d="M0,200 Q75,100 150,150 T300,100 L300,200 Z" fill="url(#endGrad)"/>
+                                            <circle cx="150" cy="80" r="25" fill="none" stroke="#D4AF37" stroke-width="2"/>
+                                            <text x="150" y="85" text-anchor="middle" class="font-display" fill="#D4AF37" font-size="16">A</text>
+                                            <text x="150" y="180" text-anchor="middle" class="font-mono" fill="rgba(212,175,55,0.5)" font-size="10">WHATEVER IT TAKES</text>
+                                        </svg>
+                                    </div>
+                                    <div class="border border-vibranium/20 p-8 holographic">
+                                        <h3 class="font-display text-2xl font-bold mb-4">ENDGAME</h3>
+                                        <p class="text-vibranium/60 mb-6 leading-relaxed">
+                                            In the final battle against Thanos, Captain America proves worthy of Mjolnir.
+                                            After helping restore the universe, Steve Rogers returns the Infinity Stones
+                                            and chooses to live out his life in the past—passing the shield to Sam Wilson.
+                                        </p>
+                                        <div class="flex gap-4">
+                                            <div class="px-3 py-1 border border-star/30 font-mono text-xs text-star">WORTHY</div>
+                                            <div class="px-3 py-1 border border-vibranium/30 font-mono text-xs text-vibranium/50">RETIRED</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SECTION 5: AVENGERS ==================== -->
+    <section id="avengers" class="relative min-h-[200vh] py-32">
+        <div class="sticky top-0 h-screen flex items-center">
+            <div class="max-w-7xl mx-auto px-8 w-full">
+
+                <div class="text-center mb-16 section-reveal" id="avengersHeader">
+                    <span class="font-mono text-xs tracking-[0.5em] text-star">04 / AVENGERS</span>
+                    <h2 class="font-display text-6xl font-bold mt-4">
+                        EARTH'S MIGHTIEST
+                    </h2>
+                </div>
+
+                <!-- Team Grid -->
+                <div class="grid grid-cols-3 gap-8" id="teamGrid">
+
+                    <!-- Captain America Card -->
+                    <div class="team-card relative group cursor-pointer" data-hover>
+                        <div class="absolute inset-0 bg-gradient-to-br from-shield-blue/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="border border-vibranium/20 p-8 relative z-10 bg-patriot-900/80 backdrop-blur transition-transform duration-500 group-hover:-translate-y-2">
+
+                            <!-- Hero Icon -->
+                            <div class="w-24 h-24 mx-auto mb-6 relative">
+                                <svg viewBox="0 0 100 100" class="w-full h-full">
+                                    <circle cx="50" cy="50" r="45" fill="none" stroke="#3C3B6E" stroke-width="8"/>
+                                    <circle cx="50" cy="50" r="35" fill="none" stroke="#B22234" stroke-width="6"/>
+                                    <circle cx="50" cy="50" r="25" fill="none" stroke="#C0C0C0" stroke-width="6"/>
+                                    <circle cx="50" cy="50" r="15" fill="#3C3B6E"/>
+                                    <polygon points="50,38 53,47 62,47 55,53 58,62 50,56 42,62 45,53 38,47 47,47" fill="#fff"/>
+                                </svg>
+                                <div class="absolute inset-0 pulse-ring border-2 border-star/30 rounded-full"></div>
+                            </div>
+
+                            <h3 class="font-display text-xl font-bold text-center mb-2">CAPTAIN AMERICA</h3>
+                            <p class="font-mono text-xs text-vibranium/50 text-center mb-4">STEVEN GRANT ROGERS</p>
+
+                            <div class="space-y-3">
+                                <div class="flex justify-between text-xs">
+                                    <span class="text-vibranium/50">ROLE</span>
+                                    <span class="text-star">TEAM LEADER</span>
+                                </div>
+                                <div class="flex justify-between text-xs">
+                                    <span class="text-vibranium/50">STATUS</span>
+                                    <span class="text-green-400">ACTIVE</span>
+                                </div>
+                                <div class="flex justify-between text-xs">
+                                    <span class="text-vibranium/50">CLEARANCE</span>
+                                    <span class="text-star">OMEGA</span>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 pt-4 border-t border-vibranium/10">
+                                <p class="text-xs text-vibranium/40 italic text-center">
+                                    "I can do this all day."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Iron Man Card -->
+                    <div class="team-card relative group cursor-pointer" data-hover>
+                        <div class="absolute inset-0 bg-gradient-to-br from-shield-red/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="border border-vibranium/20 p-8 relative z-10 bg-patriot-900/80 backdrop-blur transition-transform duration-500 group-hover:-translate-y-2">
+
+                            <div class="w-24 h-24 mx-auto mb-6 relative">
+                                <svg viewBox="0 0 100 100" class="w-full h-full">
+                                    <path d="M50 10 L80 30 L80 70 L50 90 L20 70 L20 30 Z" fill="none" stroke="#B22234" stroke-width="3"/>
+                                    <circle cx="50" cy="50" r="15" fill="#D4AF37"/>
+                                    <circle cx="50" cy="50" r="8" fill="#fff" opacity="0.5"/>
+                                </svg>
+                            </div>
+
+                            <h3 class="font-display text-xl font-bold text-center mb-2">IRON MAN</h3>
+                            <p class="font-mono text-xs text-vibranium/50 text-center mb-4">ANTHONY EDWARD STARK</p>
+
+                            <div class="space-y-3">
+                                <div class="flex justify-between text-xs">
+                                    <span class="text-vibranium/50">ROLE</span>
+                                    <span class="text-star">TECH SPECIALIST</span>
+                                </div>
+                                <div class="flex justify-between text-xs">
+                                    <span class="text-vibranium/50">STATUS</span>
+                                    <span class="text-vibranium/50">DECEASED</span>
+                                </div>
+                                <div class="flex justify-between text-xs">
+                                    <span class="text-vibranium/50">SUITS</span>
+                                    <span class="text-star">85+</span>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 pt-4 border-t border-vibranium/10">
+                                <p class="text-xs text-vibranium/40 italic text-center">
+                                    "I am Iron Man."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Thor Card -->
+                    <div class="team-card relative group cursor-pointer" data-hover>
+                        <div class="absolute inset-0 bg-gradient-to-br from-star/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="border border-vibranium/20 p-8 relative z-10 bg-patriot-900/80 backdrop-blur transition-transform duration-500 group-hover:-translate-y-2">
+
+                            <div class="w-24 h-24 mx-auto mb-6 relative">
+                                <svg viewBox="0 0 100 100" class="w-full h-full">
+                                    <path d="M50 15 L55 45 L85 50 L55 55 L50 85 L45 55 L15 50 L45 45 Z" fill="none" stroke="#D4AF37" stroke-width="2"/>
+                                    <circle cx="50" cy="50" r="12" fill="#D4AF37"/>
+                                </svg>
+                            </div>
+
+                            <h3 class="font-display text-xl font-bold text-center mb-2">THOR</h3>
+                            <p class="font-mono text-xs text-vibranium/50 text-center mb-4">THOR ODINSON</p>
+
+                            <div class="space-y-3">
+                                <div class="flex justify-between text-xs">
+                                    <span class="text-vibranium/50">ROLE</span>
+                                    <span class="text-star">GOD OF THUNDER</span>
+                                </div>
+                                <div class="flex justify-between text-xs">
+                                    <span class="text-vibranium/50">STATUS</span>
+                                    <span class="text-green-400">ACTIVE</span>
+                                </div>
+                                <div class="flex justify-between text-xs">
+                                    <span class="text-vibranium/50">REALM</span>
+                                    <span class="text-star">ASGARD</span>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 pt-4 border-t border-vibranium/10">
+                                <p class="text-xs text-vibranium/40 italic text-center">
+                                    "Bring me Thanos!"
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Mission Stats -->
+                <div class="mt-24 border border-vibranium/20 p-8 holographic" id="missionStats">
+                    <div class="grid grid-cols-4 gap-8 text-center">
+                        <div>
+                            <div class="font-display text-5xl font-bold text-star stat-value" data-count="47">0</div>
+                            <div class="font-mono text-xs text-vibranium/50 mt-2">MISSIONS COMPLETED</div>
+                        </div>
+                        <div>
+                            <div class="font-display text-5xl font-bold text-star stat-value" data-count="12">0</div>
+                            <div class="font-mono text-xs text-vibranium/50 mt-2">WORLD SAVES</div>
+                        </div>
+                        <div>
+                            <div class="font-display text-5xl font-bold text-star stat-value" data-count="6">0</div>
+                            <div class="font-mono text-xs text-vibranium/50 mt-2">ORIGINAL AVENGERS</div>
+                        </div>
+                        <div>
+                            <div class="font-display text-5xl font-bold text-star">∞</div>
+                            <div class="font-mono text-xs text-vibranium/50 mt-2">LIVES PROTECTED</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SECTION 6: FUTURE ==================== -->
+    <section id="future" class="relative min-h-screen py-32">
+        <div class="max-w-7xl mx-auto px-8">
+
+            <div class="text-center mb-24 section-reveal" id="futureHeader">
+                <span class="font-mono text-xs tracking-[0.5em] text-star">05 / FUTURE</span>
+                <h2 class="font-display text-7xl font-bold mt-4 mb-8">
+                    THE LEGACY<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-star via-shield-red to-shield-blue">CONTINUES</span>
+                </h2>
+                <p class="text-xl text-vibranium/60 max-w-2xl mx-auto">
+                    The shield has been passed. A new Captain America rises to
+                    carry forward the ideals of truth, justice, and unwavering courage.
+                </p>
+            </div>
+
+            <!-- New Shield Holder -->
+            <div class="relative mb-24" id="newCapSection">
+                <div class="grid grid-cols-2 gap-16 items-center">
+                    <div>
+                        <div class="mb-8">
+                            <span class="font-mono text-xs tracking-[0.3em] text-star/60">THE NEW CAPTAIN AMERICA</span>
+                        </div>
+                        <h3 class="font-display text-5xl font-bold mb-6">
+                            SAM WILSON
+                        </h3>
+                        <p class="text-vibranium/60 text-lg leading-relaxed mb-8">
+                            A former pararescueman who served two tours in Afghanistan, Sam Wilson
+                            first met Steve Rogers during a morning run in Washington, D.C. Their
+                            bond, forged in battle alongside the Avengers, made him the natural
+                            choice to carry the shield.
+                        </p>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="border border-vibranium/20 p-4">
+                                <div class="font-mono text-xs text-vibranium/50 mb-1">CODENAME</div>
+                                <div class="font-display text-lg">FALCON</div>
+                            </div>
+                            <div class="border border-vibranium/20 p-4">
+                                <div class="font-mono text-xs text-vibranium/50 mb-1">SPECIALTY</div>
+                                <div class="font-display text-lg">AERIAL COMBAT</div>
+                            </div>
+                        </div>
+
+                        <button class="magnetic-btn mt-8 px-8 py-4 border border-star text-star font-display tracking-widest text-sm hover:bg-star hover:text-patriot-900 transition-colors" data-hover>
+                            ACCESS FALCON PROTOCOL
+                        </button>
+                    </div>
+
+                    <div class="relative">
+                        <!-- Falcon Wings SVG -->
+                        <svg class="w-full" viewBox="0 0 400 400" id="falconWings">
+                            <defs>
+                                <linearGradient id="wingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#C0C0C0"/>
+                                    <stop offset="50%" stop-color="#808080"/>
+                                    <stop offset="100%" stop-color="#C0C0C0"/>
+                                </linearGradient>
+                                <filter id="wingGlow">
+                                    <feGaussianBlur stdDeviation="3"/>
+                                    <feMerge>
+                                        <feMergeNode/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                            </defs>
+
+                            <!-- Left Wing -->
+                            <g id="leftWing" transform-origin="200 200">
+                                <path d="M200,200 L100,150 L50,100 L30,120 L60,180 L100,220 L150,250 L200,260 Z"
+                                      fill="url(#wingGrad)" stroke="#D4AF37" stroke-width="1" filter="url(#wingGlow)"/>
+                                <path d="M180,210 L120,180 L80,140" fill="none" stroke="#D4AF37" stroke-width="0.5"/>
+                                <path d="M170,220 L100,195 L60,160" fill="none" stroke="#D4AF37" stroke-width="0.5"/>
+                            </g>
+
+                            <!-- Right Wing -->
+                            <g id="rightWing" transform-origin="200 200">
+                                <path d="M200,200 L300,150 L350,100 L370,120 L340,180 L300,220 L250,250 L200,260 Z"
+                                      fill="url(#wingGrad)" stroke="#D4AF37" stroke-width="1" filter="url(#wingGlow)"/>
+                                <path d="M220,210 L280,180 L320,140" fill="none" stroke="#D4AF37" stroke-width="0.5"/>
+                                <path d="M230,220 L300,195 L340,160" fill="none" stroke="#D4AF37" stroke-width="0.5"/>
+                            </g>
+
+                            <!-- Center Shield -->
+                            <g id="centerShield">
+                                <circle cx="200" cy="200" r="50" fill="none" stroke="#B22234" stroke-width="10"/>
+                                <circle cx="200" cy="200" r="38" fill="none" stroke="#C0C0C0" stroke-width="8"/>
+                                <circle cx="200" cy="200" r="26" fill="none" stroke="#B22234" stroke-width="8"/>
+                                <circle cx="200" cy="200" r="14" fill="#3C3B6E"/>
+                                <polygon points="200,190 204,197 212,197 206,202 208,210 200,205 192,210 194,202 188,197 196,197" fill="#fff"/>
+                            </g>
+
+                            <!-- Feather details -->
+                            <g class="feathers" opacity="0.3">
+                                <line x1="100" y1="150" x2="50" y2="100" stroke="#D4AF37" stroke-width="0.5"/>
+                                <line x1="120" y1="160" x2="70" y2="110" stroke="#D4AF37" stroke-width="0.5"/>
+                                <line x1="140" y1="170" x2="90" y2="120" stroke="#D4AF37" stroke-width="0.5"/>
+                                <line x1="300" y1="150" x2="350" y2="100" stroke="#D4AF37" stroke-width="0.5"/>
+                                <line x1="280" y1="160" x2="330" y2="110" stroke="#D4AF37" stroke-width="0.5"/>
+                                <line x1="260" y1="170" x2="310" y2="120" stroke="#D4AF37" stroke-width="0.5"/>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Final CTA -->
+            <div class="text-center py-24 border-t border-vibranium/10" id="finalCta">
+                <p class="font-display text-3xl mb-8 text-vibranium/80">
+                    "The legacy of a hero lives on in those who carry the shield."
+                </p>
+                <div class="flex justify-center gap-8">
+                    <button class="magnetic-btn px-12 py-5 bg-star text-patriot-900 font-display tracking-widest text-sm hover:bg-white transition-colors" data-hover>
+                        JOIN THE AVENGERS INITIATIVE
+                    </button>
+                    <button class="magnetic-btn px-12 py-5 border border-vibranium/50 text-vibranium font-display tracking-widest text-sm hover:border-star hover:text-star transition-colors" data-hover>
+                        VIEW CLASSIFIED FILES
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="border-t border-vibranium/10 py-16">
+        <div class="max-w-7xl mx-auto px-8">
+            <div class="grid grid-cols-4 gap-8">
+                <div>
+                    <div class="font-display text-2xl tracking-widest text-vibranium mb-4">S.H.I.E.L.D.</div>
+                    <p class="font-mono text-xs text-vibranium/40 leading-relaxed">
+                        Strategic Homeland Intervention,<br>
+                        Enforcement and Logistics Division
+                    </p>
+                </div>
+                <div>
+                    <div class="font-mono text-xs text-star mb-4">OPERATIONS</div>
+                    <ul class="space-y-2 font-mono text-xs text-vibranium/40">
+                        <li><a href="#" class="hover:text-star transition-colors" data-hover>Recruitment</a></li>
+                        <li><a href="#" class="hover:text-star transition-colors" data-hover>Training</a></li>
+                        <li><a href="#" class="hover:text-star transition-colors" data-hover>Missions</a></li>
+                        <li><a href="#" class="hover:text-star transition-colors" data-hover>Archives</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="font-mono text-xs text-star mb-4">RESOURCES</div>
+                    <ul class="space-y-2 font-mono text-xs text-vibranium/40">
+                        <li><a href="#" class="hover:text-star transition-colors" data-hover>Agent Handbook</a></li>
+                        <li><a href="#" class="hover:text-star transition-colors" data-hover>Threat Database</a></li>
+                        <li><a href="#" class="hover:text-star transition-colors" data-hover>Equipment</a></li>
+                        <li><a href="#" class="hover:text-star transition-colors" data-hover>Protocols</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="font-mono text-xs text-star mb-4">SECURE CHANNEL</div>
+                    <p class="font-mono text-xs text-vibranium/40 mb-4">
+                        For authorized personnel only
+                    </p>
+                    <div class="flex gap-4">
+                        <div class="w-8 h-8 border border-vibranium/20 flex items-center justify-center hover:border-star transition-colors cursor-pointer" data-hover>
+                            <span class="text-xs">◈</span>
+                        </div>
+                        <div class="w-8 h-8 border border-vibranium/20 flex items-center justify-center hover:border-star transition-colors cursor-pointer" data-hover>
+                            <span class="text-xs">◇</span>
+                        </div>
+                        <div class="w-8 h-8 border border-vibranium/20 flex items-center justify-center hover:border-star transition-colors cursor-pointer" data-hover>
+                            <span class="text-xs">○</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-16 pt-8 border-t border-vibranium/10 flex justify-between items-center">
+                <p class="font-mono text-xs text-vibranium/30">
+                    © 2024 S.H.I.E.L.D. ALL RIGHTS RESERVED. CLASSIFIED LEVEL: OMEGA
+                </p>
+                <p class="font-mono text-xs text-vibranium/30">
+                    LAT 40.7128° N, LONG 74.0060° W
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script>
+        // ===== INITIALIZATION =====
+        gsap.registerPlugin(ScrollTrigger);
+
+        // ===== CUSTOM CURSOR =====
+        const cursorDot = document.getElementById('cursorDot');
+        const cursorRing = document.getElementById('cursorRing');
+        let mouseX = 0, mouseY = 0;
+        let ringX = 0, ringY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            gsap.to(cursorDot, { x: mouseX - 4, y: mouseY - 4, duration: 0.1 });
+        });
+
+        // Smooth ring follow
+        function animateRing() {
+            ringX += (mouseX - ringX) * 0.15;
+            ringY += (mouseY - ringY) * 0.15;
+            cursorRing.style.transform = `translate(${ringX - 20}px, ${ringY - 20}px)`;
+            requestAnimationFrame(animateRing);
+        }
+        animateRing();
+
+        // Hover effects
+        document.querySelectorAll('[data-hover]').forEach(el => {
+            el.addEventListener('mouseenter', () => cursorRing.classList.add('hovering'));
+            el.addEventListener('mouseleave', () => cursorRing.classList.remove('hovering'));
+        });
+
+        // ===== SCROLL PROGRESS =====
+        const scrollProgress = document.getElementById('scrollProgress');
+        ScrollTrigger.create({
+            trigger: document.body,
+            start: 'top top',
+            end: 'bottom bottom',
+            onUpdate: (self) => {
+                scrollProgress.style.transform = `scaleX(${self.progress})`;
+            }
+        });
+
+        // ===== HERO SECTION ANIMATIONS =====
+
+        // Shield parallax on mouse move
+        const shieldContainer = document.getElementById('shieldContainer');
+        const shieldLayers = document.querySelectorAll('.shield-layer');
+
+        document.addEventListener('mousemove', (e) => {
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            const moveX = (e.clientX - centerX) / centerX;
+            const moveY = (e.clientY - centerY) / centerY;
+
+            shieldLayers.forEach((layer, i) => {
+                const depth = (shieldLayers.length - i) * 8;
+                const rotateX = moveY * depth * 0.5;
+                const rotateY = -moveX * depth * 0.5;
+                const translateZ = i * 10;
+
+                layer.style.transform = `translate(-50%, -50%) translateZ(${translateZ}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+        });
+
+        // Hero text animation
+        gsap.from('.hero-char', {
+            y: 100,
+            rotateX: -90,
+            opacity: 0,
+            stagger: 0.05,
+            duration: 1,
+            ease: 'power4.out',
+            delay: 0.5
+        });
+
+        gsap.from('#heroSubtitle', {
+            y: 30,
+            opacity: 0,
+            duration: 1,
+            delay: 0.3
+        });
+
+        gsap.from('#heroTitle2', {
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            delay: 1.2
+        });
+
+        // Scroll indicator fade
+        gsap.to('#scrollIndicator', {
+            opacity: 0,
+            scrollTrigger: {
+                trigger: '#hero',
+                start: 'top top',
+                end: '10% top',
+                scrub: true
+            }
+        });
+
+        // ===== SHIELD DECONSTRUCTION ON SCROLL =====
+        const heroSection = document.getElementById('hero');
+
+        ScrollTrigger.create({
+            trigger: heroSection,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 1,
+            onUpdate: (self) => {
+                const progress = self.progress;
+
+                // Deconstruct shield with physics-based motion
+                const layers = ['#shieldRing5', '#shieldRing4', '#shieldRing3', '#shieldRing2', '#shieldCenter'];
+
+                layers.forEach((selector, i) => {
+                    const layer = document.querySelector(selector);
+                    if (!layer) return;
+
+                    const angle = (i * 72) + (progress * 360);
+                    const distance = progress * (150 + i * 80);
+                    const scale = 1 - (progress * 0.3);
+                    const rotation = progress * 180 * (i % 2 === 0 ? 1 : -1);
+
+                    // Use sin/cos for circular dispersion with noise
+                    const noise = Math.sin(progress * 10 + i) * 20;
+                    const offsetX = Math.cos(angle * Math.PI / 180) * (distance + noise);
+                    const offsetY = Math.sin(angle * Math.PI / 180) * (distance + noise);
+
+                    layer.style.transform = `translate(calc(-50% + ${offsetX}px), calc(-50% + ${offsetY}px)) scale(${scale}) rotate(${rotation}deg)`;
+                    layer.style.opacity = 1 - (progress * 0.7);
+                });
+
+                // Fade out data streams
+                document.getElementById('dataStreamLeft').style.opacity = 0.3 * (1 - progress);
+                document.getElementById('dataStreamRight').style.opacity = 0.3 * (1 - progress);
+            }
+        });
+
+        // ===== CREATE PARTICLES =====
+        const particleContainer = document.getElementById('particleContainer');
+        const particles = [];
+
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.top = `${Math.random() * 100}%`;
+            particle.style.opacity = Math.random() * 0.5;
+            particleContainer.appendChild(particle);
+            particles.push({
+                el: particle,
+                x: Math.random() * 600 - 300,
+                y: Math.random() * 600 - 300,
+                vx: (Math.random() - 0.5) * 2,
+                vy: (Math.random() - 0.5) * 2
+            });
+        }
+
+        // Animate particles
+        function animateParticles() {
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+
+                // Contain within bounds
+                if (Math.abs(p.x) > 300) p.vx *= -1;
+                if (Math.abs(p.y) > 300) p.vy *= -1;
+
+                p.el.style.transform = `translate(${p.x}px, ${p.y}px)`;
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // ===== ORIGIN SECTION =====
+        gsap.from('#originContent', {
+            opacity: 0,
+            y: 100,
+            scrollTrigger: {
+                trigger: '#origin',
+                start: 'top 60%',
+                end: 'top 20%',
+                scrub: 1
+            }
+        });
+
+        // Hex grid animation
+        gsap.from('.hex-cell', {
+            opacity: 0,
+            scale: 0,
+            stagger: {
+                each: 0.05,
+                from: 'center'
+            },
+            scrollTrigger: {
+                trigger: '#origin',
+                start: 'top 50%',
+                toggleActions: 'play none none reverse'
+            }
+        });
+
+        // Atom pulse
+        gsap.to('.atom', {
+            scale: 1.2,
+            duration: 1,
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut',
+            stagger: 0.1
+        });
+
+        // ===== COUNTER ANIMATION =====
+        function animateCounters(container) {
+            const counters = container.querySelectorAll('.stat-value[data-count]');
+            counters.forEach(counter => {
+                const target = parseInt(counter.dataset.count);
+                gsap.to(counter, {
+                    innerHTML: target,
+                    duration: 2,
+                    ease: 'power2.out',
+                    snap: { innerHTML: 1 },
+                    scrollTrigger: {
+                        trigger: container,
+                        start: 'top 70%',
+                        toggleActions: 'play none none none'
+                    }
+                });
+            });
+        }
+
+        animateCounters(document.getElementById('originContent'));
+        animateCounters(document.getElementById('missionStats'));
+
+        // ===== PROTOCOL SECTION =====
+        gsap.from('#protocolHeader', {
+            opacity: 0,
+            y: 50,
+            scrollTrigger: {
+                trigger: '#protocol',
+                start: 'top 60%',
+                toggleActions: 'play none none reverse'
+            }
+        });
+
+        // DNA Helix Generation
+        const dnaStrand1 = document.getElementById('dnaStrand1');
+        const dnaStrand2 = document.getElementById('dnaStrand2');
+        const basePairs = document.getElementById('basePairs');
+
+        function generateDNA(progress = 0) {
+            let path1 = 'M 0,200';
+            let path2 = 'M 0,200';
+            let pairs = '';
+
+            for (let x = 0; x <= 1200; x += 10) {
+                const phase = (x / 100) + (progress * 2);
+                const y1 = 200 + Math.sin(phase) * 80;
+                const y2 = 200 + Math.sin(phase + Math.PI) * 80;
+
+                path1 += ` L ${x},${y1}`;
+                path2 += ` L ${x},${y2}`;
+
+                if (x % 40 === 0) {
+                    pairs += `<line x1="${x}" y1="${y1}" x2="${x}" y2="${y2}" stroke="rgba(212, 175, 55, 0.3)" stroke-width="1"/>`;
+                    pairs += `<circle cx="${x}" cy="${y1}" r="4" fill="#D4AF37"/>`;
+                    pairs += `<circle cx="${x}" cy="${y2}" r="4" fill="#3C3B6E"/>`;
+                }
+            }
+
+            dnaStrand1.setAttribute('d', path1);
+            dnaStrand2.setAttribute('d', path2);
+            basePairs.innerHTML = pairs;
+        }
+
+        generateDNA(0);
+
+        // Animate DNA on scroll
+        ScrollTrigger.create({
+            trigger: '#protocol',
+            start: 'top bottom',
+            end: 'bottom top',
+            onUpdate: (self) => {
+                generateDNA(self.progress * 5);
+            }
+        });
+
+        // Process steps animation
+        gsap.from('.process-step', {
+            opacity: 0,
+            y: 50,
+            stagger: 0.2,
+            scrollTrigger: {
+                trigger: '#processSteps',
+                start: 'top 70%',
+                toggleActions: 'play none none reverse'
+            }
+        });
+
+        // Enhancement stats bars
+        const statBars = document.querySelectorAll('.stat-bar');
+        statBars.forEach(bar => {
+            const fill = bar.querySelector('.stat-fill');
+            const percent = bar.querySelector('.stat-percent');
+            const target = fill.dataset.target;
+
+            ScrollTrigger.create({
+                trigger: bar,
+                start: 'top 80%',
+                onEnter: () => {
+                    gsap.to(fill, {
+                        width: `${target}%`,
+                        duration: 1.5,
+                        ease: 'power2.out'
+                    });
+                    gsap.to(percent, {
+                        innerHTML: `${target}%`,
+                        duration: 1.5,
+                        ease: 'power2.out',
+                        snap: { innerHTML: 1 }
+                    });
+                }
+            });
+        });
+
+        // ===== LEGACY SECTION =====
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        const legacyCards = document.querySelectorAll('.legacy-card');
+
+        legacyCards.forEach((card, i) => {
+            const year = card.dataset.year;
+
+            ScrollTrigger.create({
+                trigger: card,
+                start: 'top 60%',
+                end: 'bottom 40%',
+                onEnter: () => {
+                    // Highlight corresponding timeline item
+                    timelineItems.forEach(item => {
+                        if (item.dataset.year === year) {
+                            item.style.opacity = '1';
+                        } else {
+                            item.style.opacity = '0.4';
+                        }
+                    });
+                },
+                onLeaveBack: () => {
+                    if (i > 0) {
+                        const prevYear = legacyCards[i - 1].dataset.year;
+                        timelineItems.forEach(item => {
+                            if (item.dataset.year === prevYear) {
+                                item.style.opacity = '1';
+                            } else {
+                                item.style.opacity = '0.4';
+                            }
+                        });
+                    }
+                }
+            });
+
+            gsap.from(card, {
+                opacity: 0,
+                x: i % 2 === 0 ? -50 : 50,
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 70%',
+                    toggleActions: 'play none none reverse'
+                }
+            });
+        });
+
+        // ===== AVENGERS SECTION =====
+        gsap.from('#avengersHeader', {
+            opacity: 0,
+            y: 50,
+            scrollTrigger: {
+                trigger: '#avengers',
+                start: 'top 60%',
+                toggleActions: 'play none none reverse'
+            }
+        });
+
+        gsap.from('.team-card', {
+            opacity: 0,
+            y: 100,
+            stagger: 0.2,
+            scrollTrigger: {
+                trigger: '#teamGrid',
+                start: 'top 70%',
+                toggleActions: 'play none none reverse'
+            }
+        });
+
+        gsap.from('#missionStats', {
+            opacity: 0,
+            y: 50,
+            scrollTrigger: {
+                trigger: '#missionStats',
+                start: 'top 80%',
+                toggleActions: 'play none none reverse'
+            }
+        });
+
+        // ===== FUTURE SECTION =====
+        gsap.from('#futureHeader', {
+            opacity: 0,
+            y: 50,
+            scrollTrigger: {
+                trigger: '#future',
+                start: 'top 60%',
+                toggleActions: 'play none none reverse'
+            }
+        });
+
+        // Falcon wings animation
+        const leftWing = document.getElementById('leftWing');
+        const rightWing = document.getElementById('rightWing');
+
+        ScrollTrigger.create({
+            trigger: '#falconWings',
+            start: 'top 70%',
+            end: 'bottom 30%',
+            onEnter: () => {
+                gsap.from(leftWing, {
+                    rotation: -30,
+                    opacity: 0,
+                    duration: 1,
+                    ease: 'power2.out'
+                });
+                gsap.from(rightWing, {
+                    rotation: 30,
+                    opacity: 0,
+                    duration: 1,
+                    ease: 'power2.out'
+                });
+            }
+        });
+
+        // Wings hover effect
+        const falconSvg = document.getElementById('falconWings');
+        falconSvg.addEventListener('mousemove', (e) => {
+            const rect = falconSvg.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+            leftWing.style.transform = `rotate(${x * -10}deg) translateY(${y * 10}px)`;
+            rightWing.style.transform = `rotate(${x * 10}deg) translateY(${y * 10}px)`;
+        });
+
+        falconSvg.addEventListener('mouseleave', () => {
+            leftWing.style.transform = '';
+            rightWing.style.transform = '';
+        });
+
+        // ===== MAGNETIC BUTTONS =====
+        document.querySelectorAll('.magnetic-btn').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+
+                btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+            });
+
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = '';
+            });
+        });
+
+        // ===== SMOOTH SCROLL FOR NAV LINKS =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    gsap.to(window, {
+                        scrollTo: target,
+                        duration: 1,
+                        ease: 'power2.inOut'
+                    });
+                }
+            });
+        });
+
+        // ===== REFRESH SCROLLTRIGGER ON LOAD =====
+        window.addEventListener('load', () => {
+            ScrollTrigger.refresh();
+        });
+
+        console.log('🛡️ THE SHIELD PROTOCOL INITIALIZED');
+        console.log('📍 Strategic Homeland Intervention, Enforcement and Logistics Division');
+    </script>
+
+    <!-- GSAP ScrollTo Plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+
+</body>
+</html>

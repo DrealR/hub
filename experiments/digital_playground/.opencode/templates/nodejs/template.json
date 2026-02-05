@@ -1,0 +1,13 @@
+{
+  "name": "nodejs",
+  "description": "Node.js project with Guardian Framework integration",
+  "created_at": "2025-11-10T00:00:00Z",
+  "files": [
+    "package.json",
+    "src/index.js",
+    "src/index.test.js",
+    "README.md",
+    ".gitignore",
+    "GUARDIAN.md"
+  ]
+}

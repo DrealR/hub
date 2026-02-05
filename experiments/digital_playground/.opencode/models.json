@@ -1,0 +1,141 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "_comment": "Guardian workflow model catalog",
+  "_plan_models_note": "Plan agents need deep reasoning + planning capabilities.",
+  "_build_models_note": "Build agents require strong coding/tool outputs.",
+  "_guardian_models_note": "Guardian agents focus on adversarial analysis and anomaly orchestration.",
+  "_ops_models_note": "Ops agents manage configuration without leaking secrets.",
+  "_vision_models_note": "Vision agents handle images and multimodal context.",
+  "plan_models": {
+    "openrouter/anthropic/claude-3.7-sonnet-thinking": {
+      "description": "Claude 3.7 Sonnet (thinking) via OpenRouter",
+      "provider": "openrouter",
+      "type": "plan"
+    },
+    "openrouter/moonshotai/kimi-k2-thinking": {
+      "description": "Kimi K2 \u2013 deep planning via OpenRouter",
+      "provider": "openrouter",
+      "type": "plan"
+    },
+    "anthropic/claude-3-7-sonnet-thinking": {
+      "description": "Claude 3.7 Sonnet (thinking) \u2013 balanced strategy + speed",
+      "provider": "anthropic",
+      "type": "plan"
+    },
+    "openrouter/openai/gpt-4.5-preview": {
+      "description": "GPT-4.5 Preview \u2013 OpenAI reasoning preview via OpenRouter",
+      "provider": "openrouter",
+      "type": "plan"
+    }
+  },
+  "build_models": {
+    "groq/llama-3.1-8b-instant": {
+      "description": "Groq LLaMA 3.1 8B Instant \u2013 ultra-fast codegen",
+      "provider": "groq",
+      "type": "build"
+    },
+    "openrouter/polaris-alpha": {
+      "description": "Polaris Alpha \u2013 fast, accurate coding",
+      "provider": "openrouter",
+      "type": "build"
+    },
+    "anthropic/claude-3-5-sonnet": {
+      "description": "Claude 3.5 Sonnet \u2013 balanced build agent",
+      "provider": "anthropic",
+      "type": "build"
+    },
+    "openrouter/openai/gpt-4o": {
+      "description": "GPT-4o \u2013 strong generalist coder via OpenRouter",
+      "provider": "openrouter",
+      "type": "build"
+    },
+    "openrouter/qwen-2.5-coder": {
+      "description": "Qwen 2.5 Coder \u2013 budget specialised codegen via OpenRouter",
+      "provider": "openrouter",
+      "type": "build"
+    }
+  },
+  "guardian_models": {
+    "openrouter/anthropic/claude-4.5-haiku": {
+      "description": "Claude 4.5 Haiku \u2013 efficient defensive analysis via OpenRouter",
+      "provider": "openrouter",
+      "type": "guardian"
+    },
+    "anthropic/claude-3-5-sonnet": {
+      "description": "Claude 3.5 Sonnet \u2013 anomaly orchestration + analysis",
+      "provider": "anthropic",
+      "type": "guardian"
+    },
+    "openrouter/gpt-5-codex": {
+      "description": "GPT-5 Codex \u2013 high fidelity defensive tooling",
+      "provider": "openrouter",
+      "type": "guardian"
+    },
+    "opencode/gpt-5-codex": {
+      "description": "GPT-5 Codex \u2013 defensive analysis via OpenCode Zen",
+      "provider": "opencode",
+      "type": "guardian"
+    }
+  },
+  "ops_models": {
+    "openrouter/openai/gpt-4.5-preview": {
+      "description": "GPT-4.5 Preview \u2013 higher reasoning headroom via OpenRouter",
+      "provider": "openrouter",
+      "type": "ops"
+    },
+    "anthropic/claude-3-5-sonnet": {
+      "description": "Claude 3.5 Sonnet \u2013 reliable configuration steward",
+      "provider": "anthropic",
+      "type": "ops"
+    },
+    "openrouter/gpt-4o-mini": {
+      "description": "GPT-4o Mini \u2013 lightweight operations",
+      "provider": "openrouter",
+      "type": "ops"
+    },
+    "openrouter/moonshotai/kimi-k2-thinking": {
+      "description": "Kimi K2 Thinking \u2013 operations focus via OpenRouter",
+      "provider": "openrouter",
+      "type": "ops"
+    }
+  },
+  "vision_models": {
+    "openrouter/gpt-5-codex": {
+      "description": "GPT-5 Codex (OpenRouter) \u2013 premium multimodal fidelity",
+      "provider": "openrouter",
+      "cost": "premium",
+      "type": "vision"
+    },
+    "anthropic/claude-3-5-sonnet": {
+      "description": "Claude 3.5 Sonnet Vision \u2013 balanced multimodal",
+      "provider": "anthropic",
+      "cost": "moderate",
+      "type": "vision"
+    },
+    "openrouter/openai/gpt-4o": {
+      "description": "GPT-4o \u2013 strong multimodal generalist via OpenRouter",
+      "provider": "openrouter",
+      "cost": "moderate",
+      "type": "vision"
+    },
+    "openrouter/llama-3.2-90b-vision": {
+      "description": "Llama 3.2 90B Vision \u2013 budget friendly UI focus",
+      "provider": "openrouter",
+      "cost": "budget",
+      "type": "vision"
+    },
+    "openrouter/qwen-2.5-vl": {
+      "description": "Qwen 2.5 VL \u2013 efficient multimodal",
+      "provider": "openrouter",
+      "cost": "budget",
+      "type": "vision"
+    }
+  },
+  "current_models": {
+    "plan": "openrouter/moonshotai/kimi-k2-thinking",
+    "build": "openrouter/polaris-alpha",
+    "guardian": "openrouter/gpt-5-codex",
+    "ops": "openrouter/gpt-4o-mini",
+    "vision": "openrouter/gpt-5-codex"
+  }
+}

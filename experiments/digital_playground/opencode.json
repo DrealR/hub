@@ -1,0 +1,72 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "agent": {
+    "plan": {
+      "mode": "primary",
+      "model": "openrouter/moonshotai/kimi-k2-thinking",
+      "description": "Architect-class planning agent aligned with the Build Framework",
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": false
+      },
+      "permission": {
+        "edit": "deny",
+        "bash": "deny"
+      }
+    },
+    "build": {
+      "mode": "primary",
+      "model": "openrouter/polaris-alpha",
+      "description": "Builder agent executing the Architect's loops",
+      "tools": {
+        "write": true,
+        "edit": true,
+        "bash": true
+      },
+      "permission": {
+        "edit": "ask",
+        "bash": "ask"
+      }
+    },
+    "guardian": {
+      "mode": "primary",
+      "model": "openrouter/gpt-5-codex",
+      "description": "Guardian agent orchestrating anomalies and defensive loops",
+      "tools": {
+        "write": true,
+        "edit": true,
+        "bash": true
+      },
+      "permission": {
+        "edit": "ask",
+        "bash": "ask"
+      }
+    },
+    "ops": {
+      "mode": "primary",
+      "model": "openrouter/gpt-4o-mini",
+      "description": "Operations steward for models, credentials, and system hygiene",
+      "tools": {
+        "write": true,
+        "edit": true,
+        "bash": true
+      },
+      "permission": {
+        "edit": "ask",
+        "bash": "ask"
+      }
+    },
+    "vision": {
+      "mode": "subagent",
+      "model": "openrouter/gpt-5-codex",
+      "description": "Vision assistant for analyzing images",
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": false,
+        "webfetch": false
+      }
+    }
+  }
+}

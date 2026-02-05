@@ -1,0 +1,15 @@
+{
+  "name": "fastapi",
+  "description": "FastAPI service with Guardian Framework integration",
+  "created_at": "2025-11-10T00:00:00Z",
+  "files": [
+    "pyproject.toml",
+    "src/{{PROJECT_SLUG}}/main.py",
+    "src/{{PROJECT_SLUG}}/api/routes.py",
+    "tests/test_main.py",
+    "README.md",
+    ".env.example",
+    ".gitignore",
+    "GUARDIAN.md"
+  ]
+}

@@ -1,0 +1,1982 @@
+{
+  "bodies": [
+    {
+      "id": "0x570A5D26f7765Ecb712C0924E4De545B89fD43dF",
+      "symbol": "SOL",
+      "x": 17.41789447994479,
+      "y": 65.21982447776347,
+      "z": -30.1044442108319,
+      "radius": 13.904188120743601,
+      "color": "#14F195",
+      "glow": 0.003,
+      "class": "dwarf",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": -0.0019,
+        "y": 0.017585116912900073,
+        "z": 0
+      }
+    },
+    {
+      "id": "0x311935Cd80B76769bF2ecC9D8Ab7635b2139cf82",
+      "symbol": "SOL",
+      "x": 26.962626635475758,
+      "y": 46.41071849240526,
+      "z": -46.31228624691475,
+      "radius": 11.547049555965707,
+      "color": "#14F195",
+      "glow": 0.0006,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0.0001,
+        "y": 0.19514219826546855,
+        "z": 0
+      }
+    },
+    {
+      "id": "soCLGVqNFx63FcSwc89eTLABLXAg2tAoHJhDthz8ExZ",
+      "symbol": "SOL",
+      "x": 18.13572085478088,
+      "y": 40.16742537436303,
+      "z": -57.017827171945825,
+      "radius": 10.764646374440957,
+      "color": "#14F195",
+      "glow": 0.0038,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0,
+        "y": 0.0024213071524538314,
+        "z": 0
+      }
+    },
+    {
+      "id": "ibc-A8B0B746B5AB736C2D8577259B510D56B8AF598008F68041E3D634BCDE72BE97",
+      "symbol": "SOL",
+      "x": 37.011816253803985,
+      "y": 25.812271565508656,
+      "z": -64.29575808608597,
+      "radius": 8.96567539982961,
+      "color": "#14F195",
+      "glow": 0.0028000000000000004,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": -0.0017000000000000001,
+        "y": 0.2079656778847358,
+        "z": 0
+      }
+    },
+    {
+      "id": "CHbBY8jctZKHtc7cxsrcEV7byq62C7LWuARWvYQwpump",
+      "symbol": "Solana",
+      "x": -77.92888066279914,
+      "y": 3.6746024609152315,
+      "z": -56.61865213607552,
+      "radius": 6.191541034436182,
+      "color": "#14F195",
+      "glow": 0,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0,
+        "y": 0.00037986155299743544,
+        "z": 0
+      }
+    },
+    {
+      "id": "CwpGFjpqywMTF7trcR2xs8mDZdRTt51oqJKoZnTio8b",
+      "symbol": "SOL ",
+      "x": 0.4400900714702379,
+      "y": 98.4600489021593,
+      "z": -1.4757269777076276,
+      "radius": 18.069820321495204,
+      "color": "#14F195",
+      "glow": 0,
+      "class": "giant",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0,
+        "y": 4.122749571031373e-9,
+        "z": 0
+      }
+    },
+    {
+      "id": "0x634608ed64c61CA9e741F8095193c0bFa0FA19Cc",
+      "symbol": "SOL",
+      "x": 35.27885945434524,
+      "y": 30.097886070164847,
+      "z": -60.34656251569106,
+      "radius": 9.502742808118342,
+      "color": "#14F195",
+      "glow": 0.0032,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": -0.0013,
+        "y": 0.1835972362742974,
+        "z": 0
+      }
+    },
+    {
+      "id": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "symbol": "SOL",
+      "x": 0,
+      "y": 100,
+      "z": 0,
+      "radius": 18.262805477185317,
+      "color": "#14F195",
+      "glow": 0.0034000000000000002,
+      "class": "giant",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0.0005,
+        "y": 3.6622245645458953e-7,
+        "z": 0
+      }
+    },
+    {
+      "id": "0x873301F2B4B83FeaFF04121B68eC9231B29Ce0df",
+      "symbol": "SOL",
+      "x": -61.72910327137798,
+      "y": 23.698540086746384,
+      "z": -44.84897539749821,
+      "radius": 8.700785986823556,
+      "color": "#14F195",
+      "glow": 0.1592,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": -0.008,
+        "y": 0.002983904946490267,
+        "z": 0
+      }
+    },
+    {
+      "id": "sol.token.a11bd.near",
+      "symbol": "SOL",
+      "x": 40.1548737616787,
+      "y": 19.99814886787304,
+      "z": -69.19452505618237,
+      "radius": 8.237060513070837,
+      "color": "#14F195",
+      "glow": 0.0246,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0,
+        "y": 0.00001039465417785139,
+        "z": 0
+      }
+    },
+    {
+      "id": "0x3D806324b6Df5AF3c1a81aCbA14A8A62Fe6D643F",
+      "symbol": "SOLANA",
+      "x": -60.02885722315868,
+      "y": 25.800251860401644,
+      "z": -43.61351768043318,
+      "radius": 8.964169108511939,
+      "color": "#14F195",
+      "glow": 0.0906,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0.0681,
+        "y": 0.017837786962050732,
+        "z": 0
+      }
+    },
+    {
+      "id": "0xa4baFe49bB23Ba5879F18394B4958E69567f4444",
+      "symbol": "SOLANA",
+      "x": -76.05281687993603,
+      "y": 5.993543164195432,
+      "z": -55.255614840927294,
+      "radius": 6.482102255456126,
+      "color": "#14F195",
+      "glow": 0.0098,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0.0055000000000000005,
+        "y": 0.015523445203322545,
+        "z": 0
+      }
+    },
+    {
+      "id": "Ee1qArRkxR2kDX43AYEihAFQLA8HbXaX1tavUu52pump",
+      "symbol": "Solana",
+      "x": -77.5511809908524,
+      "y": 4.141464644457855,
+      "z": -56.34423774827179,
+      "radius": 6.250036908171679,
+      "color": "#14F195",
+      "glow": 0.5318,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0.2659,
+        "y": 1.3166414711793266,
+        "z": 0
+      }
+    },
+    {
+      "id": "3mAwDLm1hU2dLnKrRJZUPXSebZJXZ4oMKRtKhxfWpump",
+      "symbol": "Solana",
+      "x": 29.77350501841937,
+      "y": 3.6508985190489134,
+      "z": 91.63344234014548,
+      "radius": 6.188571053632771,
+      "color": "#FF69B4",
+      "glow": 0.001,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": -0.0005,
+        "y": 0.17971445499006752,
+        "z": 0
+      }
+    },
+    {
+      "id": "0xaf7B5f2A70c52DCB7e22E85bfDE3D548222F4bA4",
+      "symbol": "SOL",
+      "x": -64.23780530596581,
+      "y": 20.597649888656473,
+      "z": -46.67159278058985,
+      "radius": 8.312188575731373,
+      "color": "#14F195",
+      "glow": 0.047400000000000005,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0,
+        "y": 0.0005577635914332784,
+        "z": 0
+      }
+    },
+    {
+      "id": "9HNeBryNEWvc3Wj8WyREWMCCjNZckCwbcuyMfgCtdhF",
+      "symbol": "SOL ",
+      "x": 0.43997249245343395,
+      "y": 98.46355130205133,
+      "z": -1.472106927948001,
+      "radius": 18.070259238801988,
+      "color": "#14F195",
+      "glow": 0,
+      "class": "giant",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0,
+        "y": 2.8276650906228073e-9,
+        "z": 0
+      }
+    },
+    {
+      "id": "ET6r42sgiPDKL7zhrx5epr7GcnvTgVraPXdGGkduiFR1",
+      "symbol": "Solana",
+      "x": -77.72168669885882,
+      "y": 3.930708130496461,
+      "z": -56.46811717236808,
+      "radius": 6.223629892543892,
+      "color": "#14F195",
+      "glow": 0.3124,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0,
+        "y": 21.969669244802382,
+        "z": 0
+      }
+    },
+    {
+      "id": "HecaagfSi4EANdnC4trjHypjHWPrr7WLQ2MWh7P8k1hP",
+      "symbol": "SOLANA",
+      "x": -67.35969543288293,
+      "y": 16.738807381900454,
+      "z": -48.93973464760025,
+      "radius": 7.828609315386425,
+      "color": "#14F195",
+      "glow": 1,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 1.98,
+        "y": 0.2511772546784413,
+        "z": 0
+      }
+    },
+    {
+      "id": "2TLKpStGh4fgaSc2Wopn9XHAvzxpqjggFEBE38mb1Lhp",
+      "symbol": "Solana",
+      "x": -55.15835404908815,
+      "y": 31.82018911492317,
+      "z": -40.075461206582276,
+      "radius": 9.718579759326996,
+      "color": "#14F195",
+      "glow": 1,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 6.8,
+        "y": 0.027459949068499367,
+        "z": 0
+      }
+    },
+    {
+      "id": "7zTorYgPCXp1dmfsAuziaQe1Witb6Ygf3Z3RDywhbJyE",
+      "symbol": "Solana",
+      "x": -56.16723239348141,
+      "y": 30.573207141024046,
+      "z": -40.80835174250249,
+      "radius": 9.562309463163546,
+      "color": "#14F195",
+      "glow": 1,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 5.93,
+        "y": 0.03014332079419636,
+        "z": 0
+      }
+    },
+    {
+      "id": "3MdpgtpguUJcpg3uWSLEZLWWpSMzuZLjm6PPUsp4pump",
+      "symbol": "SOLANA",
+      "x": -77.1825932955099,
+      "y": 4.597063789948631,
+      "z": -56.07644362545684,
+      "radius": 6.307122382022779,
+      "color": "#14F195",
+      "glow": 0.5776,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0.2888,
+        "y": 0.17143970099503958,
+        "z": 0
+      }
+    },
+    {
+      "id": "EfHH6zx9n7fDpS3m1ctnoG8e52K53KcHUWhUqAdeTRND",
+      "symbol": "ソラナ",
+      "x": -75.44639583816982,
+      "y": 6.743120109988087,
+      "z": -54.81502532928631,
+      "radius": 6.576027132044553,
+      "color": "#14F195",
+      "glow": 1,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0.0103,
+        "y": 29.35942076626615,
+        "z": 0
+      }
+    },
+    {
+      "id": "BwLZEBuY4Q7Bc52uZgvCPxdXcc9JzN1h2eqinaSB2MN9",
+      "symbol": "ソラナ",
+      "x": -64.41431800473838,
+      "y": 20.37947012843468,
+      "z": -46.79983347206764,
+      "radius": 8.28484678986164,
+      "color": "#14F195",
+      "glow": 1,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 1.9,
+        "y": 0.05326114467561244,
+        "z": 0
+      }
+    },
+    {
+      "id": "CBgABaYrZZL17YfSXaZqKayyu2HWbMYhHZK9adsspump",
+      "symbol": "ソラナ",
+      "x": -75.7982712150109,
+      "y": 6.308178631703831,
+      "z": -55.070677062520026,
+      "radius": 6.521527110423583,
+      "color": "#14F195",
+      "glow": 1,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0.8679000000000001,
+        "y": 1.1177929301509277,
+        "z": 0
+      }
+    },
+    {
+      "id": "Hs45yJ5jhgMh8bUQxnNdBgxoogYjjnzxbJPeG6WAJHwv",
+      "symbol": "ヒナタ",
+      "x": -76.99133111593872,
+      "y": 4.8334766802514935,
+      "z": -55.93748379900657,
+      "radius": 6.3367446422777896,
+      "color": "#14F195",
+      "glow": 0.7114,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0.3557,
+        "y": 1.4932853505154313,
+        "z": 0
+      }
+    },
+    {
+      "id": "HFeGg9buhgdDZSNhAk3Qare4nGwa3uVrjw99ycW4pump",
+      "symbol": "Solana",
+      "x": -75.58784010106143,
+      "y": 6.568285553351845,
+      "z": -54.91779031694893,
+      "radius": 6.554119558764908,
+      "color": "#14F195",
+      "glow": 1,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0.8332999999999999,
+        "y": 0.6180762616018769,
+        "z": 0
+      }
+    },
+    {
+      "id": "9yAbPCNipRUTJwTeE9xYHarEanP7f9JaoN5a4QoxMdtw",
+      "symbol": "SOL",
+      "x": -62.31746734093394,
+      "y": 22.97129224867871,
+      "z": -45.27642965219425,
+      "radius": 8.609648588237324,
+      "color": "#14F195",
+      "glow": 1,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 3.42,
+        "y": 0.04827459088158222,
+        "z": 0
+      }
+    },
+    {
+      "id": "2Jw2bGPUdaisrywEzDtWN6FDHmdVuqYZbdQCRVpCpump",
+      "symbol": "SOL",
+      "x": -77.87879222611467,
+      "y": 3.7365151374099645,
+      "z": -56.58226081813771,
+      "radius": 6.19929838230151,
+      "color": "#14F195",
+      "glow": 0.4756,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0.2378,
+        "y": 0.5696271835695986,
+        "z": 0
+      }
+    },
+    {
+      "id": "HVgxYuu2X4aG4yJLauWESaka6z6CdEJwJmvK4Xvbpump",
+      "symbol": "Solana",
+      "x": -77.626741365047,
+      "y": 4.048066944474939,
+      "z": -56.39913547330371,
+      "radius": 6.238334498546135,
+      "color": "#14F195",
+      "glow": 0.598,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0.299,
+        "y": 0.4240679185396863,
+        "z": 0
+      }
+    },
+    {
+      "id": "9VdZkCEgfu9UXN2WDToSRwW8cjHgNgbtj8MUrLFwpump",
+      "symbol": "Solana",
+      "x": -80.9016978240242,
+      "y": 0,
+      "z": -58.77852744999893,
+      "radius": 5.731167554834561,
+      "color": "#14F195",
+      "glow": 1,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0,
+        "y": 38.22427322404372,
+        "z": 0
+      }
+    },
+    {
+      "id": "2T64jDK2gowBgFQrFriofkYJDu21ffVnEqRVYAS9UWCp",
+      "symbol": "Solana",
+      "x": -67.2665569873418,
+      "y": 16.85393226946193,
+      "z": -48.87206656281196,
+      "radius": 7.843036366089998,
+      "color": "#14F195",
+      "glow": 1,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 1.99,
+        "y": 0.2506610019667639,
+        "z": 0
+      }
+    },
+    {
+      "id": "E8h627Bc3TBySWMwoytqo3owyp5KHgG8AeauLESyn1uH",
+      "symbol": "Solana",
+      "x": -29.70818156469611,
+      "y": 3.862320819101227,
+      "z": 91.43236465501955,
+      "radius": 6.215061251964068,
+      "color": "#9370DB",
+      "glow": 0,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0,
+        "y": 0.13138786953421608,
+        "z": 0
+      }
+    },
+    {
+      "id": "5FZy2KAArbG2AY6XNBqNfKc8t3RqLSNS11mv9GwMpump",
+      "symbol": "solana",
+      "x": -77.72546351475779,
+      "y": 3.9260397326130376,
+      "z": -56.47086118411426,
+      "radius": 6.223044961456589,
+      "color": "#14F195",
+      "glow": 0.1996,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0.001,
+        "y": 0.8792065499321561,
+        "z": 0
+      }
+    },
+    {
+      "id": "F3ekbVwUpThGtYp3E4Msq8CHxP2rbzXhGybAchwvpump",
+      "symbol": "solana",
+      "x": -68.42048464696254,
+      "y": 15.427605547460413,
+      "z": -49.71043335267469,
+      "radius": 7.664294496861351,
+      "color": "#14F195",
+      "glow": 1,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 2.76,
+        "y": 0.21003184015105048,
+        "z": 0
+      }
+    },
+    {
+      "id": "7GDmjwnRgveCDoLZ9AuQbHpSF3P9N6CaTShqLZ29vSPr",
+      "symbol": "Solana",
+      "x": -67.75515663568443,
+      "y": 16.249992734205872,
+      "z": -49.22705014821057,
+      "radius": 7.767352828728198,
+      "color": "#14F195",
+      "glow": 1,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 1.97,
+        "y": 0.25677835124216497,
+        "z": 0
+      }
+    },
+    {
+      "id": "J8VLndFzDBAHHFAgdg7PzvXuBC7BeSHSWujr8WZDatGk",
+      "symbol": "Solana",
+      "x": -67.77650245248317,
+      "y": 16.22360797265826,
+      "z": -49.242558589368514,
+      "radius": 7.764046388818925,
+      "color": "#14F195",
+      "glow": 1,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 1.96,
+        "y": 0.2519859955448355,
+        "z": 0
+      }
+    },
+    {
+      "id": "FX3oY8K2NNFDbMLPdXj7RGKW5pCCfvswpwezjgNrmkam",
+      "symbol": "Solana",
+      "x": -78.19734569261412,
+      "y": 3.3427616256333734,
+      "z": -56.813703072312904,
+      "radius": 6.149963319538493,
+      "color": "#14F195",
+      "glow": 0.409,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0.2045,
+        "y": 0.4531036201072594,
+        "z": 0
+      }
+    },
+    {
+      "id": "fESbUKjuMY6jzDH9VP8cy4p3pu2q5W2rK2XghVfNseP",
+      "symbol": "SOLANA",
+      "x": 26.43169506144479,
+      "y": 14.465146146639151,
+      "z": 81.348489352259,
+      "radius": 7.543683339736108,
+      "color": "#FF69B4",
+      "glow": 0.0286,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0,
+        "y": 0.003637202655631308,
+        "z": 0
+      }
+    },
+    {
+      "id": "9zL9ynYsrevL5HZ6fF6fu9B2HveaUJdv7sEXm8nsw1en",
+      "symbol": "Solana",
+      "x": -77.6105025914343,
+      "y": 4.068139160095469,
+      "z": -56.38733733482879,
+      "radius": 6.240849475056618,
+      "color": "#14F195",
+      "glow": 0.201,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": -0.1005,
+        "y": 0.44170597845371834,
+        "z": 0
+      }
+    },
+    {
+      "id": "G6ptkDAk87uavFGrjmrwkSLyGTgibi6yqX5zVGYspump",
+      "symbol": "SOLANA",
+      "x": -77.78245022546585,
+      "y": 3.855600326996478,
+      "z": -56.51226438044373,
+      "radius": 6.214219203774657,
+      "color": "#14F195",
+      "glow": 0.747,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0.3735,
+        "y": 12.841396025930681,
+        "z": 0
+      }
+    },
+    {
+      "id": "81Y2VEBXVkxFNtEGYdmF4nk6quE976BqKr8xK9H7jazi",
+      "symbol": "SOLANA",
+      "x": -76.76041849586606,
+      "y": 5.118900167385264,
+      "z": -55.769716314377185,
+      "radius": 6.372508127497163,
+      "color": "#14F195",
+      "glow": 1,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0.6241,
+        "y": 0.23995903577912356,
+        "z": 0
+      }
+    },
+    {
+      "id": "376fLUJG5Jmh4t5ineivrFDZveMyBe3w8YXFkRrwpump",
+      "symbol": "SOLANA",
+      "x": -78.0613059217151,
+      "y": 3.510915934439559,
+      "z": -56.7148645560156,
+      "radius": 6.171032011250592,
+      "color": "#14F195",
+      "glow": 0.5874,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0.2937,
+        "y": 2.2930201004127992,
+        "z": 0
+      }
+    },
+    {
+      "id": "5mZ4SyHaiQeb8TyXZGehmmRBttP9Q5grjbBQf6bXrbgM",
+      "symbol": "SOL",
+      "x": -77.81545195155742,
+      "y": 3.8148079751419663,
+      "z": -56.53624149546618,
+      "radius": 6.209108104909139,
+      "color": "#14F195",
+      "glow": 0.0416,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0.0208,
+        "y": 1.4194386782421478,
+        "z": 0
+      }
+    },
+    {
+      "id": "8cPGDSbKkv4QT1s4YPmK7mkHFGSi5R9ZrbkYKSrPU3fJ",
+      "symbol": "SOL",
+      "x": -76.93070658264145,
+      "y": 4.908412670618682,
+      "z": -55.893437589012905,
+      "radius": 6.346134075032096,
+      "color": "#14F195",
+      "glow": 0,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0,
+        "y": 0.18816567125826372,
+        "z": 0
+      }
+    },
+    {
+      "id": "0xF600d035B269c7e23a5BAa1a99d02876bf4a4444",
+      "symbol": "SOL",
+      "x": -78.98836713562942,
+      "y": 2.365005856158404,
+      "z": -57.3884129307912,
+      "radius": 6.027459189814276,
+      "color": "#14F195",
+      "glow": 0,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0,
+        "y": 0.0006966618287373004,
+        "z": 0
+      }
+    },
+    {
+      "id": "7ae6w4Tjm4ryg9P7NrqfhDXnTjRU5QkdTWSbf5Vopump",
+      "symbol": "S",
+      "x": -79.08882887957517,
+      "y": 2.2408283702766427,
+      "z": -57.46140256021416,
+      "radius": 6.011901193692237,
+      "color": "#14F195",
+      "glow": 0.244,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": -0.122,
+        "y": 8.151828811661687,
+        "z": 0
+      }
+    },
+    {
+      "id": "BYb2WLYQ6M9DfUReS6sDZBikhLQZrDaby7GMrxWzpump",
+      "symbol": "Solana",
+      "x": -76.53085229209387,
+      "y": 5.402659384070549,
+      "z": -55.60292707269904,
+      "radius": 6.408063343189242,
+      "color": "#14F195",
+      "glow": 1,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0.6042000000000001,
+        "y": 0.424551917779039,
+        "z": 0
+      }
+    },
+    {
+      "id": "2dKfopkDvk6NVHWFjfpjg4ATrB18hgF1Zo9QpgCopump",
+      "symbol": "Solana",
+      "x": -76.39229917533389,
+      "y": 5.573920318827197,
+      "z": -55.50226257245263,
+      "radius": 6.429522572106215,
+      "color": "#14F195",
+      "glow": 1,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0.652,
+        "y": 0.4892662643713257,
+        "z": 0
+      }
+    },
+    {
+      "id": "G4AGNmW9Lgxk9X14UsLiqZqAwZxYgdsuiZrHMCB9xTnK",
+      "symbol": "Solana",
+      "x": -76.3216164276327,
+      "y": 5.6612889290006745,
+      "z": -55.45090867074044,
+      "radius": 6.440470012408093,
+      "color": "#14F195",
+      "glow": 0.0064,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0.0032,
+        "y": 0.21187154312836115,
+        "z": 0
+      }
+    },
+    {
+      "id": "9Y8Gno1njZWyjshbYvzcSrq48wCNpQt8MsHRT6QvTray",
+      "symbol": "SOL",
+      "x": -76.20825228252212,
+      "y": 5.80141460350937,
+      "z": -55.36854499391689,
+      "radius": 6.458028052649919,
+      "color": "#14F195",
+      "glow": 0.4414,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0.2207,
+        "y": 0.6621662010092357,
+        "z": 0
+      }
+    },
+    {
+      "id": "36Vhz423wjL1rZNXsJMQ7Wu2em6RRkR2NH7Pb5wapump",
+      "symbol": "Solana",
+      "x": -77.92159711285251,
+      "y": 3.683605418507762,
+      "z": -56.61336033623161,
+      "radius": 6.192669058879627,
+      "color": "#14F195",
+      "glow": 0.1852,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0.0926,
+        "y": 1.1703557243766594,
+        "z": 0
+      }
+    },
+    {
+      "id": "AcWtbMBeQik4oFMbDyw6zgPAGq6DZvsDJx5ZhJC6pump",
+      "symbol": "solana ",
+      "x": -72.46526335559484,
+      "y": 10.427997623562684,
+      "z": -52.6491141096294,
+      "radius": 7.037773661049807,
+      "color": "#14F195",
+      "glow": 1,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 1.9,
+        "y": 3.0051009193872664,
+        "z": 0
+      }
+    },
+    {
+      "id": "GsJamceimK8B53JtnEQ7QY3Z9RTc8zXDAmG7Mskzpump",
+      "symbol": "Solana",
+      "x": -74.67828954831182,
+      "y": 7.692550706790634,
+      "z": -54.25696513035832,
+      "radius": 6.694996404376829,
+      "color": "#14F195",
+      "glow": 1,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 1.21,
+        "y": 0.7121814938234206,
+        "z": 0
+      }
+    },
+    {
+      "id": "5vPDz7iCf3cLcqh2UiMPTcpLXaGcd2NaW439bJGrpump",
+      "symbol": "Solana",
+      "x": -79.31999202805441,
+      "y": 1.9550951360822366,
+      "z": -57.62935219524915,
+      "radius": 5.976102456336302,
+      "color": "#14F195",
+      "glow": 0.0292,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": -0.0146,
+        "y": 0.12480588348334623,
+        "z": 0
+      }
+    },
+    {
+      "id": "8AUeYqF4Rrv2pTzM2ijCxxDhmcqGinGJcPEjx4ixpump",
+      "symbol": "solana",
+      "x": -79.18479734481421,
+      "y": 2.1222048790810506,
+      "z": -57.53112763707391,
+      "radius": 5.997039125735771,
+      "color": "#14F195",
+      "glow": 0.0898,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": -0.0449,
+        "y": 13.993453284962484,
+        "z": 0
+      }
+    },
+    {
+      "id": "2kveEMXEUmd9Rmu6f3X6RA7mR8i4Mr5cGSFXy2dmpump",
+      "symbol": "solana",
+      "x": -71.8647937619166,
+      "y": 11.170217471837566,
+      "z": -52.21284977434028,
+      "radius": 7.130782694465262,
+      "color": "#14F195",
+      "glow": 1,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 3.63,
+        "y": 0.9306367971483015,
+        "z": 0
+      }
+    },
+    {
+      "id": "4d6Hjnp9BSNhKDPvTzVuwreMGG8Jnz1abBkx2jZNczFB",
+      "symbol": "solana",
+      "x": -66.45050212729272,
+      "y": 17.86262613943343,
+      "z": -48.279177206546805,
+      "radius": 7.969442605529381,
+      "color": "#14F195",
+      "glow": 1,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 2.15,
+        "y": 0.25192782718917894,
+        "z": 0
+      }
+    },
+    {
+      "id": "Hr9QK3rc3CFLN1JUQgPD786JgnJdYMT3rgK231KBpump",
+      "symbol": "Solana",
+      "x": -75.7173937895085,
+      "y": 6.4081485368549425,
+      "z": -55.01191632750041,
+      "radius": 6.5340537227192215,
+      "color": "#14F195",
+      "glow": 1,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0.7669,
+        "y": 0.9464799661738491,
+        "z": 0
+      }
+    },
+    {
+      "id": "yYj2Ldmg2E8bMHk5BhVZtiTEaBnHgRZsv9YvbXZpump",
+      "symbol": "solana",
+      "x": -68.40761085686655,
+      "y": 15.44351836415618,
+      "z": -49.70108010383986,
+      "radius": 7.666288625198723,
+      "color": "#14F195",
+      "glow": 1,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 2.76,
+        "y": 0.21001067382309602,
+        "z": 0
+      }
+    },
+    {
+      "id": "EXekm9hNF4nosdEnqBydW6RABAE8kNdHjaKgKycWVQKK",
+      "symbol": "Solana",
+      "x": -75.94793458597375,
+      "y": 6.123184696425089,
+      "z": -55.179413585740164,
+      "radius": 6.498346731486277,
+      "color": "#14F195",
+      "glow": 1,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0.6868000000000001,
+        "y": 0.4712398538141582,
+        "z": 0
+      }
+    },
+    {
+      "id": "CnAJdd4W2VqBNRA6Z8ECjXLMxpBPGzWbxyhg1Adqpump",
+      "symbol": "Solana",
+      "x": -79.24528513530463,
+      "y": 2.0474378923684133,
+      "z": -57.575074531203974,
+      "radius": 5.9876717791333745,
+      "color": "#14F195",
+      "glow": 0.07519999999999999,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": -0.037599999999999995,
+        "y": 7.576588871510207,
+        "z": 0
+      }
+    },
+    {
+      "id": "BDREoP98hA5ANCnhDrs3VWRviXakqMDsA3uopMw2pump",
+      "symbol": "ヒナタ",
+      "x": -78.04454953218777,
+      "y": 3.5316279590954798,
+      "z": -56.702690346581065,
+      "radius": 6.173627107935377,
+      "color": "#14F195",
+      "glow": 0.46619999999999995,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0.23309999999999997,
+        "y": 14.250163066036803,
+        "z": 0
+      }
+    },
+    {
+      "id": "9LUBi1KsUpmcGtBy1waEZgWyGUet8drSDajYVSTcFeZM",
+      "symbol": "Solana",
+      "x": -77.42482294379812,
+      "y": 4.297651679421726,
+      "z": -56.252433424651095,
+      "radius": 6.269606679790538,
+      "color": "#14F195",
+      "glow": 0.4054,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0.2027,
+        "y": 0.4499672830380729,
+        "z": 0
+      }
+    },
+    {
+      "id": "77raTJMikmDVmnbpVufKajZCF7u6jSeUT5g8wXZFpump",
+      "symbol": "Solana",
+      "x": -76.9076585717208,
+      "y": 4.936901558780901,
+      "z": -55.876692263058416,
+      "radius": 6.349703719901738,
+      "color": "#14F195",
+      "glow": 0.0274,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": -0.07429999999999999,
+        "y": 1.3737032961924098,
+        "z": 0
+      }
+    },
+    {
+      "id": "ExzQPbDgjW3PJH5EXubMAthhSz6fMNZhTmxDr7cfBrb",
+      "symbol": "Solana",
+      "x": 29.50978421510943,
+      "y": 4.504314682433215,
+      "z": 90.82179556609424,
+      "radius": 6.295501080672449,
+      "color": "#FF69B4",
+      "glow": 0.47100000000000003,
+      "class": "comet",
+      "parent": "fESbUKjuMY6jzDH9VP8cy4p3pu2q5W2rK2XghVfNseP",
+      "velocity": {
+        "x": 0.23550000000000001,
+        "y": 1.2552670169660245,
+        "z": 0
+      }
+    },
+    {
+      "id": "6rRvZzStrJdnWQxU3cJLZ5UCyyeSZnHBKhrf2UnB6EkV",
+      "symbol": "Solana",
+      "x": 29.683427563136107,
+      "y": 3.942394541612143,
+      "z": 91.35621322331261,
+      "radius": 6.225094152256841,
+      "color": "#FF69B4",
+      "glow": 0,
+      "class": "comet",
+      "parent": "fESbUKjuMY6jzDH9VP8cy4p3pu2q5W2rK2XghVfNseP",
+      "velocity": {
+        "x": 0,
+        "y": 0.2344036773246984,
+        "z": 0
+      }
+    },
+    {
+      "id": "H3M126SGJptM85Gpwjx4ta7uBc3Hq2x5Qw842UMNpump",
+      "symbol": " ヒナタ",
+      "x": -77.21523262936067,
+      "y": 4.556719382603201,
+      "z": -56.1001574418902,
+      "radius": 6.302067294374481,
+      "color": "#14F195",
+      "glow": 0.5434,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0.2717,
+        "y": 1.4223488578791526,
+        "z": 0
+      }
+    },
+    {
+      "id": "ALqcrDveHFdzLK5YEKdpBz4dfGDQ3tgpc73fgMEHsU2Y",
+      "symbol": "solana",
+      "x": -77.64197744870904,
+      "y": 4.029234121151675,
+      "z": -56.41020511597945,
+      "radius": 6.23597481487424,
+      "color": "#14F195",
+      "glow": 0,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0,
+        "y": 0.13022395502765435,
+        "z": 0
+      }
+    },
+    {
+      "id": "BVpuAAihjtMi5PMEyRdHqbKzy7yyBynPiEbjVaK8pump",
+      "symbol": "SOLANA",
+      "x": -77.73586984813518,
+      "y": 3.9131768050332534,
+      "z": -56.47842181448226,
+      "radius": 6.221433289895073,
+      "color": "#14F195",
+      "glow": 0.40020000000000006,
+      "class": "comet",
+      "parent": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "velocity": {
+        "x": 0.20010000000000003,
+        "y": 0.6269316163410302,
+        "z": 0
+      }
+    }
+  ],
+  "connections": [
+    {
+      "from": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "to": "9HNeBryNEWvc3Wj8WyREWMCCjNZckCwbcuyMfgCtdhF",
+      "strength": 100,
+      "type": "attraction"
+    },
+    {
+      "from": "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL",
+      "to": "CwpGFjpqywMTF7trcR2xs8mDZdRTt51oqJKoZnTio8b",
+      "strength": 100,
+      "type": "attraction"
+    },
+    {
+      "from": "9HNeBryNEWvc3Wj8WyREWMCCjNZckCwbcuyMfgCtdhF",
+      "to": "CwpGFjpqywMTF7trcR2xs8mDZdRTt51oqJKoZnTio8b",
+      "strength": 100,
+      "type": "attraction"
+    },
+    {
+      "from": "0x311935Cd80B76769bF2ecC9D8Ab7635b2139cf82",
+      "to": "soCLGVqNFx63FcSwc89eTLABLXAg2tAoHJhDthz8ExZ",
+      "strength": 100,
+      "type": "attraction"
+    },
+    {
+      "from": "2TLKpStGh4fgaSc2Wopn9XHAvzxpqjggFEBE38mb1Lhp",
+      "to": "7zTorYgPCXp1dmfsAuziaQe1Witb6Ygf3Z3RDywhbJyE",
+      "strength": 100,
+      "type": "attraction"
+    },
+    {
+      "from": "2TLKpStGh4fgaSc2Wopn9XHAvzxpqjggFEBE38mb1Lhp",
+      "to": "0x634608ed64c61CA9e741F8095193c0bFa0FA19Cc",
+      "strength": 100,
+      "type": "attraction"
+    },
+    {
+      "from": "7zTorYgPCXp1dmfsAuziaQe1Witb6Ygf3Z3RDywhbJyE",
+      "to": "0x634608ed64c61CA9e741F8095193c0bFa0FA19Cc",
+      "strength": 100,
+      "type": "attraction"
+    },
+    {
+      "from": "ibc-A8B0B746B5AB736C2D8577259B510D56B8AF598008F68041E3D634BCDE72BE97",
+      "to": "0x3D806324b6Df5AF3c1a81aCbA14A8A62Fe6D643F",
+      "strength": 100,
+      "type": "attraction"
+    },
+    {
+      "from": "0x873301F2B4B83FeaFF04121B68eC9231B29Ce0df",
+      "to": "9yAbPCNipRUTJwTeE9xYHarEanP7f9JaoN5a4QoxMdtw",
+      "strength": 100,
+      "type": "attraction"
+    },
+    {
+      "from": "0x3D806324b6Df5AF3c1a81aCbA14A8A62Fe6D643F",
+      "to": "0x873301F2B4B83FeaFF04121B68eC9231B29Ce0df",
+      "strength": 97.38284216309559,
+      "type": "attraction"
+    },
+    {
+      "from": "ibc-A8B0B746B5AB736C2D8577259B510D56B8AF598008F68041E3D634BCDE72BE97",
+      "to": "0x873301F2B4B83FeaFF04121B68eC9231B29Ce0df",
+      "strength": 97.32434044552679,
+      "type": "attraction"
+    },
+    {
+      "from": "0xaf7B5f2A70c52DCB7e22E85bfDE3D548222F4bA4",
+      "to": "BwLZEBuY4Q7Bc52uZgvCPxdXcc9JzN1h2eqinaSB2MN9",
+      "strength": 96.51676502516129,
+      "type": "attraction"
+    },
+    {
+      "from": "BwLZEBuY4Q7Bc52uZgvCPxdXcc9JzN1h2eqinaSB2MN9",
+      "to": "sol.token.a11bd.near",
+      "strength": 94.73165975910024,
+      "type": "attraction"
+    },
+    {
+      "from": "0xaf7B5f2A70c52DCB7e22E85bfDE3D548222F4bA4",
+      "to": "sol.token.a11bd.near",
+      "strength": 93.8207768012082,
+      "type": "attraction"
+    },
+    {
+      "from": "0x634608ed64c61CA9e741F8095193c0bFa0FA19Cc",
+      "to": "ibc-A8B0B746B5AB736C2D8577259B510D56B8AF598008F68041E3D634BCDE72BE97",
+      "strength": 92.03346864389425,
+      "type": "attraction"
+    },
+    {
+      "from": "0x634608ed64c61CA9e741F8095193c0bFa0FA19Cc",
+      "to": "0x3D806324b6Df5AF3c1a81aCbA14A8A62Fe6D643F",
+      "strength": 91.94247618330097,
+      "type": "attraction"
+    },
+    {
+      "from": "0x3D806324b6Df5AF3c1a81aCbA14A8A62Fe6D643F",
+      "to": "9yAbPCNipRUTJwTeE9xYHarEanP7f9JaoN5a4QoxMdtw",
+      "strength": 91.92523952287067,
+      "type": "attraction"
+    },
+    {
+      "from": "ibc-A8B0B746B5AB736C2D8577259B510D56B8AF598008F68041E3D634BCDE72BE97",
+      "to": "9yAbPCNipRUTJwTeE9xYHarEanP7f9JaoN5a4QoxMdtw",
+      "strength": 91.86814722360802,
+      "type": "attraction"
+    },
+    {
+      "from": "7zTorYgPCXp1dmfsAuziaQe1Witb6Ygf3Z3RDywhbJyE",
+      "to": "ibc-A8B0B746B5AB736C2D8577259B510D56B8AF598008F68041E3D634BCDE72BE97",
+      "strength": 89.63747601299086,
+      "type": "attraction"
+    },
+    {
+      "from": "7zTorYgPCXp1dmfsAuziaQe1Witb6Ygf3Z3RDywhbJyE",
+      "to": "0x3D806324b6Df5AF3c1a81aCbA14A8A62Fe6D643F",
+      "strength": 89.54815211470624,
+      "type": "attraction"
+    },
+    {
+      "from": "9yAbPCNipRUTJwTeE9xYHarEanP7f9JaoN5a4QoxMdtw",
+      "to": "0xaf7B5f2A70c52DCB7e22E85bfDE3D548222F4bA4",
+      "strength": 87.8054937220711,
+      "type": "attraction"
+    },
+    {
+      "from": "2T64jDK2gowBgFQrFriofkYJDu21ffVnEqRVYAS9UWCp",
+      "to": "HecaagfSi4EANdnC4trjHypjHWPrr7WLQ2MWh7P8k1hP",
+      "strength": 86.57294761433872,
+      "type": "attraction"
+    },
+    {
+      "from": "9yAbPCNipRUTJwTeE9xYHarEanP7f9JaoN5a4QoxMdtw",
+      "to": "BwLZEBuY4Q7Bc52uZgvCPxdXcc9JzN1h2eqinaSB2MN9",
+      "strength": 86.28663603258747,
+      "type": "attraction"
+    },
+    {
+      "from": "soCLGVqNFx63FcSwc89eTLABLXAg2tAoHJhDthz8ExZ",
+      "to": "2TLKpStGh4fgaSc2Wopn9XHAvzxpqjggFEBE38mb1Lhp",
+      "strength": 85.00800660569982,
+      "type": "attraction"
+    },
+    {
+      "from": "0x873301F2B4B83FeaFF04121B68eC9231B29Ce0df",
+      "to": "0xaf7B5f2A70c52DCB7e22E85bfDE3D548222F4bA4",
+      "strength": 84.61072198283472,
+      "type": "attraction"
+    },
+    {
+      "from": "HecaagfSi4EANdnC4trjHypjHWPrr7WLQ2MWh7P8k1hP",
+      "to": "7GDmjwnRgveCDoLZ9AuQbHpSF3P9N6CaTShqLZ29vSPr",
+      "strength": 83.87470941389334,
+      "type": "attraction"
+    },
+    {
+      "from": "9yAbPCNipRUTJwTeE9xYHarEanP7f9JaoN5a4QoxMdtw",
+      "to": "sol.token.a11bd.near",
+      "strength": 83.67119050179339,
+      "type": "attraction"
+    },
+    {
+      "from": "4d6Hjnp9BSNhKDPvTzVuwreMGG8Jnz1abBkx2jZNczFB",
+      "to": "2T64jDK2gowBgFQrFriofkYJDu21ffVnEqRVYAS9UWCp",
+      "strength": 83.55972906854005,
+      "type": "attraction"
+    },
+    {
+      "from": "2TLKpStGh4fgaSc2Wopn9XHAvzxpqjggFEBE38mb1Lhp",
+      "to": "ibc-A8B0B746B5AB736C2D8577259B510D56B8AF598008F68041E3D634BCDE72BE97",
+      "strength": 83.52581507751833,
+      "type": "attraction"
+    },
+    {
+      "from": "2T64jDK2gowBgFQrFriofkYJDu21ffVnEqRVYAS9UWCp",
+      "to": "7GDmjwnRgveCDoLZ9AuQbHpSF3P9N6CaTShqLZ29vSPr",
+      "strength": 83.455054717243,
+      "type": "attraction"
+    },
+    {
+      "from": "2TLKpStGh4fgaSc2Wopn9XHAvzxpqjggFEBE38mb1Lhp",
+      "to": "0x3D806324b6Df5AF3c1a81aCbA14A8A62Fe6D643F",
+      "strength": 83.44135619662971,
+      "type": "attraction"
+    },
+    {
+      "from": "0x873301F2B4B83FeaFF04121B68eC9231B29Ce0df",
+      "to": "BwLZEBuY4Q7Bc52uZgvCPxdXcc9JzN1h2eqinaSB2MN9",
+      "strength": 83.1186994647202,
+      "type": "attraction"
+    },
+    {
+      "from": "4d6Hjnp9BSNhKDPvTzVuwreMGG8Jnz1abBkx2jZNczFB",
+      "to": "HecaagfSi4EANdnC4trjHypjHWPrr7WLQ2MWh7P8k1hP",
+      "strength": 82.82098674364127,
+      "type": "attraction"
+    },
+    {
+      "from": "sol.token.a11bd.near",
+      "to": "4d6Hjnp9BSNhKDPvTzVuwreMGG8Jnz1abBkx2jZNczFB",
+      "strength": 81.78499290599744,
+      "type": "attraction"
+    },
+    {
+      "from": "0x873301F2B4B83FeaFF04121B68eC9231B29Ce0df",
+      "to": "sol.token.a11bd.near",
+      "strength": 80.5542374648403,
+      "type": "attraction"
+    },
+    {
+      "from": "BwLZEBuY4Q7Bc52uZgvCPxdXcc9JzN1h2eqinaSB2MN9",
+      "to": "4d6Hjnp9BSNhKDPvTzVuwreMGG8Jnz1abBkx2jZNczFB",
+      "strength": 80.26081662200527,
+      "type": "attraction"
+    },
+    {
+      "from": "4d6Hjnp9BSNhKDPvTzVuwreMGG8Jnz1abBkx2jZNczFB",
+      "to": "7GDmjwnRgveCDoLZ9AuQbHpSF3P9N6CaTShqLZ29vSPr",
+      "strength": 79.71965552804892,
+      "type": "attraction"
+    },
+    {
+      "from": "0xaf7B5f2A70c52DCB7e22E85bfDE3D548222F4bA4",
+      "to": "4d6Hjnp9BSNhKDPvTzVuwreMGG8Jnz1abBkx2jZNczFB",
+      "strength": 79.38824349371116,
+      "type": "attraction"
+    },
+    {
+      "from": "0x634608ed64c61CA9e741F8095193c0bFa0FA19Cc",
+      "to": "0x873301F2B4B83FeaFF04121B68eC9231B29Ce0df",
+      "strength": 77.10619455406942,
+      "type": "attraction"
+    },
+    {
+      "from": "soCLGVqNFx63FcSwc89eTLABLXAg2tAoHJhDthz8ExZ",
+      "to": "7zTorYgPCXp1dmfsAuziaQe1Witb6Ygf3Z3RDywhbJyE",
+      "strength": 76.59340849052944,
+      "type": "attraction"
+    },
+    {
+      "from": "0x3D806324b6Df5AF3c1a81aCbA14A8A62Fe6D643F",
+      "to": "0xaf7B5f2A70c52DCB7e22E85bfDE3D548222F4bA4",
+      "strength": 75.55978934697723,
+      "type": "attraction"
+    },
+    {
+      "from": "ibc-A8B0B746B5AB736C2D8577259B510D56B8AF598008F68041E3D634BCDE72BE97",
+      "to": "0xaf7B5f2A70c52DCB7e22E85bfDE3D548222F4bA4",
+      "strength": 75.5093996704461,
+      "type": "attraction"
+    },
+    {
+      "from": "sol.token.a11bd.near",
+      "to": "2T64jDK2gowBgFQrFriofkYJDu21ffVnEqRVYAS9UWCp",
+      "strength": 75.36339642357697,
+      "type": "attraction"
+    },
+    {
+      "from": "7zTorYgPCXp1dmfsAuziaQe1Witb6Ygf3Z3RDywhbJyE",
+      "to": "0x873301F2B4B83FeaFF04121B68eC9231B29Ce0df",
+      "strength": 75.03092482171648,
+      "type": "attraction"
+    },
+    {
+      "from": "sol.token.a11bd.near",
+      "to": "HecaagfSi4EANdnC4trjHypjHWPrr7WLQ2MWh7P8k1hP",
+      "strength": 74.65168316629271,
+      "type": "attraction"
+    },
+    {
+      "from": "0x3D806324b6Df5AF3c1a81aCbA14A8A62Fe6D643F",
+      "to": "BwLZEBuY4Q7Bc52uZgvCPxdXcc9JzN1h2eqinaSB2MN9",
+      "strength": 74.17648671006135,
+      "type": "attraction"
+    },
+    {
+      "from": "ibc-A8B0B746B5AB736C2D8577259B510D56B8AF598008F68041E3D634BCDE72BE97",
+      "to": "BwLZEBuY4Q7Bc52uZgvCPxdXcc9JzN1h2eqinaSB2MN9",
+      "strength": 74.12682315070079,
+      "type": "attraction"
+    },
+    {
+      "from": "BwLZEBuY4Q7Bc52uZgvCPxdXcc9JzN1h2eqinaSB2MN9",
+      "to": "2T64jDK2gowBgFQrFriofkYJDu21ffVnEqRVYAS9UWCp",
+      "strength": 73.89741585642113,
+      "type": "attraction"
+    },
+    {
+      "from": "soCLGVqNFx63FcSwc89eTLABLXAg2tAoHJhDthz8ExZ",
+      "to": "0x634608ed64c61CA9e741F8095193c0bFa0FA19Cc",
+      "strength": 73.61853455460412,
+      "type": "attraction"
+    },
+    {
+      "from": "BwLZEBuY4Q7Bc52uZgvCPxdXcc9JzN1h2eqinaSB2MN9",
+      "to": "HecaagfSi4EANdnC4trjHypjHWPrr7WLQ2MWh7P8k1hP",
+      "strength": 73.19344003516306,
+      "type": "attraction"
+    }
+  ],
+  "stats": {
+    "totalMass": 229963236248.43997,
+    "entropy": 100,
+    "dominance": {
+      "btc": 39.44798955298899,
+      "eth": 0,
+      "sol": 39.44798955298899,
+      "other": 21.10402089402201
+    }
+  },
+  "wallets": [],
+  "signals": [
+    {
+      "type": "escape",
+      "mint": "HecaagfSi4EANdnC4trjHypjHWPrr7WLQ2MWh7P8k1hP",
+      "symbol": "SOLANA",
+      "confidence": 100,
+      "direction": "bullish",
+      "magnitude": 396,
+      "timeframe": "immediate",
+      "reason": "SOLANA achieving escape velocity from orbit (198.0% > 23.5% needed)",
+      "relatedBodies": [
+        "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL"
+      ],
+      "timestamp": 1768429688057
+    },
+    {
+      "type": "escape",
+      "mint": "2TLKpStGh4fgaSc2Wopn9XHAvzxpqjggFEBE38mb1Lhp",
+      "symbol": "Solana",
+      "confidence": 100,
+      "direction": "bullish",
+      "magnitude": 1360,
+      "timeframe": "immediate",
+      "reason": "Solana achieving escape velocity from orbit (680.0% > 29.2% needed)",
+      "relatedBodies": [
+        "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL"
+      ],
+      "timestamp": 1768429688057
+    },
+    {
+      "type": "escape",
+      "mint": "7zTorYgPCXp1dmfsAuziaQe1Witb6Ygf3Z3RDywhbJyE",
+      "symbol": "Solana",
+      "confidence": 100,
+      "direction": "bullish",
+      "magnitude": 1186,
+      "timeframe": "immediate",
+      "reason": "Solana achieving escape velocity from orbit (593.0% > 28.7% needed)",
+      "relatedBodies": [
+        "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL"
+      ],
+      "timestamp": 1768429688057
+    },
+    {
+      "type": "escape",
+      "mint": "BwLZEBuY4Q7Bc52uZgvCPxdXcc9JzN1h2eqinaSB2MN9",
+      "symbol": "ソラナ",
+      "confidence": 100,
+      "direction": "bullish",
+      "magnitude": 380,
+      "timeframe": "immediate",
+      "reason": "ソラナ achieving escape velocity from orbit (190.0% > 24.9% needed)",
+      "relatedBodies": [
+        "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL"
+      ],
+      "timestamp": 1768429688057
+    },
+    {
+      "type": "escape",
+      "mint": "CBgABaYrZZL17YfSXaZqKayyu2HWbMYhHZK9adsspump",
+      "symbol": "ソラナ",
+      "confidence": 100,
+      "direction": "bullish",
+      "magnitude": 173.58,
+      "timeframe": "immediate",
+      "reason": "ソラナ achieving escape velocity from orbit (86.8% > 19.6% needed)",
+      "relatedBodies": [
+        "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL"
+      ],
+      "timestamp": 1768429688057
+    },
+    {
+      "type": "escape",
+      "mint": "HFeGg9buhgdDZSNhAk3Qare4nGwa3uVrjw99ycW4pump",
+      "symbol": "Solana",
+      "confidence": 100,
+      "direction": "bullish",
+      "magnitude": 166.66,
+      "timeframe": "immediate",
+      "reason": "Solana achieving escape velocity from orbit (83.3% > 19.7% needed)",
+      "relatedBodies": [
+        "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL"
+      ],
+      "timestamp": 1768429688057
+    },
+    {
+      "type": "escape",
+      "mint": "9yAbPCNipRUTJwTeE9xYHarEanP7f9JaoN5a4QoxMdtw",
+      "symbol": "SOL",
+      "confidence": 100,
+      "direction": "bullish",
+      "magnitude": 684,
+      "timeframe": "immediate",
+      "reason": "SOL achieving escape velocity from orbit (342.0% > 25.8% needed)",
+      "relatedBodies": [
+        "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL"
+      ],
+      "timestamp": 1768429688057
+    },
+    {
+      "type": "escape",
+      "mint": "2T64jDK2gowBgFQrFriofkYJDu21ffVnEqRVYAS9UWCp",
+      "symbol": "Solana",
+      "confidence": 100,
+      "direction": "bullish",
+      "magnitude": 398,
+      "timeframe": "immediate",
+      "reason": "Solana achieving escape velocity from orbit (199.0% > 23.5% needed)",
+      "relatedBodies": [
+        "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL"
+      ],
+      "timestamp": 1768429688057
+    },
+    {
+      "type": "escape",
+      "mint": "F3ekbVwUpThGtYp3E4Msq8CHxP2rbzXhGybAchwvpump",
+      "symbol": "solana",
+      "confidence": 100,
+      "direction": "bullish",
+      "magnitude": 552,
+      "timeframe": "immediate",
+      "reason": "solana achieving escape velocity from orbit (276.0% > 23.0% needed)",
+      "relatedBodies": [
+        "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL"
+      ],
+      "timestamp": 1768429688057
+    },
+    {
+      "type": "escape",
+      "mint": "7GDmjwnRgveCDoLZ9AuQbHpSF3P9N6CaTShqLZ29vSPr",
+      "symbol": "Solana",
+      "confidence": 100,
+      "direction": "bullish",
+      "magnitude": 394,
+      "timeframe": "immediate",
+      "reason": "Solana achieving escape velocity from orbit (197.0% > 23.3% needed)",
+      "relatedBodies": [
+        "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL"
+      ],
+      "timestamp": 1768429688057
+    },
+    {
+      "type": "escape",
+      "mint": "J8VLndFzDBAHHFAgdg7PzvXuBC7BeSHSWujr8WZDatGk",
+      "symbol": "Solana",
+      "confidence": 100,
+      "direction": "bullish",
+      "magnitude": 392,
+      "timeframe": "immediate",
+      "reason": "Solana achieving escape velocity from orbit (196.0% > 23.3% needed)",
+      "relatedBodies": [
+        "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL"
+      ],
+      "timestamp": 1768429688057
+    },
+    {
+      "type": "escape",
+      "mint": "G6ptkDAk87uavFGrjmrwkSLyGTgibi6yqX5zVGYspump",
+      "symbol": "SOLANA",
+      "confidence": 100,
+      "direction": "bullish",
+      "magnitude": 74.7,
+      "timeframe": "immediate",
+      "reason": "SOLANA achieving escape velocity from orbit (37.4% > 18.6% needed)",
+      "relatedBodies": [
+        "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL"
+      ],
+      "timestamp": 1768429688057
+    },
+    {
+      "type": "escape",
+      "mint": "81Y2VEBXVkxFNtEGYdmF4nk6quE976BqKr8xK9H7jazi",
+      "symbol": "SOLANA",
+      "confidence": 100,
+      "direction": "bullish",
+      "magnitude": 124.82,
+      "timeframe": "immediate",
+      "reason": "SOLANA achieving escape velocity from orbit (62.4% > 19.1% needed)",
+      "relatedBodies": [
+        "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL"
+      ],
+      "timestamp": 1768429688057
+    },
+    {
+      "type": "escape",
+      "mint": "BYb2WLYQ6M9DfUReS6sDZBikhLQZrDaby7GMrxWzpump",
+      "symbol": "Solana",
+      "confidence": 100,
+      "direction": "bullish",
+      "magnitude": 120.84,
+      "timeframe": "immediate",
+      "reason": "Solana achieving escape velocity from orbit (60.4% > 19.2% needed)",
+      "relatedBodies": [
+        "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL"
+      ],
+      "timestamp": 1768429688057
+    },
+    {
+      "type": "escape",
+      "mint": "2dKfopkDvk6NVHWFjfpjg4ATrB18hgF1Zo9QpgCopump",
+      "symbol": "Solana",
+      "confidence": 100,
+      "direction": "bullish",
+      "magnitude": 130.4,
+      "timeframe": "immediate",
+      "reason": "Solana achieving escape velocity from orbit (65.2% > 19.3% needed)",
+      "relatedBodies": [
+        "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL"
+      ],
+      "timestamp": 1768429688057
+    },
+    {
+      "type": "escape",
+      "mint": "AcWtbMBeQik4oFMbDyw6zgPAGq6DZvsDJx5ZhJC6pump",
+      "symbol": "solana ",
+      "confidence": 100,
+      "direction": "bullish",
+      "magnitude": 380,
+      "timeframe": "immediate",
+      "reason": "solana  achieving escape velocity from orbit (190.0% > 21.1% needed)",
+      "relatedBodies": [
+        "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL"
+      ],
+      "timestamp": 1768429688057
+    },
+    {
+      "type": "escape",
+      "mint": "GsJamceimK8B53JtnEQ7QY3Z9RTc8zXDAmG7Mskzpump",
+      "symbol": "Solana",
+      "confidence": 100,
+      "direction": "bullish",
+      "magnitude": 242,
+      "timeframe": "immediate",
+      "reason": "Solana achieving escape velocity from orbit (121.0% > 20.1% needed)",
+      "relatedBodies": [
+        "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL"
+      ],
+      "timestamp": 1768429688057
+    },
+    {
+      "type": "escape",
+      "mint": "2kveEMXEUmd9Rmu6f3X6RA7mR8i4Mr5cGSFXy2dmpump",
+      "symbol": "solana",
+      "confidence": 100,
+      "direction": "bullish",
+      "magnitude": 726,
+      "timeframe": "immediate",
+      "reason": "solana achieving escape velocity from orbit (363.0% > 21.4% needed)",
+      "relatedBodies": [
+        "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL"
+      ],
+      "timestamp": 1768429688057
+    },
+    {
+      "type": "escape",
+      "mint": "4d6Hjnp9BSNhKDPvTzVuwreMGG8Jnz1abBkx2jZNczFB",
+      "symbol": "solana",
+      "confidence": 100,
+      "direction": "bullish",
+      "magnitude": 430,
+      "timeframe": "immediate",
+      "reason": "solana achieving escape velocity from orbit (215.0% > 23.9% needed)",
+      "relatedBodies": [
+        "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL"
+      ],
+      "timestamp": 1768429688057
+    },
+    {
+      "type": "escape",
+      "mint": "Hr9QK3rc3CFLN1JUQgPD786JgnJdYMT3rgK231KBpump",
+      "symbol": "Solana",
+      "confidence": 100,
+      "direction": "bullish",
+      "magnitude": 153.38,
+      "timeframe": "immediate",
+      "reason": "Solana achieving escape velocity from orbit (76.7% > 19.6% needed)",
+      "relatedBodies": [
+        "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL"
+      ],
+      "timestamp": 1768429688057
+    },
+    {
+      "type": "escape",
+      "mint": "yYj2Ldmg2E8bMHk5BhVZtiTEaBnHgRZsv9YvbXZpump",
+      "symbol": "solana",
+      "confidence": 100,
+      "direction": "bullish",
+      "magnitude": 552,
+      "timeframe": "immediate",
+      "reason": "solana achieving escape velocity from orbit (276.0% > 23.0% needed)",
+      "relatedBodies": [
+        "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL"
+      ],
+      "timestamp": 1768429688057
+    },
+    {
+      "type": "escape",
+      "mint": "EXekm9hNF4nosdEnqBydW6RABAE8kNdHjaKgKycWVQKK",
+      "symbol": "Solana",
+      "confidence": 100,
+      "direction": "bullish",
+      "magnitude": 137.36,
+      "timeframe": "immediate",
+      "reason": "Solana achieving escape velocity from orbit (68.7% > 19.5% needed)",
+      "relatedBodies": [
+        "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL"
+      ],
+      "timestamp": 1768429688057
+    },
+    {
+      "type": "escape",
+      "mint": "Hs45yJ5jhgMh8bUQxnNdBgxoogYjjnzxbJPeG6WAJHwv",
+      "symbol": "ヒナタ",
+      "confidence": 93.55655779716811,
+      "direction": "bullish",
+      "magnitude": 71.14,
+      "timeframe": "immediate",
+      "reason": "ヒナタ achieving escape velocity from orbit (35.6% > 19.0% needed)",
+      "relatedBodies": [
+        "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL"
+      ],
+      "timestamp": 1768429688057
+    },
+    {
+      "type": "escape",
+      "mint": "HVgxYuu2X4aG4yJLauWESaka6z6CdEJwJmvK4Xvbpump",
+      "symbol": "Solana",
+      "confidence": 79.88410750134506,
+      "direction": "bullish",
+      "magnitude": 59.8,
+      "timeframe": "immediate",
+      "reason": "Solana achieving escape velocity from orbit (29.9% > 18.7% needed)",
+      "relatedBodies": [
+        "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL"
+      ],
+      "timestamp": 1768429688057
+    },
+    {
+      "type": "escape",
+      "mint": "376fLUJG5Jmh4t5ineivrFDZveMyBe3w8YXFkRrwpump",
+      "symbol": "SOLANA",
+      "confidence": 79.32407213038123,
+      "direction": "bullish",
+      "magnitude": 58.74,
+      "timeframe": "immediate",
+      "reason": "SOLANA achieving escape velocity from orbit (29.4% > 18.5% needed)",
+      "relatedBodies": [
+        "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL"
+      ],
+      "timestamp": 1768429688057
+    },
+    {
+      "type": "escape",
+      "mint": "3MdpgtpguUJcpg3uWSLEZLWWpSMzuZLjm6PPUsp4pump",
+      "symbol": "SOLANA",
+      "confidence": 76.31727795402517,
+      "direction": "bullish",
+      "magnitude": 57.76,
+      "timeframe": "immediate",
+      "reason": "SOLANA achieving escape velocity from orbit (28.9% > 18.9% needed)",
+      "relatedBodies": [
+        "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL"
+      ],
+      "timestamp": 1768429688057
+    },
+    {
+      "type": "escape",
+      "mint": "H3M126SGJptM85Gpwjx4ta7uBc3Hq2x5Qw842UMNpump",
+      "symbol": " ヒナタ",
+      "confidence": 71.85609419606894,
+      "direction": "bullish",
+      "magnitude": 54.34,
+      "timeframe": "immediate",
+      "reason": " ヒナタ achieving escape velocity from orbit (27.2% > 18.9% needed)",
+      "relatedBodies": [
+        "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL"
+      ],
+      "timestamp": 1768429688057
+    },
+    {
+      "type": "escape",
+      "mint": "Ee1qArRkxR2kDX43AYEihAFQLA8HbXaX1tavUu52pump",
+      "symbol": "Solana",
+      "confidence": 70.90770830505268,
+      "direction": "bullish",
+      "magnitude": 53.18,
+      "timeframe": "immediate",
+      "reason": "Solana achieving escape velocity from orbit (26.6% > 18.7% needed)",
+      "relatedBodies": [
+        "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL"
+      ],
+      "timestamp": 1768429688057
+    },
+    {
+      "type": "escape",
+      "mint": "2Jw2bGPUdaisrywEzDtWN6FDHmdVuqYZbdQCRVpCpump",
+      "symbol": "SOL",
+      "confidence": 63.93338989284219,
+      "direction": "bullish",
+      "magnitude": 47.56,
+      "timeframe": "immediate",
+      "reason": "SOL achieving escape velocity from orbit (23.8% > 18.6% needed)",
+      "relatedBodies": [
+        "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL"
+      ],
+      "timestamp": 1768429688057
+    },
+    {
+      "type": "escape",
+      "mint": "BDREoP98hA5ANCnhDrs3VWRviXakqMDsA3uopMw2pump",
+      "symbol": "ヒナタ",
+      "confidence": 62.930429008923504,
+      "direction": "bullish",
+      "magnitude": 46.62,
+      "timeframe": "immediate",
+      "reason": "ヒナタ achieving escape velocity from orbit (23.3% > 18.5% needed)",
+      "relatedBodies": [
+        "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL"
+      ],
+      "timestamp": 1768429688057
+    },
+    {
+      "type": "escape",
+      "mint": "ExzQPbDgjW3PJH5EXubMAthhSz6fMNZhTmxDr7cfBrb",
+      "symbol": "Solana",
+      "confidence": 62.34730671309537,
+      "direction": "bullish",
+      "magnitude": 47.1,
+      "timeframe": "immediate",
+      "reason": "Solana achieving escape velocity from orbit (23.6% > 18.9% needed)",
+      "relatedBodies": [
+        "fESbUKjuMY6jzDH9VP8cy4p3pu2q5W2rK2XghVfNseP"
+      ],
+      "timestamp": 1768429688057
+    },
+    {
+      "type": "escape",
+      "mint": "9Y8Gno1njZWyjshbYvzcSrq48wCNpQt8MsHRT6QvTray",
+      "symbol": "SOL",
+      "confidence": 56.95838278234551,
+      "direction": "bullish",
+      "magnitude": 44.14,
+      "timeframe": "immediate",
+      "reason": "SOL achieving escape velocity from orbit (22.1% > 19.4% needed)",
+      "relatedBodies": [
+        "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL"
+      ],
+      "timestamp": 1768429688057
+    },
+    {
+      "type": "escape",
+      "mint": "FX3oY8K2NNFDbMLPdXj7RGKW5pCCfvswpwezjgNrmkam",
+      "symbol": "Solana",
+      "confidence": 55.42171675257344,
+      "direction": "bullish",
+      "magnitude": 40.9,
+      "timeframe": "immediate",
+      "reason": "Solana achieving escape velocity from orbit (20.4% > 18.4% needed)",
+      "relatedBodies": [
+        "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL"
+      ],
+      "timestamp": 1768429688057
+    },
+    {
+      "type": "escape",
+      "mint": "9LUBi1KsUpmcGtBy1waEZgWyGUet8drSDajYVSTcFeZM",
+      "symbol": "Solana",
+      "confidence": 53.88537140114775,
+      "direction": "bullish",
+      "magnitude": 40.54,
+      "timeframe": "immediate",
+      "reason": "Solana achieving escape velocity from orbit (20.3% > 18.8% needed)",
+      "relatedBodies": [
+        "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL"
+      ],
+      "timestamp": 1768429688057
+    },
+    {
+      "type": "escape",
+      "mint": "BVpuAAihjtMi5PMEyRdHqbKzy7yyBynPiEbjVaK8pump",
+      "symbol": "SOLANA",
+      "confidence": 53.60616482818193,
+      "direction": "bullish",
+      "magnitude": 40.02,
+      "timeframe": "immediate",
+      "reason": "SOLANA achieving escape velocity from orbit (20.0% > 18.7% needed)",
+      "relatedBodies": [
+        "factory/osmo1n3n75av8awcnw4jl62n3l48e6e4sxqmaf97w5ua6ddu4s475q5qq9udvx4/alloyed/allSOL"
+      ],
+      "timestamp": 1768429688057
+    }
+  ]
+}

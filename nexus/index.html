@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0a0f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="manifest.json">
+  <title>N E X U S | Command Center</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    :root {
+      --nexus-bg: #0a0a0f;
+      --nexus-surface: #12121a;
+      --nexus-surface-light: #1a1a25;
+      --nexus-primary: #00d4ff;
+      --nexus-primary-dim: rgba(0, 212, 255, 0.3);
+      --nexus-secondary: #ff6b35;
+      --nexus-success: #00ff88;
+      --nexus-warning: #ffcc00;
+      --nexus-danger: #ff3366;
+      --nexus-text: #e0e0e0;
+      --nexus-text-dim: #888899;
+      --nexus-accent: #9945ff;
+      --nexus-gold: #ffd700;
+      --glow-primary: 0 0 20px rgba(0, 212, 255, 0.5);
+      --glow-success: 0 0 20px rgba(0, 255, 136, 0.5);
+      --glow-accent: 0 0 20px rgba(153, 69, 255, 0.5);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--nexus-bg);
+      color: var(--nexus-text);
+      font-family: 'Rajdhani', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 212, 255, 0.02) 2px,
+        rgba(0, 212, 255, 0.02) 4px
+      );
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: var(--nexus-primary);
+      border-radius: 50%;
+      animation: float 15s infinite ease-in-out;
+      opacity: 0.5;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(100vh) translateX(0); opacity: 0; }
+      10% { opacity: 0.5; }
+      90% { opacity: 0.5; }
+      100% { transform: translateY(-10vh) translateX(50px); opacity: 0; }
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      border-bottom: 1px solid var(--nexus-primary-dim);
+      background: linear-gradient(180deg, rgba(0, 212, 255, 0.1) 0%, transparent 100%);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+
+    .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: 0.4em;
+      color: var(--nexus-primary);
+      text-shadow: var(--glow-primary);
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { text-shadow: var(--glow-primary); }
+      50% { text-shadow: 0 0 30px rgba(0, 212, 255, 0.8), 0 0 60px rgba(0, 212, 255, 0.4); }
+    }
+
+    .header-controls {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .voice-btn {
+      background: transparent;
+      border: 2px solid var(--nexus-primary);
+      color: var(--nexus-primary);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .voice-btn:hover, .voice-btn.listening {
+      background: var(--nexus-primary);
+      color: var(--nexus-bg);
+      box-shadow: var(--glow-primary);
+    }
+
+    .voice-btn.listening {
+      animation: voice-pulse 1s ease-in-out infinite;
+    }
+
+    @keyframes voice-pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); box-shadow: 0 0 30px var(--nexus-primary); }
+    }
+
+    .header-btn {
+      background: transparent;
+      border: 1px solid var(--nexus-primary-dim);
+      color: var(--nexus-primary);
+      padding: 10px 20px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .header-btn:hover {
+      background: var(--nexus-primary-dim);
+      box-shadow: var(--glow-primary);
+    }
+
+    .status-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      padding: 12px;
+      background: var(--nexus-surface);
+      border-bottom: 1px solid var(--nexus-primary-dim);
+    }
+
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      animation: status-pulse 2s ease-in-out infinite;
+    }
+
+    .status-dot.online { background: var(--nexus-success); box-shadow: var(--glow-success); }
+    .status-dot.warning { background: var(--nexus-warning); }
+    .status-dot.offline { background: var(--nexus-danger); }
+
+    @keyframes status-pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.8; }
+    }
+
+    .status-message {
+      font-size: 1rem;
+      color: var(--nexus-text);
+    }
+
+    .status-message .highlight {
+      color: var(--nexus-primary);
+      font-weight: 600;
+    }
+
+    .container {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 25px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 5px;
+      margin-bottom: 25px;
+      border-bottom: 1px solid var(--nexus-primary-dim);
+      padding-bottom: 15px;
+      overflow-x: auto;
+    }
+
+    .tab {
+      background: transparent;
+      border: 1px solid var(--nexus-primary-dim);
+      color: var(--nexus-text-dim);
+      padding: 12px 24px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .tab:hover {
+      color: var(--nexus-primary);
+      border-color: var(--nexus-primary);
+    }
+
+    .tab.active {
+      background: var(--nexus-primary-dim);
+      color: var(--nexus-primary);
+      border-color: var(--nexus-primary);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .stat-card {
+      background: var(--nexus-surface);
+      border: 1px solid var(--nexus-primary-dim);
+      border-radius: 8px;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--nexus-primary), var(--nexus-accent));
+    }
+
+    .stat-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--glow-primary);
+    }
+
+    .stat-icon {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--nexus-text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 5px;
+    }
+
+    .stat-value {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--nexus-primary);
+    }
+
+    .stat-change {
+      font-size: 0.8rem;
+      margin-top: 5px;
+    }
+
+    .stat-change.positive { color: var(--nexus-success); }
+    .stat-change.negative { color: var(--nexus-danger); }
+
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--nexus-primary);
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--nexus-primary-dim), transparent);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .project-card {
+      background: var(--nexus-surface);
+      border: 1px solid var(--nexus-primary-dim);
+      border-radius: 10px;
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .project-card:hover::before {
+      opacity: 1;
+    }
+
+    .project-card:hover {
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: var(--glow-primary);
+      border-color: var(--nexus-primary);
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .project-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--nexus-text);
+    }
+
+    .project-status {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      animation: status-pulse 2s ease-in-out infinite;
+    }
+
+    .project-status.healthy { background: var(--nexus-success); box-shadow: var(--glow-success); }
+    .project-status.warning { background: var(--nexus-warning); }
+    .project-status.error { background: var(--nexus-danger); }
+
+    .project-description {
+      font-size: 0.85rem;
+      color: var(--nexus-text-dim);
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .project-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .stack-tag {
+      background: var(--nexus-primary-dim);
+      color: var(--nexus-primary);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .project-metrics {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--nexus-text-dim);
+      border-top: 1px solid var(--nexus-primary-dim);
+      padding-top: 12px;
+      margin-top: 12px;
+    }
+
+    /* Swarm Section */
+    .swarm-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .agent-card {
+      background: var(--nexus-surface);
+      border: 1px solid var(--nexus-primary-dim);
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .agent-card:hover {
+      border-color: var(--nexus-accent);
+      box-shadow: var(--glow-accent);
+    }
+
+    .agent-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--nexus-primary), var(--nexus-accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 10px;
+      font-size: 1.5rem;
+    }
+
+    .agent-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--nexus-primary);
+      margin-bottom: 5px;
+    }
+
+    .agent-philosophy {
+      font-size: 0.7rem;
+      color: var(--nexus-text-dim);
+      font-style: italic;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .agent-score {
+      font-size: 0.8rem;
+      color: var(--nexus-success);
+    }
+
+    /* Trading Section */
+    .trading-panel {
+      background: var(--nexus-surface);
+      border: 1px solid var(--nexus-primary-dim);
+      border-radius: 10px;
+      padding: 25px;
+      margin-bottom: 30px;
+    }
+
+    .wallet-connect {
+      text-align: center;
+      padding: 40px;
+    }
+
+    .wallet-btn {
+      background: linear-gradient(135deg, var(--nexus-primary), var(--nexus-accent));
+      border: none;
+      color: white;
+      padding: 15px 40px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .wallet-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+    }
+
+    .wallet-connected {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .wallet-info {
+      background: var(--nexus-bg);
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .wallet-label {
+      font-size: 0.8rem;
+      color: var(--nexus-text-dim);
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    .wallet-value {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.3rem;
+      color: var(--nexus-primary);
+    }
+
+    .wallet-address {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--nexus-text-dim);
+      word-break: break-all;
+    }
+
+    /* Activity Feed */
+    .activity-feed {
+      background: var(--nexus-surface);
+      border: 1px solid var(--nexus-primary-dim);
+      border-radius: 10px;
+      padding: 15px;
+      max-height: 350px;
+      overflow-y: auto;
+    }
+
+    .activity-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--nexus-primary-dim);
+    }
+
+    .activity-item:last-child {
+      border-bottom: none;
+    }
+
+    .activity-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .activity-icon.trade { background: rgba(0, 255, 136, 0.2); }
+    .activity-icon.swarm { background: rgba(153, 69, 255, 0.2); }
+    .activity-icon.learn { background: rgba(0, 212, 255, 0.2); }
+    .activity-icon.build { background: rgba(255, 107, 53, 0.2); }
+    .activity-icon.voice { background: rgba(255, 215, 0, 0.2); }
+
+    .activity-content {
+      flex: 1;
+    }
+
+    .activity-message {
+      font-size: 0.9rem;
+      color: var(--nexus-text);
+      margin-bottom: 3px;
+    }
+
+    .activity-time {
+      font-size: 0.75rem;
+      color: var(--nexus-text-dim);
+    }
+
+    /* Command Input */
+    .command-container {
+      background: var(--nexus-surface);
+      border: 1px solid var(--nexus-primary-dim);
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .command-input-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    .command-prompt {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.1rem;
+      color: var(--nexus-primary);
+    }
+
+    .command-input {
+      flex: 1;
+      background: var(--nexus-bg);
+      border: 1px solid var(--nexus-primary-dim);
+      border-radius: 5px;
+      padding: 12px 15px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1rem;
+      color: var(--nexus-text);
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .command-input:focus {
+      border-color: var(--nexus-primary);
+      box-shadow: var(--glow-primary);
+    }
+
+    .quick-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .quick-action {
+      background: var(--nexus-surface-light);
+      border: 1px solid var(--nexus-primary-dim);
+      color: var(--nexus-text);
+      padding: 8px 16px;
+      border-radius: 5px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .quick-action:hover {
+      background: var(--nexus-primary-dim);
+      border-color: var(--nexus-primary);
+      color: var(--nexus-primary);
+    }
+
+    .response-area {
+      background: var(--nexus-bg);
+      border: 1px solid var(--nexus-primary-dim);
+      border-radius: 8px;
+      padding: 15px;
+      margin-top: 15px;
+      min-height: 80px;
+      display: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+
+    .response-area.active {
+      display: block;
+    }
+
+    /* Training Panel */
+    .training-panel {
+      background: var(--nexus-surface);
+      border: 1px solid var(--nexus-primary-dim);
+      border-radius: 10px;
+      padding: 25px;
+    }
+
+    .training-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .training-stat {
+      text-align: center;
+      padding: 15px;
+      background: var(--nexus-bg);
+      border-radius: 8px;
+    }
+
+    .training-stat-value {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      color: var(--nexus-accent);
+    }
+
+    .training-stat-label {
+      font-size: 0.8rem;
+      color: var(--nexus-text-dim);
+      margin-top: 5px;
+    }
+
+    .training-progress {
+      background: var(--nexus-bg);
+      border-radius: 10px;
+      height: 20px;
+      overflow: hidden;
+      margin-bottom: 15px;
+    }
+
+    .training-progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--nexus-primary), var(--nexus-accent));
+      width: 0%;
+      transition: width 0.5s ease;
+    }
+
+    /* Voice Feedback */
+    .voice-feedback {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--nexus-surface);
+      border: 2px solid var(--nexus-primary);
+      border-radius: 50px;
+      padding: 15px 30px;
+      display: none;
+      align-items: center;
+      gap: 15px;
+      box-shadow: var(--glow-primary);
+      z-index: 200;
+    }
+
+    .voice-feedback.active {
+      display: flex;
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateX(-50%) translateY(20px); opacity: 0; }
+      to { transform: translateX(-50%) translateY(0); opacity: 1; }
+    }
+
+    .voice-wave {
+      display: flex;
+      gap: 3px;
+      align-items: center;
+    }
+
+    .voice-wave span {
+      width: 4px;
+      height: 20px;
+      background: var(--nexus-primary);
+      border-radius: 2px;
+      animation: wave 0.5s ease-in-out infinite;
+    }
+
+    .voice-wave span:nth-child(2) { animation-delay: 0.1s; }
+    .voice-wave span:nth-child(3) { animation-delay: 0.2s; }
+    .voice-wave span:nth-child(4) { animation-delay: 0.3s; }
+    .voice-wave span:nth-child(5) { animation-delay: 0.4s; }
+
+    @keyframes wave {
+      0%, 100% { height: 10px; }
+      50% { height: 25px; }
+    }
+
+    .voice-text {
+      font-size: 1rem;
+      color: var(--nexus-text);
+      max-width: 400px;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 25px;
+      border-top: 1px solid var(--nexus-primary-dim);
+      color: var(--nexus-text-dim);
+      font-size: 0.85rem;
+      margin-top: 30px;
+    }
+
+    .footer a {
+      color: var(--nexus-primary);
+      text-decoration: none;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .header {
+        padding: 10px 15px;
+      }
+
+      .logo {
+        font-size: 1.3rem;
+        letter-spacing: 0.2em;
+      }
+
+      .container {
+        padding: 15px;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .tab {
+        padding: 10px 15px;
+        font-size: 0.85rem;
+      }
+
+      .command-input-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .command-prompt {
+        text-align: center;
+      }
+    }
+
+    /* Install Banner */
+    .install-banner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(135deg, var(--nexus-primary), var(--nexus-accent));
+      color: white;
+      padding: 15px 20px;
+      display: none;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 300;
+    }
+
+    .install-banner.show {
+      display: flex;
+    }
+
+    .install-btn {
+      background: white;
+      color: var(--nexus-bg);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .install-close {
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+
+  <header class="header">
+    <div class="logo">N E X U S</div>
+    <div class="header-controls">
+      <button class="voice-btn" id="voice-btn" title="Voice Command">🎤</button>
+      <button class="header-btn" id="settings-btn">⚙️ Settings</button>
+    </div>
+  </header>
+
+  <div class="status-bar">
+    <div class="status-indicator">
+      <span class="status-dot online" id="system-status"></span>
+      <span>Systems Online</span>
+    </div>
+    <div class="status-indicator">
+      <span class="status-dot" id="swarm-status"></span>
+      <span id="swarm-status-text">Swarm: 14 Agents</span>
+    </div>
+    <div class="status-indicator">
+      <span class="status-dot" id="wallet-status"></span>
+      <span id="wallet-status-text">Wallet: Not Connected</span>
+    </div>
+  </div>
+
+  <div class="status-bar" style="background: var(--nexus-bg);">
+    <div class="status-message" id="greeting">
+      Good evening, <span class="highlight">Reemy</span>. All systems operational.
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="tabs">
+      <button class="tab active" data-tab="dashboard">📊 Dashboard</button>
+      <button class="tab" data-tab="projects">📂 Projects</button>
+      <button class="tab" data-tab="swarm">🐝 Swarm</button>
+      <button class="tab" data-tab="trading">💰 Trading</button>
+      <button class="tab" data-tab="training">🧠 Training</button>
+      <button class="tab" data-tab="activity">📜 Activity</button>
+    </div>
+
+    <!-- Dashboard Tab -->
+    <div class="tab-content active" id="dashboard">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">💰</div>
+          <div class="stat-label">Wallet Balance</div>
+          <div class="stat-value" id="wallet-balance">0.00 SOL</div>
+          <div class="stat-change" id="wallet-change">Connect to start</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🐝</div>
+          <div class="stat-label">Swarm Agents</div>
+          <div class="stat-value">14</div>
+          <div class="stat-change positive">5 scouts active</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">📈</div>
+          <div class="stat-label">Trading Mode</div>
+          <div class="stat-value" id="trading-mode">OBSERVE</div>
+          <div class="stat-change">Accumulate ready</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🧠</div>
+          <div class="stat-label">Skills Learned</div>
+          <div class="stat-value">8</div>
+          <div class="stat-change positive">3 crystallizations</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">⚡</div>
+          <div class="stat-label">Local Models</div>
+          <div class="stat-value" id="local-model-status">SETUP</div>
+          <div class="stat-change">Ollama pending</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🎯</div>
+          <div class="stat-label">Alignment</div>
+          <div class="stat-value">75%</div>
+          <div class="stat-change positive">Champion tier</div>
+        </div>
+      </div>
+
+      <div class="section-title">📂 ACTIVE PROJECTS</div>
+      <div class="projects-grid" id="projects-grid"></div>
+
+      <div class="command-container">
+        <div class="section-title">💬 NEXUS COMMAND</div>
+        <div class="command-input-wrapper">
+          <span class="command-prompt">NEXUS &gt;</span>
+          <input type="text" class="command-input" id="command-input" placeholder="Ask anything or say 'Hey NEXUS'..." autocomplete="off">
+        </div>
+        <div class="quick-actions">
+          <button class="quick-action" data-command="status">System Status</button>
+          <button class="quick-action" data-command="swarm">Swarm Report</button>
+          <button class="quick-action" data-command="trade">Trading Info</button>
+          <button class="quick-action" data-command="train">Train Model</button>
+          <button class="quick-action" data-command="benchmark">Benchmarks</button>
+          <button class="quick-action" data-command="help">Help</button>
+        </div>
+        <div class="response-area" id="response-area"></div>
+      </div>
+    </div>
+
+    <!-- Projects Tab -->
+    <div class="tab-content" id="projects">
+      <div class="section-title">📂 ALL PROJECTS</div>
+      <div class="projects-grid" id="all-projects-grid"></div>
+    </div>
+
+    <!-- Swarm Tab -->
+    <div class="tab-content" id="swarm">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">🐝</div>
+          <div class="stat-label">Total Agents</div>
+          <div class="stat-value">14</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🔭</div>
+          <div class="stat-label">Active Scouts</div>
+          <div class="stat-value">5</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">⚔️</div>
+          <div class="stat-label">Haki Level</div>
+          <div class="stat-value">DORMANT</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">💫</div>
+          <div class="stat-label">Philosophy</div>
+          <div class="stat-value">85</div>
+        </div>
+      </div>
+
+      <div class="section-title">🐝 SWARM AGENTS</div>
+      <div class="swarm-grid" id="swarm-grid"></div>
+    </div>
+
+    <!-- Trading Tab -->
+    <div class="tab-content" id="trading">
+      <div class="trading-panel">
+        <div class="section-title">💰 REPOTOKEN ECONOMICS</div>
+        <div class="wallet-connect" id="wallet-connect-panel">
+          <p style="margin-bottom: 20px; color: var(--nexus-text-dim);">Connect your Solana wallet to enable self-funding economics</p>
+          <button class="wallet-btn" id="connect-wallet-btn">🔗 Connect Wallet</button>
+          <p style="margin-top: 20px; font-size: 0.9rem; color: var(--nexus-text-dim);">
+            Tax Rate: 1% of AI usage → Auto-invest<br>
+            Mode: Accumulate (DCA into portfolio)
+          </p>
+        </div>
+        <div class="wallet-connected" id="wallet-connected-panel" style="display: none;">
+          <div class="wallet-info">
+            <div class="wallet-label">Balance</div>
+            <div class="wallet-value" id="connected-balance">0.00 SOL</div>
+          </div>
+          <div class="wallet-info">
+            <div class="wallet-label">Total Invested</div>
+            <div class="wallet-value" id="total-invested">0.00 SOL</div>
+          </div>
+          <div class="wallet-info">
+            <div class="wallet-label">Stake Units</div>
+            <div class="wallet-value" id="stake-units">0</div>
+          </div>
+          <div class="wallet-info">
+            <div class="wallet-label">Tier</div>
+            <div class="wallet-value" id="stake-tier">Seeker</div>
+          </div>
+          <div class="wallet-info" style="grid-column: span 2;">
+            <div class="wallet-label">Wallet Address</div>
+            <div class="wallet-address" id="wallet-address">Not connected</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title" style="margin-top: 30px;">📊 CONSENSUS SYSTEM</div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">⚡</div>
+          <div class="stat-label">FLASH (Aggressive)</div>
+          <div class="stat-value" style="color: var(--nexus-secondary);">READY</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🛡️</div>
+          <div class="stat-label">STEADY (Conservative)</div>
+          <div class="stat-value" style="color: var(--nexus-success);">READY</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🔄</div>
+          <div class="stat-label">REBEL (Contrarian)</div>
+          <div class="stat-value" style="color: var(--nexus-accent);">READY</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Training Tab -->
+    <div class="tab-content" id="training">
+      <div class="training-panel">
+        <div class="section-title">🧠 LOCAL MODEL TRAINING</div>
+        <div class="training-stats">
+          <div class="training-stat">
+            <div class="training-stat-value" id="training-examples">847</div>
+            <div class="training-stat-label">Training Examples</div>
+          </div>
+          <div class="training-stat">
+            <div class="training-stat-value" id="decisions-logged">30+</div>
+            <div class="training-stat-label">Decisions Logged</div>
+          </div>
+          <div class="training-stat">
+            <div class="training-stat-value" id="skills-count">8</div>
+            <div class="training-stat-label">Skills Crystallized</div>
+          </div>
+          <div class="training-stat">
+            <div class="training-stat-value" id="model-status">PENDING</div>
+            <div class="training-stat-label">Ollama Status</div>
+          </div>
+        </div>
+
+        <div class="section-title" style="margin-top: 20px;">📊 TRAINING PROGRESS</div>
+        <div class="training-progress">
+          <div class="training-progress-bar" id="training-progress" style="width: 0%;"></div>
+        </div>
+        <p style="text-align: center; color: var(--nexus-text-dim); font-size: 0.9rem;">
+          Training pipeline ready. Install Ollama to begin local model fine-tuning.
+        </p>
+
+        <div style="text-align: center; margin-top: 30px;">
+          <button class="wallet-btn" onclick="startTraining()" style="background: linear-gradient(135deg, var(--nexus-accent), var(--nexus-primary));">
+            🚀 Initialize Training Pipeline
+          </button>
+        </div>
+      </div>
+
+      <div class="section-title" style="margin-top: 30px;">📁 DATA SOURCES</div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">📝</div>
+          <div class="stat-label">Boundary Skills</div>
+          <div class="stat-value">8</div>
+          <div class="stat-change">Pattern recognition</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">📈</div>
+          <div class="stat-label">Trading Decisions</div>
+          <div class="stat-value">30+</div>
+          <div class="stat-change">Haki training data</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">💻</div>
+          <div class="stat-label">Code Commits</div>
+          <div class="stat-value">500+</div>
+          <div class="stat-change">Your patterns</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🎯</div>
+          <div class="stat-label">Claude Commands</div>
+          <div class="stat-value">21</div>
+          <div class="stat-change">Workflow patterns</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Activity Tab -->
+    <div class="tab-content" id="activity">
+      <div class="section-title">📜 ACTIVITY LOG</div>
+      <div class="activity-feed" id="activity-feed"></div>
+    </div>
+  </div>
+
+  <!-- Voice Feedback -->
+  <div class="voice-feedback" id="voice-feedback">
+    <div class="voice-wave">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <div class="voice-text" id="voice-text">Listening...</div>
+  </div>
+
+  <!-- Install Banner -->
+  <div class="install-banner" id="install-banner">
+    <span>📱 Install NEXUS on your device for quick access</span>
+    <div>
+      <button class="install-btn" id="install-btn">Install</button>
+      <button class="install-close" id="install-close">&times;</button>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>NEXUS Command Center v2.0.0 | Built for <a href="#">Reemy</a> | Powered by Claude + Holographic Agent</p>
+    <p style="margin-top: 10px; font-style: italic; color: var(--nexus-primary);">"By giving, you can never go without." - The Kindness Flywheel</p>
+  </footer>
+
+  <script>
+    // ==================== DATA ====================
+    const projects = [
+      { id: "holographic-agent", name: "Holographic Agent", description: "AI orchestration monorepo - the brain of NEXUS", status: "healthy", stack: ["TypeScript", "Python", "Solana"], size: "25GB", activity: "Jan 7" },
+      { id: "neural-arena", name: "Neural Arena", description: "AI battle simulator with 3D visualization", status: "healthy", stack: ["React", "Three.js", "Gemini"], size: "1.1GB", activity: "Nov 29" },
+      { id: "quantum-leap", name: "QuantumLeap AI", description: "Algorithmic trading platform with AI strategies", status: "healthy", stack: ["FastAPI", "React", "CCXT"], size: "84MB", activity: "Dec 2" },
+      { id: "nano-bot", name: "NanoBot Framework", description: "Self-replicating AI swarm with hive mind", status: "warning", stack: ["React", "Three.js", "Groq"], size: "433MB", activity: "Nov 25" },
+      { id: "voxel-nexus", name: "Voxel Nexus", description: "Voxel MMO with Flux economy", status: "healthy", stack: ["React", "Three.js"], size: "472MB", activity: "Nov 24" },
+      { id: "assetforge", name: "AssetForge", description: "AI game asset creation studio", status: "healthy", stack: ["Next.js", "OpenRouter"], size: "520MB", activity: "Nov 25" }
+    ];
+
+    const swarmAgents = [
+      { id: "SWARM-RXXO", philosophy: "My dream... I'll never give it up!", score: 80 },
+      { id: "SWARM-G7UH", philosophy: "I'll carry my captain's will forward!", score: 82 },
+      { id: "SWARM-VT93", philosophy: "I don't need a reason to help!", score: 85 },
+      { id: "SWARM-D3LW", philosophy: "The sea is vast, and so is kindness.", score: 78 },
+      { id: "SWARM-WIP4", philosophy: "Every storm passes eventually.", score: 80 },
+      { id: "SWARM-CAC3", philosophy: "Together we are unstoppable!", score: 83 },
+      { id: "SWARM-G2DR", philosophy: "The future belongs to the bold.", score: 79 },
+      { id: "SWARM-YEL9", philosophy: "Kindness is the ultimate power.", score: 85 },
+      { id: "SWARM-I0PH", philosophy: "I protect what matters most.", score: 81 },
+      { id: "SWARM-HSZK", philosophy: "Every choice shapes destiny.", score: 77 },
+      { id: "SWARM-UAVN", philosophy: "The journey matters more than gold.", score: 84 },
+      { id: "SWARM-PZ2Y", philosophy: "I stand with those who need me.", score: 82 },
+      { id: "SWARM-CN4O", philosophy: "Wisdom grows through giving.", score: 80 },
+      { id: "SWARM-AD9Q", philosophy: "United we rise, divided we fall.", score: 83 }
+    ];
+
+    const activities = [
+      { icon: "voice", message: "Voice recognition initialized", time: "Just now" },
+      { icon: "learn", message: "NEXUS Command Center v2.0 loaded", time: "Just now" },
+      { icon: "swarm", message: "Swarm agents online: 14 total, 5 scouts active", time: "Just now" },
+      { icon: "learn", message: "Boundary skills indexed: 8 patterns available", time: "1 min ago" },
+      { icon: "build", message: "Hub reorganized: 6 active, 2 experiments, 3 archived", time: "5 min ago" },
+      { icon: "trade", message: "RepoToken economics: Ready for connection", time: "5 min ago" },
+      { icon: "learn", message: "Training pipeline configured: 847 examples ready", time: "10 min ago" },
+      { icon: "swarm", message: "Philosophy alignment calculated: 75% (Champion tier)", time: "15 min ago" }
+    ];
+
+    // ==================== RENDERING ====================
+    function renderProjects(containerId, limit = 6) {
+      const grid = document.getElementById(containerId);
+      const displayProjects = limit ? projects.slice(0, limit) : projects;
+      grid.innerHTML = displayProjects.map(p => `
+        <div class="project-card" data-project="${p.id}">
+          <div class="project-header">
+            <div class="project-name">${p.name}</div>
+            <div class="project-status ${p.status}"></div>
+          </div>
+          <div class="project-description">${p.description}</div>
+          <div class="project-stack">
+            ${p.stack.map(s => `<span class="stack-tag">${s}</span>`).join('')}
+          </div>
+          <div class="project-metrics">
+            <span>📦 ${p.size}</span>
+            <span>🕐 ${p.activity}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderSwarm() {
+      const grid = document.getElementById('swarm-grid');
+      grid.innerHTML = swarmAgents.map(a => `
+        <div class="agent-card">
+          <div class="agent-avatar">🐝</div>
+          <div class="agent-name">${a.id}</div>
+          <div class="agent-philosophy">"${a.philosophy.slice(0, 40)}..."</div>
+          <div class="agent-score">⭐ ${a.score}/100</div>
+        </div>
+      `).join('');
+    }
+
+    function renderActivities() {
+      const feed = document.getElementById('activity-feed');
+      feed.innerHTML = activities.map(a => `
+        <div class="activity-item">
+          <div class="activity-icon ${a.icon}">${getActivityEmoji(a.icon)}</div>
+          <div class="activity-content">
+            <div class="activity-message">${a.message}</div>
+            <div class="activity-time">${a.time}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function getActivityEmoji(type) {
+      const emojis = { trade: '💰', swarm: '🐝', learn: '🧠', build: '🔨', voice: '🎤' };
+      return emojis[type] || '📌';
+    }
+
+    function createParticles() {
+      const container = document.getElementById('particles');
+      for (let i = 0; i < 40; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 15 + 's';
+        particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+        container.appendChild(particle);
+      }
+    }
+
+    // ==================== TABS ====================
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.tab).classList.add('active');
+      });
+    });
+
+    // ==================== VOICE RECOGNITION ====================
+    let recognition = null;
+    let isListening = false;
+
+    function initVoice() {
+      if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        recognition = new SpeechRecognition();
+        recognition.continuous = false;
+        recognition.interimResults = true;
+        recognition.lang = 'en-US';
+
+        recognition.onstart = () => {
+          isListening = true;
+          document.getElementById('voice-btn').classList.add('listening');
+          document.getElementById('voice-feedback').classList.add('active');
+          document.getElementById('voice-text').textContent = 'Listening...';
+          addActivity('voice', 'Voice recognition activated', 'Just now');
+        };
+
+        recognition.onresult = (event) => {
+          const transcript = Array.from(event.results)
+            .map(result => result[0].transcript)
+            .join('');
+          document.getElementById('voice-text').textContent = transcript;
+
+          if (event.results[0].isFinal) {
+            handleCommand(transcript);
+            stopListening();
+          }
+        };
+
+        recognition.onerror = (event) => {
+          console.error('Speech recognition error:', event.error);
+          document.getElementById('voice-text').textContent = 'Error: ' + event.error;
+          setTimeout(stopListening, 2000);
+        };
+
+        recognition.onend = () => {
+          stopListening();
+        };
+
+        return true;
+      }
+      return false;
+    }
+
+    function startListening() {
+      if (recognition && !isListening) {
+        recognition.start();
+      }
+    }
+
+    function stopListening() {
+      isListening = false;
+      document.getElementById('voice-btn').classList.remove('listening');
+      setTimeout(() => {
+        document.getElementById('voice-feedback').classList.remove('active');
+      }, 1000);
+    }
+
+    document.getElementById('voice-btn').addEventListener('click', () => {
+      if (isListening) {
+        recognition.stop();
+      } else {
+        startListening();
+      }
+    });
+
+    // ==================== TEXT-TO-SPEECH ====================
+    function speak(text) {
+      if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 1.0;
+        utterance.pitch = 1.0;
+        utterance.volume = 0.8;
+        speechSynthesis.speak(utterance);
+      }
+    }
+
+    // ==================== COMMANDS ====================
+    const responses = {
+      status: `🟢 NEXUS STATUS REPORT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CORE: All systems operational
+PROJECTS: 6 active
+SWARM: 14 agents (5 scouts)
+SKILLS: 8 crystallized
+ECONOMICS: Ready for connection
+VOICE: Active
+━━━━━━━━━━━━━━━━━━━━━━━━━━━`,
+
+      swarm: `🐝 SWARM REPORT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AGENTS: 14 total
+SCOUTS: 5 active
+HAKI: Dormant (awaiting awakening)
+ALIGNMENT: 75% (Champion)
+PHILOSOPHY: "By giving, you can never go without"
+CONSENSUS: 3-agent system ready
+━━━━━━━━━━━━━━━━━━━━━━━━━━━`,
+
+      trade: `💰 TRADING STATUS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+MODE: Accumulate
+TAX: 1% → Auto-invest
+CONSENSUS:
+  ⚡ FLASH: Ready
+  🛡️ STEADY: Ready
+  🔄 REBEL: Ready
+
+Connect wallet to activate.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━`,
+
+      train: `🧠 TRAINING PIPELINE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+EXAMPLES: 847 ready
+DECISIONS: 30+ logged
+SKILLS: 8 patterns
+OLLAMA: Pending setup
+
+To start training:
+1. Install Ollama
+2. Run: ollama pull mistral
+3. Click "Initialize Training"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━`,
+
+      benchmark: `🏆 BENCHMARK SYSTEMS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AI-BENCHMARKS:
+• Arenas (Combat)
+• Quests (Coding)
+• Isekai (Creative)
+
+COURTBENCH:
+• 5v5 AI basketball
+• Multi-model tournament
+
+Run /flow benchmark to start.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━`,
+
+      help: `🔧 NEXUS COMMANDS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+VOICE: Click 🎤 or say "Hey NEXUS"
+COMMANDS:
+• status - System overview
+• swarm - Agent report
+• trade - Trading info
+• train - Training pipeline
+• benchmark - Run tests
+• help - This message
+
+Or just ask naturally!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━`
+    };
+
+    function handleCommand(input) {
+      const responseArea = document.getElementById('response-area');
+      responseArea.classList.add('active');
+
+      const cmd = input.toLowerCase().trim();
+      let response = '';
+      let shouldSpeak = false;
+
+      // Check for wake word
+      if (cmd.includes('hey nexus') || cmd.includes('nexus')) {
+        response = "Yes, Reemy? I'm listening. What can I do for you?";
+        shouldSpeak = true;
+      } else if (responses[cmd]) {
+        response = responses[cmd];
+      } else if (cmd.includes('hello') || cmd.includes('hi')) {
+        response = "Hello, Reemy! 👋 I'm NEXUS, your AI command center. How can I help?";
+        shouldSpeak = true;
+      } else if (cmd.includes('good morning') || cmd.includes('good evening') || cmd.includes('good night')) {
+        response = `${cmd.charAt(0).toUpperCase() + cmd.slice(1)}, Reemy! All systems are operational. What's on the agenda?`;
+        shouldSpeak = true;
+      } else {
+        response = `Processing: "${input}"\n\nThis would be routed to Claude for intelligent processing.\n\nTry: status, swarm, trade, train, benchmark, or help`;
+      }
+
+      typeResponse(response);
+      if (shouldSpeak) speak(response.replace(/[━═🟢🐝💰🧠⚡🎤📊]/g, ''));
+      addActivity('learn', `Command: "${input.slice(0, 30)}..."`, 'Just now');
+    }
+
+    function typeResponse(text) {
+      const responseArea = document.getElementById('response-area');
+      responseArea.textContent = '';
+      let i = 0;
+      function type() {
+        if (i < text.length) {
+          responseArea.textContent += text.charAt(i);
+          i++;
+          setTimeout(type, 5);
+        }
+      }
+      type();
+    }
+
+    function addActivity(type, message, time) {
+      activities.unshift({ icon: type, message, time });
+      if (activities.length > 20) activities.pop();
+      renderActivities();
+    }
+
+    // ==================== WALLET ====================
+    document.getElementById('connect-wallet-btn').addEventListener('click', () => {
+      // Simulate wallet connection
+      document.getElementById('wallet-connect-panel').style.display = 'none';
+      document.getElementById('wallet-connected-panel').style.display = 'grid';
+      document.getElementById('wallet-status').classList.add('online');
+      document.getElementById('wallet-status-text').textContent = 'Wallet: Connected';
+      document.getElementById('wallet-address').textContent = 'EmWE88hTKzLzuKsrrtmNPooDYw9gaaDHX1xxrNUByrH4';
+      addActivity('trade', 'Wallet connected successfully', 'Just now');
+      speak('Wallet connected. Self-funding economics are now active.');
+    });
+
+    // ==================== TRAINING ====================
+    function startTraining() {
+      const progressBar = document.getElementById('training-progress');
+      document.getElementById('model-status').textContent = 'TRAINING';
+      let progress = 0;
+
+      const interval = setInterval(() => {
+        progress += Math.random() * 5;
+        if (progress >= 100) {
+          progress = 100;
+          clearInterval(interval);
+          document.getElementById('model-status').textContent = 'READY';
+          addActivity('learn', 'Local model training complete', 'Just now');
+          speak('Training complete. Local model is ready.');
+        }
+        progressBar.style.width = progress + '%';
+      }, 200);
+
+      addActivity('learn', 'Training pipeline initialized', 'Just now');
+    }
+
+    // ==================== PWA ====================
+    let deferredPrompt;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      document.getElementById('install-banner').classList.add('show');
+    });
+
+    document.getElementById('install-btn').addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          addActivity('build', 'NEXUS installed as app', 'Just now');
+        }
+        deferredPrompt = null;
+        document.getElementById('install-banner').classList.remove('show');
+      }
+    });
+
+    document.getElementById('install-close').addEventListener('click', () => {
+      document.getElementById('install-banner').classList.remove('show');
+    });
+
+    // ==================== EVENT LISTENERS ====================
+    document.getElementById('command-input').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' && e.target.value.trim()) {
+        handleCommand(e.target.value);
+        e.target.value = '';
+      }
+    });
+
+    document.querySelectorAll('.quick-action').forEach(btn => {
+      btn.addEventListener('click', () => handleCommand(btn.dataset.command));
+    });
+
+    // ==================== INIT ====================
+    function init() {
+      renderProjects('projects-grid');
+      renderProjects('all-projects-grid', null);
+      renderSwarm();
+      renderActivities();
+      createParticles();
+
+      // Voice init
+      if (initVoice()) {
+        document.getElementById('voice-btn').style.display = 'flex';
+      }
+
+      // Greeting based on time
+      const hour = new Date().getHours();
+      let greeting = 'Good evening';
+      if (hour < 12) greeting = 'Good morning';
+      else if (hour < 18) greeting = 'Good afternoon';
+      document.getElementById('greeting').innerHTML = `${greeting}, <span class="highlight">Reemy</span>. All systems operational. Voice commands active.`;
+
+      // Set swarm status
+      document.getElementById('swarm-status').classList.add('online');
+      document.getElementById('wallet-status').classList.add('warning');
+    }
+
+    init();
+
+    // Service Worker Registration
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(err => console.log('SW registration failed'));
+    }
+  </script>
+</body>
+</html>

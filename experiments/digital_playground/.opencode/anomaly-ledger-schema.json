@@ -1,0 +1,108 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Guardian Anomaly Ledger",
+  "description": "Tracks system state and anomalies for the Guardian framework",
+  "type": "object",
+  "properties": {
+    "system_state": {
+      "type": "string",
+      "enum": ["STABLE", "UNSTABLE"],
+      "description": "Current system stability state"
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of last update"
+    },
+    "anomalies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique anomaly identifier"
+          },
+          "title": {
+            "type": "string",
+            "description": "Human-readable anomaly title"
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed description of the anomaly"
+          },
+          "severity": {
+            "type": "string",
+            "enum": ["low", "medium", "high", "critical"],
+            "description": "Anomaly severity level"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["detected", "investigating", "remediating", "resolved", "false_positive"],
+            "description": "Current anomaly status"
+          },
+          "detected_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the anomaly was first detected"
+          },
+          "resolved_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the anomaly was resolved"
+          },
+          "owner": {
+            "type": "string",
+            "description": "Agent or person responsible for the anomaly"
+          },
+          "reproduction_steps": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Steps to reproduce the anomaly"
+          },
+          "impact": {
+            "type": "string",
+            "description": "Description of the impact"
+          },
+          "tags": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Tags for categorization"
+          },
+          "linked_files": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Files related to the anomaly"
+          },
+          "remediation_notes": {
+            "type": "string",
+            "description": "Notes on how the anomaly was or will be addressed"
+          }
+        },
+        "required": ["id", "title", "status", "detected_at"]
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "properties": {
+        "total_anomalies": {
+          "type": "integer",
+          "description": "Total number of anomalies ever recorded"
+        },
+        "active_anomalies": {
+          "type": "integer",
+          "description": "Number of currently active anomalies"
+        },
+        "resolved_anomalies": {
+          "type": "integer",
+          "description": "Number of resolved anomalies"
+        },
+        "false_positives": {
+          "type": "integer",
+          "description": "Number of false positives"
+        }
+      }
+    }
+  },
+  "required": ["system_state", "last_updated", "anomalies"]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "python",
+  "description": "Python project with Guardian Framework integration",
+  "created_at": "2025-11-10T00:00:00Z",
+  "files": [
+    "pyproject.toml",
+    "src/{{PROJECT_SLUG}}/__init__.py",
+    "src/{{PROJECT_SLUG}}/main.py",
+    "tests/test_main.py",
+    "README.md",
+    ".gitignore",
+    "GUARDIAN.md"
+  ]
+}

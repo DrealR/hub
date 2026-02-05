@@ -1,0 +1,115 @@
+{
+  "version": "1.0",
+  "crystals": {
+    "decisions": [
+      {
+        "id": "decision-001",
+        "created": "2026-01-13T04:00:00Z",
+        "what": "Chose holographic principle architecture for agent design",
+        "why": "Intelligence lives at the boundary, not in the bulk. Compress context, focus attention.",
+        "alternatives": ["Flat context window", "RAG-heavy approach", "Fine-tuning"],
+        "outcome": "success",
+        "tags": ["architecture", "ai", "holographic-agent"]
+      },
+      {
+        "id": "decision-002",
+        "created": "2026-01-13T04:30:00Z",
+        "what": "Local models as memory systems, not conversation replacements",
+        "why": "Claude handles reasoning. Local handles pattern recognition and crystallized reflexes.",
+        "alternatives": ["Local as chat fallback", "Hybrid conversation"],
+        "outcome": "pending",
+        "tags": ["architecture", "ollama", "local-models"]
+      },
+      {
+        "id": "decision-003",
+        "created": "2026-01-13T05:00:00Z",
+        "what": "RepoToken 70/30 profit split structure",
+        "why": "70% buybacks build value, 30% staker rewards incentivize holding",
+        "alternatives": ["50/50 split", "100% buybacks", "Dynamic split"],
+        "outcome": "pending",
+        "tags": ["economics", "repotoken", "tokenomics"]
+      }
+    ],
+    "patterns": [
+      {
+        "id": "pattern-001",
+        "name": "Command YAML Frontmatter",
+        "language": "markdown",
+        "description": "Standard structure for Claude commands",
+        "code": "---\ndescription: [Description]\nargument-hint: <args>\nallowed-tools: [Tools]\n---\n\n# Title\n\n$ARGUMENTS",
+        "usageCount": 21,
+        "tags": ["claude", "commands", "structure"]
+      },
+      {
+        "id": "pattern-002",
+        "name": "9-Gate Reasoning Framework",
+        "language": "conceptual",
+        "description": "Cognitive enhancement protocol for decisions",
+        "code": "1. Dependencies\n2. Risk\n3. Hypotheses\n4. History\n5. Unknowns\n6. Precision\n7. Completeness\n8. Persistence\n9. Inhibition",
+        "usageCount": 15,
+        "tags": ["reasoning", "framework", "cognition"]
+      },
+      {
+        "id": "pattern-003",
+        "name": "Swarm Consensus Pattern",
+        "language": "typescript",
+        "description": "3-agent consensus for trading decisions",
+        "code": "const voters = selectByArchetype(['FLASH', 'STEADY', 'REBEL']);\nconst consensus = await Promise.all(voters.map(v => v.vote(query)));\nreturn calculateWeightedConsensus(consensus);",
+        "usageCount": 8,
+        "tags": ["swarm", "consensus", "trading"]
+      }
+    ],
+    "wisdom": [
+      {
+        "id": "wisdom-001",
+        "insight": "The holographic principle teaches us that true intelligence lives at the boundary, not in the bulk. Compress. Focus. Let the 95% empty context work for you.",
+        "context": "Discovered while architecting holographic-agent",
+        "source": "Architecture session, January 2026",
+        "importance": "high",
+        "tags": ["philosophy", "architecture", "holographic"]
+      },
+      {
+        "id": "wisdom-002",
+        "insight": "Sometimes you gotta run before you can walk.",
+        "context": "Tony Stark philosophy applied to rapid prototyping",
+        "source": "Iron Man",
+        "importance": "medium",
+        "tags": ["philosophy", "speed", "iteration"]
+      },
+      {
+        "id": "wisdom-003",
+        "insight": "Knowledge is power, but only if you can access it when needed.",
+        "context": "Motivation for knowledge crystallization system",
+        "source": "Brainiac",
+        "importance": "high",
+        "tags": ["philosophy", "knowledge", "access"]
+      }
+    ],
+    "legacy": [
+      {
+        "id": "legacy-001",
+        "project": "holographic-agent",
+        "story": "Started as an AI orchestration experiment. Grew to 20+ subprojects. The brain of NEXUS.",
+        "milestones": [
+          "Initial swarm concept",
+          "RepoToken integration",
+          "Boundary principle discovery",
+          "Multi-model fusion"
+        ],
+        "lessonsLearned": [
+          "Monorepos need strong boundaries",
+          "AI models are tools, not replacements",
+          "Self-funding is the path to autonomy"
+        ]
+      }
+    ]
+  },
+  "stats": {
+    "totalCrystals": 8,
+    "decisionCount": 3,
+    "patternCount": 3,
+    "wisdomCount": 3,
+    "legacyCount": 1,
+    "lastCrystallization": "2026-01-13T05:00:00Z"
+  }
+}

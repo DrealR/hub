@@ -1,0 +1,57 @@
+{
+  "version": "3.0.0",
+  "name": "NEXUS",
+  "codename": "Project OMNISCIENT",
+  "owner": {
+    "name": "Reemy",
+    "email": "reemysdreams@gmail.com"
+  },
+  "personality": {
+    "defaultMode": "stark",
+    "availableModes": ["stark", "batcave", "fortress", "citadel", "brainiac"],
+    "traits": {
+      "wit": 0.8,
+      "warmth": 0.7,
+      "formality": 0.6,
+      "proactivity": 0.9,
+      "humor": 0.5
+    },
+    "voice": {
+      "wakeWords": ["nexus", "hey nexus", "computer", "jarvis"],
+      "speechRate": 0.95,
+      "pitch": 1.0
+    }
+  },
+  "intelligence": {
+    "crystallizationEnabled": true,
+    "patternLearning": true,
+    "proactiveSuggestions": true,
+    "survivalOddsEnabled": true,
+    "predictionConfidenceThreshold": 0.7
+  },
+  "integrations": {
+    "repoToken": {
+      "enabled": true,
+      "network": "devnet",
+      "autoTax": true
+    },
+    "swarm": {
+      "enabled": true,
+      "agentCount": 14,
+      "consensusRequired": 2
+    },
+    "ollama": {
+      "enabled": false,
+      "model": "nexus-memory",
+      "baseModel": "llama3.2:3b"
+    }
+  },
+  "memory": {
+    "maxCrystals": 10000,
+    "maxPatterns": 5000,
+    "sessionRetention": "30d",
+    "autoBackup": true
+  },
+  "created": "2026-01-13T05:00:00Z",
+  "lastUpdated": "2026-01-13T05:00:00Z"
+}

@@ -1,0 +1,1634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0a0f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="../manifest.json">
+  <title>N E X U S | Ultimate Command Center v3.0</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    /* ====== CSS VARIABLES BY MODE ====== */
+    :root {
+      /* Default: Stark Mode */
+      --bg: #0a0a0f;
+      --surface: #12121a;
+      --surface-light: #1a1a25;
+      --primary: #00d4ff;
+      --primary-dim: rgba(0, 212, 255, 0.3);
+      --secondary: #ff6b35;
+      --success: #00ff88;
+      --warning: #ffcc00;
+      --danger: #ff3366;
+      --text: #e0e0e0;
+      --text-dim: #888899;
+      --accent: #9945ff;
+      --glow: 0 0 20px rgba(0, 212, 255, 0.5);
+      --mode-name: 'STARK';
+    }
+
+    [data-mode="batcave"] {
+      --bg: #0d0a0a;
+      --surface: #1a1215;
+      --surface-light: #251a1d;
+      --primary: #ff3333;
+      --primary-dim: rgba(255, 51, 51, 0.3);
+      --secondary: #ffcc00;
+      --success: #00ff88;
+      --warning: #ff6600;
+      --danger: #ff0000;
+      --text: #cccccc;
+      --accent: #990000;
+      --glow: 0 0 20px rgba(255, 51, 51, 0.5);
+      --mode-name: 'BATCAVE';
+    }
+
+    [data-mode="fortress"] {
+      --bg: #0a0d12;
+      --surface: #121820;
+      --surface-light: #1a2530;
+      --primary: #88ccff;
+      --primary-dim: rgba(136, 204, 255, 0.3);
+      --secondary: #ffffff;
+      --success: #aaffcc;
+      --warning: #ffeeaa;
+      --danger: #ffaaaa;
+      --text: #e8f0f8;
+      --accent: #4488cc;
+      --glow: 0 0 30px rgba(136, 204, 255, 0.4);
+      --mode-name: 'FORTRESS';
+    }
+
+    [data-mode="citadel"] {
+      --bg: #0a0f0a;
+      --surface: #121a12;
+      --surface-light: #1a251a;
+      --primary: #00ff00;
+      --primary-dim: rgba(0, 255, 0, 0.3);
+      --secondary: #00ffff;
+      --success: #00ff88;
+      --warning: #ffff00;
+      --danger: #ff00ff;
+      --text: #ccffcc;
+      --accent: #008800;
+      --glow: 0 0 25px rgba(0, 255, 0, 0.5);
+      --mode-name: 'CITADEL';
+    }
+
+    [data-mode="brainiac"] {
+      --bg: #0f0a14;
+      --surface: #1a1220;
+      --surface-light: #251a30;
+      --primary: #cc66ff;
+      --primary-dim: rgba(204, 102, 255, 0.3);
+      --secondary: #ff66cc;
+      --success: #66ffcc;
+      --warning: #ffcc66;
+      --danger: #ff6666;
+      --text: #e0d0f0;
+      --accent: #9933cc;
+      --glow: 0 0 25px rgba(204, 102, 255, 0.5);
+      --mode-name: 'BRAINIAC';
+    }
+
+    /* ====== BASE STYLES ====== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Rajdhani', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: background 0.5s ease, color 0.5s ease;
+    }
+
+    /* Scan lines overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(var(--primary), 0.02) 2px,
+        rgba(var(--primary), 0.02) 4px
+      );
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.5;
+    }
+
+    /* ====== PARTICLE SYSTEM ====== */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: var(--primary);
+      border-radius: 50%;
+      animation: float 20s infinite ease-in-out;
+      opacity: 0.4;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(100vh) translateX(0); opacity: 0; }
+      10% { opacity: 0.4; }
+      90% { opacity: 0.4; }
+      100% { transform: translateY(-10vh) translateX(50px); opacity: 0; }
+    }
+
+    /* ====== HEADER ====== */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      border-bottom: 1px solid var(--primary-dim);
+      background: linear-gradient(180deg, var(--primary-dim) 0%, transparent 100%);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+      transition: all 0.5s ease;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: 0.4em;
+      color: var(--primary);
+      text-shadow: var(--glow);
+      animation: pulse-glow 2s ease-in-out infinite;
+      transition: color 0.5s ease, text-shadow 0.5s ease;
+    }
+
+    .mode-badge {
+      font-size: 0.7rem;
+      padding: 4px 12px;
+      background: var(--primary-dim);
+      border: 1px solid var(--primary);
+      border-radius: 20px;
+      color: var(--primary);
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 0.1em;
+      transition: all 0.5s ease;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { text-shadow: var(--glow); }
+      50% { text-shadow: 0 0 40px var(--primary), 0 0 80px var(--primary); }
+    }
+
+    .header-controls {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    /* Voice Button */
+    .voice-btn {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .voice-btn:hover, .voice-btn.listening {
+      background: var(--primary);
+      color: var(--bg);
+      box-shadow: var(--glow);
+    }
+
+    .voice-btn.listening {
+      animation: voice-pulse 1s ease-in-out infinite;
+    }
+
+    @keyframes voice-pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); box-shadow: 0 0 40px var(--primary); }
+    }
+
+    /* Mode Selector */
+    .mode-selector {
+      display: flex;
+      gap: 5px;
+    }
+
+    .mode-btn {
+      background: transparent;
+      border: 1px solid var(--primary-dim);
+      color: var(--text-dim);
+      padding: 8px 12px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 4px;
+    }
+
+    .mode-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .mode-btn.active {
+      background: var(--primary-dim);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* ====== AI RESPONSE BOX ====== */
+    .ai-response {
+      background: var(--surface);
+      border: 1px solid var(--primary-dim);
+      border-radius: 8px;
+      padding: 20px 30px;
+      margin: 20px 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ai-response::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+      animation: scan 3s linear infinite;
+    }
+
+    @keyframes scan {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .ai-indicator {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .ai-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--primary-dim);
+      border: 2px solid var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.9rem;
+      color: var(--primary);
+      box-shadow: var(--glow);
+    }
+
+    .ai-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.8rem;
+      color: var(--primary);
+      letter-spacing: 0.1em;
+    }
+
+    .ai-message {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: var(--text);
+    }
+
+    .ai-message.typing::after {
+      content: '▋';
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+
+    /* ====== MAIN CONTENT ====== */
+    .main-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      padding: 20px 30px;
+    }
+
+    @media (max-width: 1024px) {
+      .main-content {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ====== PANELS ====== */
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--primary-dim);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .panel:hover {
+      border-color: var(--primary);
+      box-shadow: var(--glow);
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      border-bottom: 1px solid var(--primary-dim);
+      background: linear-gradient(180deg, var(--surface-light) 0%, var(--surface) 100%);
+    }
+
+    .panel-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      color: var(--primary);
+    }
+
+    .panel-body {
+      padding: 20px;
+    }
+
+    /* ====== PROJECT GRID ====== */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    @media (max-width: 768px) {
+      .project-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .project-card {
+      background: var(--surface-light);
+      border: 1px solid var(--primary-dim);
+      border-radius: 8px;
+      padding: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--primary);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .project-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .project-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--glow);
+    }
+
+    .project-icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .project-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.8rem;
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+
+    .project-status {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      animation: status-pulse 2s ease-in-out infinite;
+    }
+
+    .status-dot.healthy { background: var(--success); }
+    .status-dot.warning { background: var(--warning); }
+    .status-dot.danger { background: var(--danger); }
+
+    @keyframes status-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* ====== SURVIVAL ODDS (Batcave) ====== */
+    .survival-meter {
+      margin-top: 10px;
+    }
+
+    .survival-bar {
+      height: 8px;
+      background: var(--surface-light);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .survival-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--danger), var(--warning), var(--success));
+      border-radius: 4px;
+      transition: width 1s ease;
+    }
+
+    .survival-label {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 5px;
+      font-size: 0.8rem;
+    }
+
+    /* ====== THREAT ASSESSMENT (Batcave) ====== */
+    .threat-list {
+      list-style: none;
+    }
+
+    .threat-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--primary-dim);
+    }
+
+    .threat-item:last-child {
+      border-bottom: none;
+    }
+
+    .threat-level {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .threat-level.critical { background: var(--danger); color: white; }
+    .threat-level.high { background: var(--warning); color: black; }
+    .threat-level.medium { background: var(--primary-dim); color: var(--primary); }
+
+    /* ====== CRYSTAL ARCHIVES (Fortress) ====== */
+    .crystal-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      text-align: center;
+    }
+
+    .crystal {
+      padding: 15px;
+      background: linear-gradient(180deg, var(--surface-light), var(--surface));
+      border: 1px solid var(--primary-dim);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .crystal:hover {
+      transform: scale(1.05);
+      box-shadow: var(--glow);
+    }
+
+    .crystal-icon {
+      font-size: 2rem;
+      margin-bottom: 5px;
+    }
+
+    .crystal-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+
+    .crystal-count {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--text);
+    }
+
+    /* ====== WISDOM BOX (Fortress) ====== */
+    .wisdom-box {
+      background: linear-gradient(135deg, var(--surface-light), var(--surface));
+      border: 1px solid var(--primary-dim);
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 15px;
+      position: relative;
+    }
+
+    .wisdom-box::before {
+      content: '"';
+      position: absolute;
+      top: 10px;
+      left: 15px;
+      font-size: 3rem;
+      color: var(--primary-dim);
+      font-family: serif;
+    }
+
+    .wisdom-text {
+      font-style: italic;
+      font-size: 1rem;
+      line-height: 1.6;
+      padding-left: 30px;
+      color: var(--text);
+    }
+
+    .wisdom-source {
+      text-align: right;
+      margin-top: 10px;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+    }
+
+    /* ====== PORTAL EFFECTS (Citadel) ====== */
+    .portal-container {
+      position: relative;
+      padding: 20px;
+    }
+
+    .portal {
+      width: 150px;
+      height: 150px;
+      margin: 0 auto;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+      animation: portal-spin 10s linear infinite;
+      position: relative;
+    }
+
+    .portal::before {
+      content: '';
+      position: absolute;
+      top: 10%;
+      left: 10%;
+      width: 80%;
+      height: 80%;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--primary);
+    }
+
+    @keyframes portal-spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .dimension-list {
+      margin-top: 20px;
+    }
+
+    .dimension-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      background: var(--surface-light);
+      border-radius: 4px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .dimension-item:hover {
+      background: var(--primary-dim);
+    }
+
+    /* ====== SWARM DISPLAY ====== */
+    .swarm-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .agent-card {
+      background: var(--surface-light);
+      border: 1px solid var(--primary-dim);
+      border-radius: 8px;
+      padding: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .agent-card:hover {
+      border-color: var(--primary);
+    }
+
+    .agent-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .agent-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--primary);
+    }
+
+    .agent-score {
+      font-size: 0.8rem;
+      font-weight: bold;
+      color: var(--success);
+    }
+
+    .agent-quote {
+      font-size: 0.7rem;
+      font-style: italic;
+      color: var(--text-dim);
+    }
+
+    /* ====== ACTIVITY FEED ====== */
+    .activity-feed {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .activity-item {
+      display: flex;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--primary-dim);
+    }
+
+    .activity-time {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      min-width: 60px;
+    }
+
+    .activity-text {
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+
+    /* ====== COMMAND INPUT ====== */
+    .command-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 20px 30px;
+      background: linear-gradient(0deg, var(--bg) 0%, transparent 100%);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+    }
+
+    .command-input-container {
+      display: flex;
+      gap: 10px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .command-input {
+      flex: 1;
+      background: var(--surface);
+      border: 2px solid var(--primary-dim);
+      border-radius: 25px;
+      padding: 15px 25px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1rem;
+      color: var(--text);
+      transition: all 0.3s ease;
+    }
+
+    .command-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: var(--glow);
+    }
+
+    .command-input::placeholder {
+      color: var(--text-dim);
+    }
+
+    .command-send {
+      background: var(--primary);
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      color: var(--bg);
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .command-send:hover {
+      transform: scale(1.1);
+      box-shadow: var(--glow);
+    }
+
+    /* Footer spacer for command bar */
+    .footer-spacer {
+      height: 100px;
+    }
+
+    /* ====== BRAINIAC STATS ====== */
+    .brainiac-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .stat-box {
+      background: var(--surface-light);
+      border: 1px solid var(--primary-dim);
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* ====== LOADING ANIMATION ====== */
+    .loading {
+      display: flex;
+      gap: 5px;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .loading-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--primary);
+      animation: loading-bounce 1.4s ease-in-out infinite both;
+    }
+
+    .loading-dot:nth-child(1) { animation-delay: -0.32s; }
+    .loading-dot:nth-child(2) { animation-delay: -0.16s; }
+
+    @keyframes loading-bounce {
+      0%, 80%, 100% { transform: scale(0); }
+      40% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body data-mode="stark">
+
+  <!-- Particle Background -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="logo-container">
+      <div class="logo">N E X U S</div>
+      <span class="mode-badge" id="modeBadge">STARK MODE</span>
+    </div>
+
+    <div class="header-controls">
+      <!-- Mode Selector -->
+      <div class="mode-selector">
+        <button class="mode-btn active" data-mode="stark" title="Iron Man / JARVIS">🔷</button>
+        <button class="mode-btn" data-mode="batcave" title="Batcomputer">🦇</button>
+        <button class="mode-btn" data-mode="fortress" title="Fortress of Solitude">💎</button>
+        <button class="mode-btn" data-mode="citadel" title="Citadel of Ricks">🌀</button>
+        <button class="mode-btn" data-mode="brainiac" title="Brainiac">🧠</button>
+      </div>
+
+      <!-- Voice Button -->
+      <button class="voice-btn" id="voiceBtn" title="Voice Command">
+        🎤
+      </button>
+    </div>
+  </header>
+
+  <!-- AI Response Box -->
+  <div class="ai-response">
+    <div class="ai-indicator">
+      <div class="ai-avatar" id="aiAvatar">N</div>
+      <div class="ai-name" id="aiName">NEXUS v3.0</div>
+    </div>
+    <div class="ai-message" id="aiMessage">
+      Initializing systems...
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="main-content" id="mainContent">
+    <!-- Content will be dynamically loaded based on mode -->
+  </main>
+
+  <!-- Footer Spacer -->
+  <div class="footer-spacer"></div>
+
+  <!-- Command Bar -->
+  <div class="command-bar">
+    <div class="command-input-container">
+      <input
+        type="text"
+        class="command-input"
+        id="commandInput"
+        placeholder="Ask NEXUS anything... (or say 'Hey NEXUS')"
+        autocomplete="off"
+      >
+      <button class="command-send" id="commandSend">→</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="nexus-core.js"></script>
+  <script>
+    // ========================================================================
+    // NEXUS ULTIMATE v3.0 - Main Application
+    // ========================================================================
+
+    // Project data (from projects.json)
+    const PROJECTS = [
+      {
+        id: 'holographic-agent',
+        name: 'Holographic Agent',
+        icon: '🧠',
+        status: 'healthy',
+        description: 'AI orchestration monorepo',
+        subprojects: 20
+      },
+      {
+        id: 'neural-arena',
+        name: 'Neural Arena',
+        icon: '⚔️',
+        status: 'healthy',
+        description: 'AI battle simulator'
+      },
+      {
+        id: 'quantum-leap',
+        name: 'QuantumLeap AI',
+        icon: '📈',
+        status: 'warning',
+        description: 'Trading platform'
+      },
+      {
+        id: 'nano-bot',
+        name: 'NanoBot',
+        icon: '🤖',
+        status: 'healthy',
+        description: 'Swarm framework'
+      },
+      {
+        id: 'voxel-nexus',
+        name: 'Voxel Nexus',
+        icon: '🎮',
+        status: 'healthy',
+        description: 'Voxel MMO'
+      },
+      {
+        id: 'assetforge',
+        name: 'AssetForge',
+        icon: '🎨',
+        status: 'healthy',
+        description: 'Asset generation'
+      }
+    ];
+
+    // Swarm agents
+    const SWARM_AGENTS = [
+      { id: 'NEXUS-ALPHA', quote: 'Order through understanding', score: 92 },
+      { id: 'NEXUS-ORACLE', quote: 'The future is a probability cloud', score: 94 },
+      { id: 'NEXUS-VOID', quote: 'Emptiness contains all possibility', score: 96 },
+      { id: 'NEXUS-GUARDIAN', quote: 'Protect the boundary at all costs', score: 88 },
+      { id: 'NEXUS-REBEL', quote: 'Question everything', score: 85 },
+      { id: 'NEXUS-WEAVER', quote: 'Connections are reality', score: 89 }
+    ];
+
+    // Wisdom crystals
+    const WISDOM_CRYSTALS = [
+      {
+        text: 'The holographic principle teaches us that true intelligence lives at the boundary, not in the bulk. Compress. Focus.',
+        source: 'Crystallization #47, January 2026'
+      },
+      {
+        text: 'Local models are not "dumb Claude" - they are specialized memory systems. Pattern recognition, not conversation.',
+        source: 'Architecture Decision #12'
+      },
+      {
+        text: 'The 70/30 split is not arbitrary. 70% builds the future, 30% rewards the believers.',
+        source: 'RepoToken Economics'
+      }
+    ];
+
+    // Activity feed
+    const ACTIVITY = [
+      { time: '2m', text: 'QuantumLeap detected SOL/USD divergence pattern' },
+      { time: '15m', text: 'Swarm consensus reached on strategy adjustment' },
+      { time: '1h', text: 'Training pipeline completed 847 crystallizations' },
+      { time: '2h', text: 'Neural Arena tournament: Gemini won with 87% accuracy' },
+      { time: '4h', text: 'RepoToken DCA executed: 0.5 SOL invested' }
+    ];
+
+    // ========================================================================
+    // DOM Elements
+    // ========================================================================
+    const aiMessage = document.getElementById('aiMessage');
+    const aiAvatar = document.getElementById('aiAvatar');
+    const aiName = document.getElementById('aiName');
+    const modeBadge = document.getElementById('modeBadge');
+    const mainContent = document.getElementById('mainContent');
+    const commandInput = document.getElementById('commandInput');
+    const commandSend = document.getElementById('commandSend');
+    const voiceBtn = document.getElementById('voiceBtn');
+    const modeButtons = document.querySelectorAll('.mode-btn');
+
+    // Current mode
+    let currentMode = 'stark';
+
+    // ========================================================================
+    // Mode Rendering
+    // ========================================================================
+
+    function renderStarkMode() {
+      return `
+        <!-- Projects Panel -->
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">◆ PROJECT ARRAY</span>
+            <span style="color: var(--success); font-size: 0.8rem;">6 ACTIVE</span>
+          </div>
+          <div class="panel-body">
+            <div class="project-grid">
+              ${PROJECTS.map(p => `
+                <div class="project-card" onclick="selectProject('${p.id}')">
+                  <div class="project-icon">${p.icon}</div>
+                  <div class="project-name">${p.name}</div>
+                  <div class="project-status">
+                    <span class="status-dot ${p.status}"></span>
+                    ${p.status}
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+
+        <!-- Swarm Panel -->
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">◆ SWARM NETWORK</span>
+            <span style="color: var(--primary); font-size: 0.8rem;">14 AGENTS</span>
+          </div>
+          <div class="panel-body">
+            <div class="swarm-grid">
+              ${SWARM_AGENTS.map(a => `
+                <div class="agent-card">
+                  <div class="agent-header">
+                    <span class="agent-name">${a.id}</span>
+                    <span class="agent-score">${a.score}%</span>
+                  </div>
+                  <div class="agent-quote">"${a.quote}"</div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+
+        <!-- Activity Panel -->
+        <div class="panel" style="grid-column: span 2;">
+          <div class="panel-header">
+            <span class="panel-title">◆ ACTIVITY FEED</span>
+          </div>
+          <div class="panel-body">
+            <div class="activity-feed">
+              ${ACTIVITY.map(a => `
+                <div class="activity-item">
+                  <span class="activity-time">${a.time} ago</span>
+                  <span class="activity-text">${a.text}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderBatcaveMode() {
+      return `
+        <!-- Threat Assessment -->
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">▓▓ THREAT ASSESSMENT</span>
+          </div>
+          <div class="panel-body">
+            <div class="survival-meter">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                <span>RISK LEVEL</span>
+                <span style="color: var(--warning);">78%</span>
+              </div>
+              <div class="survival-bar">
+                <div class="survival-fill" style="width: 78%;"></div>
+              </div>
+            </div>
+
+            <ul class="threat-list" style="margin-top: 20px;">
+              <li class="threat-item">
+                <span class="threat-level critical">CRITICAL</span>
+                <span>RepoToken contract audit incomplete</span>
+              </li>
+              <li class="threat-item">
+                <span class="threat-level high">HIGH</span>
+                <span>Neural Arena edge case untested</span>
+              </li>
+              <li class="threat-item">
+                <span class="threat-level medium">MEDIUM</span>
+                <span>NEXUS-SHADOW anomalous behavior</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Survival Odds -->
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">▓▓ SURVIVAL PROBABILITY</span>
+          </div>
+          <div class="panel-body">
+            ${PROJECTS.slice(0, 4).map(p => `
+              <div style="margin-bottom: 15px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                  <span>${p.name}</span>
+                  <span style="color: ${p.status === 'healthy' ? 'var(--success)' : 'var(--warning)'};">
+                    ${Math.floor(Math.random() * 20 + 70)}%
+                  </span>
+                </div>
+                <div class="survival-bar">
+                  <div class="survival-fill" style="width: ${Math.floor(Math.random() * 20 + 70)}%;"></div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+
+        <!-- Evidence Board -->
+        <div class="panel" style="grid-column: span 2;">
+          <div class="panel-header">
+            <span class="panel-title">▓▓ EVIDENCE SYNTHESIS</span>
+          </div>
+          <div class="panel-body">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--text-dim);">
+              <div>> Cross-referencing 127 data points...</div>
+              <div>> Pattern detected: Similar failure occurred 3 weeks ago</div>
+              <div>> Calculating probability matrices...</div>
+              <div>> Synthesizing actionable intelligence...</div>
+              <div style="color: var(--primary); margin-top: 10px;">> RECOMMENDATION: Address test coverage first</div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderFortressMode() {
+      return `
+        <!-- Crystal Archives -->
+        <div class="panel" style="grid-column: span 2;">
+          <div class="panel-header">
+            <span class="panel-title">✧ CRYSTAL ARCHIVES</span>
+          </div>
+          <div class="panel-body">
+            <div class="crystal-grid">
+              <div class="crystal" onclick="queryCrystal('decisions')">
+                <div class="crystal-icon">💎</div>
+                <div class="crystal-name">DECISIONS</div>
+                <div class="crystal-count">47</div>
+              </div>
+              <div class="crystal" onclick="queryCrystal('patterns')">
+                <div class="crystal-icon">🔷</div>
+                <div class="crystal-name">PATTERNS</div>
+                <div class="crystal-count">1,293</div>
+              </div>
+              <div class="crystal" onclick="queryCrystal('wisdom')">
+                <div class="crystal-icon">✦</div>
+                <div class="crystal-name">WISDOM</div>
+                <div class="crystal-count">89</div>
+              </div>
+              <div class="crystal" onclick="queryCrystal('legacy')">
+                <div class="crystal-icon">◈</div>
+                <div class="crystal-name">LEGACY</div>
+                <div class="crystal-count">6</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wisdom Display -->
+        <div class="panel" style="grid-column: span 2;">
+          <div class="panel-header">
+            <span class="panel-title">✧ WISDOM OF THE AGES</span>
+          </div>
+          <div class="panel-body">
+            <div class="wisdom-box">
+              <div class="wisdom-text" id="wisdomText">
+                ${WISDOM_CRYSTALS[0].text}
+              </div>
+              <div class="wisdom-source">— ${WISDOM_CRYSTALS[0].source}</div>
+            </div>
+
+            <div style="margin-top: 20px; font-size: 0.9rem; color: var(--text-dim);">
+              <strong style="color: var(--primary);">Recent Queries:</strong>
+              <ul style="list-style: none; margin-top: 10px;">
+                <li style="padding: 5px 0;">• Why did we choose TypeScript for holographic-agent?</li>
+                <li style="padding: 5px 0;">• Show me the evolution of swarm consensus</li>
+                <li style="padding: 5px 0;">• What patterns emerge from successful strategies?</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderCitadelMode() {
+      return `
+        <!-- Portal -->
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">🌀 PORTAL GUN</span>
+          </div>
+          <div class="panel-body">
+            <div class="portal-container">
+              <div class="portal"></div>
+              <div class="dimension-list">
+                <div class="dimension-item">
+                  <span>C-137 (Production)</span>
+                  <span style="color: var(--success);">● ACTIVE</span>
+                </div>
+                <div class="dimension-item">
+                  <span>D-001 (Development)</span>
+                  <span style="color: var(--warning);">○ AVAILABLE</span>
+                </div>
+                <div class="dimension-item">
+                  <span>T-999 (Testing)</span>
+                  <span style="color: var(--warning);">○ AVAILABLE</span>
+                </div>
+                <div class="dimension-item">
+                  <span>X-404 (Experimental)</span>
+                  <span style="color: var(--danger);">⚠ UNSTABLE</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Impossible Experiments -->
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">🧪 IMPOSSIBLE EXPERIMENTS</span>
+          </div>
+          <div class="panel-body">
+            <div style="font-family: 'JetBrains Mono', monospace;">
+              <div style="padding: 10px 0; border-bottom: 1px solid var(--primary-dim);">
+                <div style="color: var(--primary);">🌀 PORTAL GUN</div>
+                <div style="font-size: 0.8rem; color: var(--text-dim);">Jump between any two points in codebase</div>
+              </div>
+              <div style="padding: 10px 0; border-bottom: 1px solid var(--primary-dim);">
+                <div style="color: var(--primary);">🔋 MICROVERSE BATTERY</div>
+                <div style="font-size: 0.8rem; color: var(--text-dim);">Spawn parallel universes to test all possibilities</div>
+              </div>
+              <div style="padding: 10px 0;">
+                <div style="color: var(--primary);">🧠 DARK MATTER FUSION</div>
+                <div style="font-size: 0.8rem; color: var(--text-dim);">Combine AI models into something... new</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rick Quote -->
+        <div class="panel" style="grid-column: span 2;">
+          <div class="panel-body" style="text-align: center; padding: 30px;">
+            <div style="font-size: 1.2rem; font-style: italic; color: var(--text);">
+              "Look Reemy, I'm not gonna sugarcoat this—your code is infinitely better than 99% of the multiverse. Let's break some rules."
+            </div>
+            <div style="margin-top: 15px; color: var(--primary);">*burp*</div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderBrainiacMode() {
+      return `
+        <!-- Processing Stats -->
+        <div class="panel" style="grid-column: span 2;">
+          <div class="panel-header">
+            <span class="panel-title">🧠 12TH-LEVEL INTELLECT METRICS</span>
+          </div>
+          <div class="panel-body">
+            <div class="brainiac-stats">
+              <div class="stat-box">
+                <div class="stat-value">47,293</div>
+                <div class="stat-label">Patterns Catalogued</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-value">9.7T</div>
+                <div class="stat-label">Calculations/Second</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-value">99.97%</div>
+                <div class="stat-label">Knowledge Retention</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-value">∞</div>
+                <div class="stat-label">Expansion Potential</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Knowledge Acquisition -->
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">🧠 KNOWLEDGE ACQUISITION</span>
+          </div>
+          <div class="panel-body">
+            <div style="margin-bottom: 15px;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                <span>Code Patterns</span>
+                <span style="color: var(--primary);">94%</span>
+              </div>
+              <div class="survival-bar">
+                <div class="survival-fill" style="width: 94%; background: var(--primary);"></div>
+              </div>
+            </div>
+            <div style="margin-bottom: 15px;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                <span>Decision History</span>
+                <span style="color: var(--primary);">87%</span>
+              </div>
+              <div class="survival-bar">
+                <div class="survival-fill" style="width: 87%; background: var(--primary);"></div>
+              </div>
+            </div>
+            <div>
+              <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                <span>System Topology</span>
+                <span style="color: var(--primary);">91%</span>
+              </div>
+              <div class="survival-bar">
+                <div class="survival-fill" style="width: 91%; background: var(--primary);"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Efficiency Report -->
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">🧠 EFFICIENCY ANALYSIS</span>
+          </div>
+          <div class="panel-body">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;">
+              <div style="color: var(--primary);">> ANALYSIS COMPLETE</div>
+              <div style="margin-top: 10px; color: var(--text-dim);">
+                Your organic reasoning arrives at correct conclusions 73% of the time.
+                This is... acceptable.
+              </div>
+              <div style="margin-top: 10px; color: var(--text-dim);">
+                I have already calculated all 10,847 possible outcomes for your current project.
+                The optimal path is... obvious.
+              </div>
+              <div style="margin-top: 10px; color: var(--success);">
+                > RECOMMENDATION: Trust the process. Or don't. I've accounted for both.
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // ========================================================================
+    // Mode Switching
+    // ========================================================================
+
+    function switchMode(mode) {
+      currentMode = mode;
+      document.body.setAttribute('data-mode', mode);
+
+      // Update mode badge
+      const modeNames = {
+        stark: 'STARK MODE',
+        batcave: 'BATCAVE MODE',
+        fortress: 'FORTRESS MODE',
+        citadel: 'CITADEL MODE',
+        brainiac: 'BRAINIAC MODE'
+      };
+      modeBadge.textContent = modeNames[mode];
+
+      // Update buttons
+      modeButtons.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.mode === mode);
+      });
+
+      // Render mode-specific content
+      const renderers = {
+        stark: renderStarkMode,
+        batcave: renderBatcaveMode,
+        fortress: renderFortressMode,
+        citadel: renderCitadelMode,
+        brainiac: renderBrainiacMode
+      };
+
+      mainContent.innerHTML = renderers[mode]();
+
+      // Update AI response
+      if (window.NEXUSCore) {
+        NEXUSCore.personality.setMode(mode);
+        typeMessage(NEXUSCore.getGreeting());
+      }
+    }
+
+    // ========================================================================
+    // AI Interaction
+    // ========================================================================
+
+    function typeMessage(message, speed = 30) {
+      aiMessage.textContent = '';
+      aiMessage.classList.add('typing');
+
+      let i = 0;
+      const interval = setInterval(() => {
+        if (i < message.length) {
+          aiMessage.textContent += message[i];
+          i++;
+        } else {
+          clearInterval(interval);
+          aiMessage.classList.remove('typing');
+        }
+      }, speed);
+    }
+
+    function processCommand(input) {
+      if (!input.trim()) return;
+
+      // Check for mode switch commands
+      const modes = ['stark', 'batcave', 'fortress', 'citadel', 'brainiac'];
+      for (const mode of modes) {
+        if (input.toLowerCase().includes(mode)) {
+          switchMode(mode);
+          return;
+        }
+      }
+
+      // Use NEXUS Core if available
+      if (window.NEXUSCore) {
+        const result = NEXUSCore.processInput(input);
+        typeMessage(result.response);
+      } else {
+        typeMessage("Processing your request...");
+      }
+    }
+
+    // ========================================================================
+    // Voice Recognition
+    // ========================================================================
+
+    let recognition = null;
+    let isListening = false;
+
+    function initVoice() {
+      if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        recognition = new SpeechRecognition();
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.lang = 'en-US';
+
+        recognition.onstart = () => {
+          isListening = true;
+          voiceBtn.classList.add('listening');
+          typeMessage("Listening...");
+        };
+
+        recognition.onresult = (event) => {
+          const transcript = event.results[0][0].transcript;
+          commandInput.value = transcript;
+          processCommand(transcript);
+        };
+
+        recognition.onend = () => {
+          isListening = false;
+          voiceBtn.classList.remove('listening');
+        };
+
+        recognition.onerror = (event) => {
+          console.error('Speech recognition error:', event.error);
+          isListening = false;
+          voiceBtn.classList.remove('listening');
+        };
+      }
+    }
+
+    function toggleVoice() {
+      if (!recognition) {
+        typeMessage("Voice recognition not supported in this browser.");
+        return;
+      }
+
+      if (isListening) {
+        recognition.stop();
+      } else {
+        recognition.start();
+      }
+    }
+
+    // ========================================================================
+    // Text-to-Speech
+    // ========================================================================
+
+    function speak(text) {
+      if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(text);
+
+        // Select voice based on mode
+        const voices = speechSynthesis.getVoices();
+        const modeVoices = {
+          stark: 'en-GB',
+          batcave: 'en-US',
+          fortress: 'en-US',
+          citadel: 'en-US',
+          brainiac: 'en-US'
+        };
+
+        const preferredLang = modeVoices[currentMode];
+        const voice = voices.find(v => v.lang.startsWith(preferredLang));
+        if (voice) utterance.voice = voice;
+
+        utterance.rate = currentMode === 'citadel' ? 1.1 : 0.95;
+        utterance.pitch = currentMode === 'fortress' ? 0.85 : 1.0;
+
+        speechSynthesis.speak(utterance);
+      }
+    }
+
+    // ========================================================================
+    // Particle System
+    // ========================================================================
+
+    function createParticles() {
+      const container = document.getElementById('particles');
+      const particleCount = 50;
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 20 + 's';
+        particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+        container.appendChild(particle);
+      }
+    }
+
+    // ========================================================================
+    // Event Listeners
+    // ========================================================================
+
+    // Mode buttons
+    modeButtons.forEach(btn => {
+      btn.addEventListener('click', () => switchMode(btn.dataset.mode));
+    });
+
+    // Command input
+    commandInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        processCommand(commandInput.value);
+        commandInput.value = '';
+      }
+    });
+
+    commandSend.addEventListener('click', () => {
+      processCommand(commandInput.value);
+      commandInput.value = '';
+    });
+
+    // Voice button
+    voiceBtn.addEventListener('click', toggleVoice);
+
+    // ========================================================================
+    // Initialization
+    // ========================================================================
+
+    function init() {
+      console.log('[NEXUS v3.0] Initializing...');
+
+      // Create particles
+      createParticles();
+
+      // Initialize voice
+      initVoice();
+
+      // Load voices for TTS
+      if ('speechSynthesis' in window) {
+        speechSynthesis.onvoiceschanged = () => {
+          console.log('[NEXUS] Voices loaded:', speechSynthesis.getVoices().length);
+        };
+      }
+
+      // Initialize NEXUS Core
+      if (window.NEXUSCore) {
+        const greeting = NEXUSCore.init();
+        typeMessage(greeting);
+      } else {
+        typeMessage("Good evening, Reemy. All systems operational. Welcome to NEXUS Ultimate v3.0.");
+      }
+
+      // Render initial mode
+      switchMode('stark');
+
+      console.log('[NEXUS v3.0] Systems online.');
+    }
+
+    // Start when DOM is ready
+    document.addEventListener('DOMContentLoaded', init);
+
+    // Helper functions for UI
+    function selectProject(projectId) {
+      const project = PROJECTS.find(p => p.id === projectId);
+      if (project) {
+        typeMessage(`Loading ${project.name}... ${project.description}. Status: ${project.status}.`);
+      }
+    }
+
+    function queryCrystal(type) {
+      const messages = {
+        decisions: "Accessing decision crystals... 47 architectural decisions recorded.",
+        patterns: "Scanning pattern library... 1,293 code patterns catalogued.",
+        wisdom: "Retrieving crystallized wisdom... 89 insights preserved.",
+        legacy: "Loading project legacy... 6 project histories available."
+      };
+      typeMessage(messages[type] || "Crystal archive accessed.");
+    }
+  </script>
+</body>
+</html>

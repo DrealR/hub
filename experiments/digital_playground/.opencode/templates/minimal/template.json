@@ -1,0 +1,10 @@
+{
+  "name": "minimal",
+  "description": "Minimal project template",
+  "created_at": "2025-11-10T00:00:00Z",
+  "files": [
+    "README.md",
+    ".gitignore",
+    "GUARDIAN.md"
+  ]
+}

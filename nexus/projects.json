@@ -1,0 +1,152 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-01-13T04:45:00Z",
+  "owner": {
+    "name": "Reemy",
+    "email": "reemysdreams@gmail.com"
+  },
+  "projects": [
+    {
+      "id": "holographic-agent",
+      "name": "Holographic Agent",
+      "description": "AI orchestration monorepo with 20+ subprojects - the brain of NEXUS",
+      "path": "projects/holographic-agent",
+      "status": "active",
+      "health": "healthy",
+      "stack": ["TypeScript", "Python", "Solana", "Multi-Model AI"],
+      "subprojects": [
+        "Grove", "CourtBench", "CineVault", "Med-Assist", "RepoToken",
+        "TravelDuo", "AlgoShift", "DataPulse", "Parallax", "Engine",
+        "G3-Main", "Boundary", "Court-Chess", "Athanor", "AI-Benchmarks"
+      ],
+      "features": {
+        "crypto": true,
+        "swarm": true,
+        "trading": true,
+        "multiModel": true
+      },
+      "metrics": {
+        "size": "25GB",
+        "subprojects": 20,
+        "lastActivity": "2026-01-07"
+      }
+    },
+    {
+      "id": "neural-arena",
+      "name": "Neural Arena",
+      "description": "AI battle simulator with 3D visualization and emergent combat",
+      "path": "projects/neural-arena",
+      "status": "active",
+      "health": "healthy",
+      "stack": ["React", "Three.js", "TypeScript", "Gemini"],
+      "features": {
+        "3d": true,
+        "realtime": true,
+        "aiAgents": true
+      },
+      "metrics": {
+        "size": "1.1GB",
+        "battles": 500,
+        "lastActivity": "2025-11-29"
+      }
+    },
+    {
+      "id": "quantum-leap-ai",
+      "name": "QuantumLeap AI",
+      "description": "Production-ready algorithmic trading platform with AI strategy builder",
+      "path": "projects/QuantumLeap-AI",
+      "status": "active",
+      "health": "healthy",
+      "stack": ["FastAPI", "React", "CCXT", "MetaTrader5", "XGBoost"],
+      "features": {
+        "trading": true,
+        "multiExchange": true,
+        "aiStrategies": true,
+        "visualBuilder": true
+      },
+      "metrics": {
+        "size": "84MB",
+        "strategies": 12,
+        "lastActivity": "2025-12-02"
+      }
+    },
+    {
+      "id": "nano-bot",
+      "name": "NanoBot Framework",
+      "description": "Self-replicating AI swarm with hive mind and visual learning",
+      "path": "projects/nano-bot",
+      "status": "active",
+      "health": "warning",
+      "stack": ["React", "Three.js", "Groq", "OpenAI", "Zustand"],
+      "features": {
+        "swarm": true,
+        "hiveMind": true,
+        "selfReplication": true,
+        "visualLearning": true
+      },
+      "metrics": {
+        "size": "433MB",
+        "agents": 50,
+        "lastActivity": "2025-11-25"
+      }
+    },
+    {
+      "id": "voxel-nexus",
+      "name": "Voxel Nexus",
+      "description": "Voxel MMO with Flux economy tied to computational energy",
+      "path": "projects/voxel-nexus-core",
+      "status": "active",
+      "health": "healthy",
+      "stack": ["React", "Three.js", "TypeScript", "Multi-Model AI"],
+      "features": {
+        "mmo": true,
+        "fluxEconomy": true,
+        "technomancy": true,
+        "aiCompanions": true
+      },
+      "metrics": {
+        "size": "472MB",
+        "zones": 8,
+        "lastActivity": "2025-11-24"
+      }
+    },
+    {
+      "id": "assetforge",
+      "name": "AssetForge",
+      "description": "AI game asset creation studio with multi-model generation",
+      "path": "projects/assetforge",
+      "status": "active",
+      "health": "healthy",
+      "stack": ["Next.js", "React", "OpenRouter", "Google AI"],
+      "features": {
+        "assetGeneration": true,
+        "multiModel": true,
+        "workspace": true
+      },
+      "metrics": {
+        "size": "520MB",
+        "assets": 0,
+        "lastActivity": "2025-11-25"
+      }
+    }
+  ],
+  "swarm": {
+    "agents": 14,
+    "activeScouts": 5,
+    "hakiLevel": "dormant",
+    "alignmentScore": 75,
+    "tradingStatus": "observing"
+  },
+  "economics": {
+    "walletConnected": false,
+    "totalStake": 0,
+    "profitsThisWeek": 0,
+    "mode": "accumulate"
+  },
+  "intelligence": {
+    "skills": 8,
+    "crystallizations": 3,
+    "boundaryHealth": "healthy",
+    "localModels": ["pending-setup"]
+  }
+}
