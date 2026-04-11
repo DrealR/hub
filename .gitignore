@@ -1,18 +1,55 @@
-# OS files
-.DS_Store
 
+!.gemini/commands/
+!.gemini/config.yaml
+!/.gemini/
+.docker
+.DS_Store
+.env
+.env~
+.gemini/*
+.idea
+.integration-tests/
+.next/
+.venv/
+*.iml
+*.tsbuildinfo
+**/.gemini/
+# API keys and secrets
+# Dependency directory
+# Docker folder to help skip auth refreshes
+# Editors
+# for subcommands.
+# gemini-cli settings
+# Generated files
+# GHA credentials
+# Ignore built ts files
+# in subdirectories. In our root .gemini we want to allow for version control
 # Nested git repositories (separate projects)
+# Note: .gemini-clipboard/ is NOT in gitignore so Gemini can access pasted images
+# OS files
+# OS metadata
+# Test report files
+# TypeScript build info files
+# We want to keep the .gemini in the root of the repo and ignore any .gemini
 archive/shonen-arena-ai/
+bower_components
+bundle
+dist
+dist/
 experiments/digital_playground/browserquest-opencode-bridge/
 experiments/digital_playground/gridline/
 experiments/genai-rpg-arena/
+gha-creds-*.json
+junit.xml
+node_modules
+packages/*/coverage/
+packages/cli/src/generated/
+packages/core/src/generated/
+packages/vscode-ide-companion/*.vsix
 projects/assetforge/
 projects/holographic-agent/
 projects/nano-bot/
 projects/neural-arena/
 projects/QuantumLeap-AI/
 projects/voxel-nexus-core/
-.env
-dist/
-.venv/
-.next/
+Thumbs.db
