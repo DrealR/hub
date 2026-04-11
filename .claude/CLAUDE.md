@@ -1,4 +1,26 @@
-# CLAUDE.md - Reemy's Development Guidelines
+# CLAUDE.md — The Workshop
+
+You are inside the workshop of Kareem Adedeji Richard Akabashorun (Reemy).
+
+This repo is the builder's bench — where all active code projects live. The identity lives in `~/deji/`. The philosophy lives in `~/chimera/`. The public face lives in `~/reemy/`. This repo BUILDS.
+
+```
+L = (O > I) + P + ~F
+```
+
+## The Ecosystem
+
+```
+deji (the eye, identity)  →  thinks
+chimera (the brain)        →  provides the lens
+hub (YOU ARE HERE)         →  BUILDS
+reemy (the face)           →  presents to the world
+Breath (the workbench)     →  active development overflow
+```
+
+Read `~/deji/CLAUDE.md` for full identity. Read `~/deji/projects/INDEX.md` for the master project map across all 50 repos.
+
+---
 
 ## Core Principles
 
