@@ -12,3 +12,7 @@ projects/nano-bot/
 projects/neural-arena/
 projects/QuantumLeap-AI/
 projects/voxel-nexus-core/
+.env
+dist/
+.venv/
+.next/
